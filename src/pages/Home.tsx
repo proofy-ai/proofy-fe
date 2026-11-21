@@ -42,7 +42,7 @@ export default function Home() {
         <ol className="flex flex-col gap-2">
           {steps.map((step, index) => (
             <li key={step} className="flex items-center gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#678BF7] text-xs font-semibold text-white">
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
                 {index + 1}
               </span>
               <span>{step}</span>

@@ -21,7 +21,7 @@ export default function Header() {
                 window.history.length > 1 ? navigate(-1) : navigate("/")
               }
             >
-              <ChevronLeft size={24} strokeWidth={2.5} color="#333333" />
+              <ChevronLeft size={24} strokeWidth={2.5} className="text-ink" />
             </button>
           )}
           <Link to="/" aria-label="Proofy 홈">
@@ -37,8 +37,8 @@ export default function Header() {
             style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
             onClick={() => navigate("/me")}
           >
-            <User size={20} color="#333333" />
-            <span className="hidden text-sm font-medium text-[#333333] md:inline">
+            <User size={20} className="text-ink" />
+            <span className="hidden text-sm font-medium text-ink md:inline">
               내 사건
             </span>
           </button>

@@ -10,7 +10,7 @@ export default function MyPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-[#333333]">내 사건</h1>
+      <h1 className="text-2xl font-bold text-ink">내 사건</h1>
       <GlassCard title="설정">
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">

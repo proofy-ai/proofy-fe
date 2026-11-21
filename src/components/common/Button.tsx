@@ -20,7 +20,7 @@ export default function Button({
       className={`
         flex items-center justify-center gap-2
         px-6 py-4 rounded-full
-        bg-[#678BF7] text-white text-base font-semibold
+        bg-brand text-white text-base font-semibold
         transition-all duration-200
         ${disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-[#5678E5] active:scale-95 cursor-pointer"}
         ${fullWidth ? "w-full" : ""}

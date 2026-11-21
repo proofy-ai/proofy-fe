@@ -18,9 +18,9 @@ type Props = {
 export default function GradientButton({
   children,
   onClick,
-  bgColor = "#83A0F7",
-  gradientFrom = "#CDD9FC",
-  gradientTo = "#678BF7",
+  bgColor = "rgb(var(--color-brand-button))",
+  gradientFrom = "rgb(var(--color-brand-pale))",
+  gradientTo = "rgb(var(--color-brand))",
   textColor = "#FFFFFF",
   borderWidth = 3,
   borderRadius,

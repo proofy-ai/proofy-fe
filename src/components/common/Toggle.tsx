@@ -28,10 +28,10 @@ export default function Toggle({
       `}
       style={{
         background: checked
-          ? "linear-gradient(135deg, rgba(147, 174, 255, 0.9), rgba(99, 139, 247, 0.8))"
+          ? "linear-gradient(135deg, rgb(var(--color-brand-light) / 0.9), rgb(var(--color-brand) / 0.8))"
           : "linear-gradient(135deg, rgba(220, 220, 220, 0.9), rgba(180, 180, 180, 0.7))",
         boxShadow: checked
-          ? "inset 0 1px 3px rgba(255,255,255,0.4), 0 2px 8px rgba(103, 139, 247, 0.3)"
+          ? "inset 0 1px 3px rgba(255,255,255,0.4), 0 2px 8px rgb(var(--color-brand) / 0.3)"
           : "inset 0 1px 3px rgba(255,255,255,0.4), 0 2px 6px rgba(0,0,0,0.1)",
         border: checked
           ? "1px solid rgba(255,255,255,0.5)"

@@ -73,7 +73,7 @@ export async function request<T>(
     throw new ApiError(
       0,
       "NETWORK",
-      "서버에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.",
+      "서버에 연결하지 못했어요.\n인터넷 연결을 확인해 주세요.",
     );
   }
 

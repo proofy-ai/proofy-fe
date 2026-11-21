@@ -14,7 +14,8 @@ export default function NotFound() {
         <h1
           className="text-6xl font-bold mb-4"
           style={{
-            background: "linear-gradient(90deg, #678BF7 0%, #9A9CEA 100%)",
+            background:
+              "linear-gradient(90deg, rgb(var(--color-brand)) 0%, #9A9CEA 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -35,7 +36,8 @@ export default function NotFound() {
           onClick={() => navigate("/")}
           className="w-full py-3 px-6 rounded-full text-white font-medium transition-all duration-200 hover:shadow-lg"
           style={{
-            background: "linear-gradient(90deg, #678BF7 0%, #9A9CEA 100%)",
+            background:
+              "linear-gradient(90deg, rgb(var(--color-brand)) 0%, #9A9CEA 100%)",
           }}
         >
           홈으로 돌아가기
