@@ -149,13 +149,17 @@ export default function ComponentGallery() {
       </GallerySection>
 
       <GallerySection title="상태 화면(StateViews)">
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <EmptyState
             title="진행 중인 사건이 없어요"
             description="체험 계정으로 시작해 볼까요?"
           />
           <ErrorState
             message={"서버에 연결하지 못했어요.\n인터넷 연결을 확인해 주세요."}
+            onRetry={() => showToast("다시 시도를 눌렀어요", "info")}
+          />
+          <ErrorState
+            message={"서버 응답을 읽지 못했어요.\n잠시 후 다시 시도해 주세요."}
             onRetry={() => showToast("다시 시도를 눌렀어요", "info")}
           />
           <LoadingState />
