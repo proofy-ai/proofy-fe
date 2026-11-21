@@ -17,14 +17,17 @@ import type {
   StageProgress,
 } from "@/types/api";
 
-const stageDurationMs = 2000;
-const stepIntervalMs = 1100;
-const stageLabels: { key: Stage; label: string }[] = [
-  { key: "EXTRACTING", label: "글자 읽는 중" },
-  { key: "COMPARING", label: "거래내역과 대조 중" },
-  { key: "DRAFTING", label: "초안 작성 중" },
+const stepIntervalMs = 600;
+const stageLabels: { key: Stage; label: string; durationMs: number }[] = [
+  { key: "EXTRACTING", label: "글자 읽는 중", durationMs: 1000 },
+  { key: "COMPARING", label: "거래내역과 대조 중", durationMs: 1000 },
+  { key: "DRAFTING", label: "초안 작성 중", durationMs: 2000 },
 ];
-const runDurationMs = stageLabels.length * stageDurationMs;
+const stageEndsMs = stageLabels.reduce<number[]>((ends, { durationMs }) => {
+  ends.push((ends[ends.length - 1] ?? 0) + durationMs);
+  return ends;
+}, []);
+const runDurationMs = stageEndsMs[stageEndsMs.length - 1];
 
 const referralPatterns = [
   /통장을?\s*(빌려|대여|양도)/,
@@ -45,7 +48,8 @@ function isFinished(run: MockRun) {
 
 function currentStage(run: MockRun): Stage {
   if (isFinished(run)) return "FINISHED";
-  const stageIndex = Math.floor((Date.now() - run.startedAt) / stageDurationMs);
+  const elapsed = Date.now() - run.startedAt;
+  const stageIndex = stageEndsMs.findIndex((endMs) => elapsed < endMs);
   return stageLabels[stageIndex].key;
 }
 
@@ -161,8 +165,9 @@ function buildStages(run: MockRun): StageProgress[] {
   const elapsed = Date.now() - run.startedAt;
   return stageLabels.map(({ key, label }, index) => {
     let status: StageProgress["status"] = "PENDING";
-    if (elapsed >= (index + 1) * stageDurationMs) status = "DONE";
-    else if (elapsed >= index * stageDurationMs) status = "RUNNING";
+    const startMs = index === 0 ? 0 : stageEndsMs[index - 1];
+    if (elapsed >= stageEndsMs[index]) status = "DONE";
+    else if (elapsed >= startMs) status = "RUNNING";
     return { key, label, status };
   });
 }
