@@ -6,7 +6,7 @@ import { createSampleCase } from "@/api/cases";
 import { ApiError } from "@/api/client";
 import { GlassCard } from "@/components/common/GlassCard";
 import { GradientButton } from "@/components/common/GradientButton";
-import { Logo } from "@/components/Logo";
+import { DogLogo } from "@/components/DogLogo";
 import { StatusBadge } from "@/components/StatusBadge";
 import { addStoredCase } from "@/lib/caseStorage";
 import { useSessionStore } from "@/store/sessionStore";
@@ -96,7 +96,7 @@ export function Login() {
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-8">
       <div className="flex flex-col items-center gap-3 pt-2">
-        <Logo className="h-12" />
+        <DogLogo className="h-32" />
         <h1 className="text-2xl font-bold text-ink">로그인</h1>
       </div>
 
