@@ -22,7 +22,7 @@ type EvidenceUploaderProps = {
   onFilesAccepted: (files: File[]) => void;
 };
 
-export default function EvidenceUploader({
+export function EvidenceUploader({
   evidenceCount,
   disabled = false,
   onFilesAccepted,

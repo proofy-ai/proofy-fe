@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import { createSampleCase } from "@/api/cases";
 import { ApiError } from "@/api/client";
-import GlassCard from "@/components/common/GlassCard";
-import GradientButton from "@/components/common/GradientButton";
-import Logo from "@/components/Logo";
+import { GlassCard } from "@/components/common/GlassCard";
+import { GradientButton } from "@/components/common/GradientButton";
+import { Logo } from "@/components/Logo";
 import { StatusBadge } from "@/components/StatusBadge";
 import { addStoredCase } from "@/lib/caseStorage";
 import { useSessionStore } from "@/store/sessionStore";
@@ -44,7 +44,7 @@ function wait(milliseconds: number) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
-export default function Login() {
+export function Login() {
   const navigate = useNavigate();
   const enter = useSessionStore((state) => state.enter);
   const createSample = useMutation({ mutationFn: createSampleCase });

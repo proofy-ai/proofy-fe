@@ -11,7 +11,7 @@ type DeadlineBadgeProps = {
   deadline: Deadline;
 };
 
-export default function DeadlineBadge({ deadline }: DeadlineBadgeProps) {
+export function DeadlineBadge({ deadline }: DeadlineBadgeProps) {
   return (
     <span
       className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-bold ${badgeStyles[deadline.state]}`}

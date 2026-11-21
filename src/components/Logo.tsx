@@ -6,7 +6,7 @@ type LogoProps = {
   className?: string;
 };
 
-export default function Logo({ className = "h-9" }: LogoProps) {
+export function Logo({ className = "h-9" }: LogoProps) {
   const darkMode = useSettingStore((state) => state.darkMode);
 
   return (

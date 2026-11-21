@@ -9,7 +9,7 @@ type ConfirmModalProps = {
   cancelText?: string;
 };
 
-export default function ConfirmModal({
+export function ConfirmModal({
   isOpen,
   onClose,
   onConfirm,

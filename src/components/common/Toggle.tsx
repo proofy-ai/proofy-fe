@@ -6,7 +6,7 @@ type ToggleProps = {
   "aria-labelledby"?: string;
 };
 
-export default function Toggle({
+export function Toggle({
   checked,
   onChange,
   disabled = false,

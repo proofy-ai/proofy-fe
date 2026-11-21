@@ -24,5 +24,14 @@ export default defineConfig([
       "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     },
   },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-exports": [
+        "error",
+        { restrictDefaultExports: { direct: true } },
+      ],
+    },
+  },
   prettier,
 ]);

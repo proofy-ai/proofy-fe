@@ -1,8 +1,8 @@
 import { Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import GlassCard from "@/components/common/GlassCard";
-import DeadlineBadge from "@/components/DeadlineBadge";
+import { GlassCard } from "@/components/common/GlassCard";
+import { DeadlineBadge } from "@/components/DeadlineBadge";
 import { StatusBadge } from "@/components/StatusBadge";
 import { CASE_STATUS_LABELS, INFLOW_TYPE_LABELS } from "@/lib/caseLabels";
 import { getContinuePath } from "@/lib/casePaths";

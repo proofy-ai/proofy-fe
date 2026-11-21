@@ -15,7 +15,7 @@ type Props = {
   fullWidth?: boolean;
 };
 
-export default function GradientButton({
+export function GradientButton({
   children,
   onClick,
   bgColor = "rgb(var(--color-brand-button))",

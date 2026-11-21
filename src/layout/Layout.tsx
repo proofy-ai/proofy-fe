@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect } from "react";
 
-import Toast from "@/components/common/Toast";
-import Header from "@/components/Header";
+import { Toast } from "@/components/common/Toast";
+import { Header } from "@/components/Header";
 
 import backgroundImg from "../assets/img/background.png";
 import { useSettingStore } from "../store/settingStore";
@@ -10,7 +10,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-export default function Layout({ children }: LayoutProps) {
+export function Layout({ children }: LayoutProps) {
   const darkMode = useSettingStore((state) => state.darkMode);
   const largeTextMode = useSettingStore((state) => state.largeTextMode);
 

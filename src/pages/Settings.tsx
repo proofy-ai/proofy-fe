@@ -1,12 +1,12 @@
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import GlassCard from "@/components/common/GlassCard";
-import Toggle from "@/components/common/Toggle";
+import { GlassCard } from "@/components/common/GlassCard";
+import { Toggle } from "@/components/common/Toggle";
 import { useSessionStore } from "@/store/sessionStore";
 import { useSettingStore } from "@/store/settingStore";
 
-export default function Settings() {
+export function Settings() {
   const navigate = useNavigate();
   const leave = useSessionStore((state) => state.leave);
   const largeTextMode = useSettingStore((state) => state.largeTextMode);

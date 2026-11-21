@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 
-import GlassCard from "@/components/common/GlassCard";
-import GradientButton from "@/components/common/GradientButton";
+import { GlassCard } from "@/components/common/GlassCard";
+import { GradientButton } from "@/components/common/GradientButton";
 import { StatusBadge } from "@/components/StatusBadge";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
 import { readStoredCases } from "@/lib/caseStorage";
@@ -29,7 +29,7 @@ const documents = [
   },
 ];
 
-export default function Home() {
+export function Home() {
   const navigate = useNavigate();
   const storedCaseCount = readStoredCases().length;
 

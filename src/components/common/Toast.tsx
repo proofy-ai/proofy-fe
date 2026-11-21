@@ -12,7 +12,7 @@ const COLORS = {
   info: { bg: "#E3F2FD", border: "#90CAF9", text: "#1565C0" },
 };
 
-export default function Toast() {
+export function Toast() {
   const { toasts, hide } = useToastStore();
 
   return (

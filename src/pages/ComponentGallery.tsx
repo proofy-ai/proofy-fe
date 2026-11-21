@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 
-import Button from "@/components/common/Button";
-import ConfirmModal from "@/components/common/ConfirmModal";
-import GlassCard from "@/components/common/GlassCard";
-import GradientButton from "@/components/common/GradientButton";
-import InfoTooltip from "@/components/common/InfoTooltip";
-import Toggle from "@/components/common/Toggle";
-import DeadlineBadge from "@/components/DeadlineBadge";
-import EvidenceUploader from "@/components/EvidenceUploader";
-import StageProgressList from "@/components/StageProgressList";
+import { Button } from "@/components/common/Button";
+import { ConfirmModal } from "@/components/common/ConfirmModal";
+import { GlassCard } from "@/components/common/GlassCard";
+import { GradientButton } from "@/components/common/GradientButton";
+import { InfoTooltip } from "@/components/common/InfoTooltip";
+import { Toggle } from "@/components/common/Toggle";
+import { DeadlineBadge } from "@/components/DeadlineBadge";
+import { EvidenceUploader } from "@/components/EvidenceUploader";
+import { StageProgressList } from "@/components/StageProgressList";
 import { EmptyState, ErrorState, LoadingState } from "@/components/StateViews";
 import {
   AnalysisRequiredBadge,
@@ -78,7 +78,7 @@ function GallerySection({
   );
 }
 
-export default function ComponentGallery() {
+export function ComponentGallery() {
   const [uploadedNames, setUploadedNames] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isToggleOn, setIsToggleOn] = useState(false);

@@ -5,7 +5,7 @@ type ButtonProps = {
   fullWidth?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({
+export function Button({
   children,
   disabled = false,
   fullWidth = false,

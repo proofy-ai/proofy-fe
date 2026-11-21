@@ -4,7 +4,7 @@ type InfoTooltipProps = {
   text: string;
 };
 
-export default function InfoTooltip({ text }: InfoTooltipProps) {
+export function InfoTooltip({ text }: InfoTooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   return (

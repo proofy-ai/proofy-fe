@@ -21,7 +21,7 @@ type StageProgressListProps = {
   stages: StageProgress[];
 };
 
-export default function StageProgressList({ stages }: StageProgressListProps) {
+export function StageProgressList({ stages }: StageProgressListProps) {
   return (
     <ol className="flex flex-col gap-3">
       {stages.map((stage) => (

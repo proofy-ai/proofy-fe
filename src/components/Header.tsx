@@ -1,12 +1,12 @@
 import { ChevronLeft, FolderOpen, Settings } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import Logo from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 
 const headerPillButtonClass =
   "flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border-[3px] border-white bg-white/70 px-3 transition-all duration-200 hover:shadow-lg active:scale-[0.95]";
 
-export default function Header() {
+export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { CaseCard } from "@/components/CaseCard";
-import ConfirmModal from "@/components/common/ConfirmModal";
+import { ConfirmModal } from "@/components/common/ConfirmModal";
 import { EmptyState, ErrorState, LoadingState } from "@/components/StateViews";
 import { useMyCases } from "@/hooks/useMyCases";
 import type { StoredCase } from "@/types/api";
@@ -9,7 +9,7 @@ import type { StoredCase } from "@/types/api";
 const DELETE_CONFIRM_MESSAGE =
   "이 사건을 삭제할까요? 올린 서류와 분석 결과도 함께 지워져요.";
 
-export default function MyPage() {
+export function MyPage() {
   const { cases, removedCount, deleteMyCase, isDeleting } = useMyCases();
   const [caseToDelete, setCaseToDelete] = useState<StoredCase | null>(null);
 

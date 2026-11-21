@@ -22,7 +22,7 @@ function hexToRgba(hex: string, opacity: number): string {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
-export default function GlassCard({
+export function GlassCard({
   title,
   children,
   gradientFrom = "#EEEEEE",
