@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { startAnalysis } from "@/api/analysis";
 import { ApiError } from "@/api/client";
 import { getServerMissingItems } from "@/lib/analysisReadiness";
+import { DRAFT_HAS_EDITS_CODE } from "@/lib/analysisRun";
 import { getAnalysisPath } from "@/lib/casePaths";
 
 export const useAnalysisStart = (
@@ -14,15 +15,12 @@ export const useAnalysisStart = (
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: () =>
-      startAnalysis(caseId, caseToken, {
-        narrative,
-        overwriteEditedDraft: false,
-      }),
+    mutationFn: (overwriteEditedDraft: boolean) =>
+      startAnalysis(caseId, caseToken, { narrative, overwriteEditedDraft }),
   });
 
-  const start = () =>
-    mutation.mutate(undefined, {
+  const start = (overwriteEditedDraft = false) =>
+    mutation.mutate(overwriteEditedDraft, {
       onSuccess: async () => {
         await queryClient.invalidateQueries({ queryKey: ["case", caseId] });
         navigate(getAnalysisPath(caseId));
@@ -37,10 +35,18 @@ export const useAnalysisStart = (
       },
     });
 
+  const needsOverwriteConfirm =
+    mutation.error instanceof ApiError &&
+    mutation.error.code === DRAFT_HAS_EDITS_CODE;
+
   return {
     start,
     isPending: mutation.isPending,
-    errorMessage: mutation.error?.message ?? null,
+    errorMessage: needsOverwriteConfirm
+      ? null
+      : (mutation.error?.message ?? null),
+    needsOverwriteConfirm,
+    dismissError: mutation.reset,
     missingItems:
       mutation.error instanceof ApiError
         ? getServerMissingItems(mutation.error)

@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import { FindingsTab } from "@/components/FindingsTab";
-import { MissingDocumentsTab } from "@/components/MissingDocumentsTab";
+import { OverwriteDraftConfirm } from "@/components/OverwriteDraftConfirm";
 import { ReferralCard } from "@/components/ReferralCard";
 import { ResultBanners } from "@/components/ResultBanners";
 import { ResultHeader } from "@/components/ResultHeader";
+import { ResultTabPanel } from "@/components/ResultTabPanel";
 import { type ResultTabKey, ResultTabs } from "@/components/ResultTabs";
-import { EmptyState } from "@/components/StateViews";
 import { useAnalysisRetry } from "@/hooks/useAnalysisRetry";
+import { useFindingFocus } from "@/hooks/useFindingFocus";
 import type { AnalysisResult } from "@/types/api";
 
 type Props = {
@@ -19,6 +19,7 @@ type Props = {
 export function ResultView({ caseId, caseToken, result }: Props) {
   const [activeTab, setActiveTab] = useState<ResultTabKey>("FINDINGS");
   const reanalysis = useAnalysisRetry(caseId, caseToken);
+  const showFinding = useFindingFocus(activeTab, setActiveTab);
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
@@ -28,22 +29,25 @@ export function ResultView({ caseId, caseToken, result }: Props) {
         precomputed={result.precomputed}
         isReanalyzing={reanalysis.isPending}
         errorMessage={reanalysis.errorMessage}
-        onReanalyze={reanalysis.retry}
+        onReanalyze={() => reanalysis.retry()}
+      />
+      <OverwriteDraftConfirm
+        isOpen={reanalysis.needsOverwriteConfirm}
+        onConfirm={() => reanalysis.retry(true)}
+        onClose={reanalysis.dismissError}
       />
       {result.referral ? (
         <ReferralCard referral={result.referral} />
       ) : (
         <>
           <ResultTabs activeTab={activeTab} onTabChange={setActiveTab} />
-          {activeTab === "FINDINGS" && <FindingsTab result={result} />}
-          {activeTab === "MISSING" && (
-            <MissingDocumentsTab
-              caseId={caseId}
-              caseToken={caseToken}
-              checklist={result.checklist}
-            />
-          )}
-          {activeTab === "DRAFT" && <EmptyState title="준비 중이에요" />}
+          <ResultTabPanel
+            activeTab={activeTab}
+            caseId={caseId}
+            caseToken={caseToken}
+            result={result}
+            onShowFinding={showFinding}
+          />
         </>
       )}
     </div>

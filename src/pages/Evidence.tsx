@@ -9,6 +9,7 @@ import { ChecklistPanel } from "@/components/ChecklistPanel";
 import { GlassCard } from "@/components/common/GlassCard";
 import { EvidencePanel } from "@/components/EvidencePanel";
 import { NarrativeEditor } from "@/components/NarrativeEditor";
+import { OverwriteDraftConfirm } from "@/components/OverwriteDraftConfirm";
 import { ErrorState, LoadingState } from "@/components/StateViews";
 import { StoredCaseGuard } from "@/components/StoredCaseGuard";
 import { useAnalysisStart } from "@/hooks/useAnalysisStart";
@@ -47,6 +48,11 @@ function EvidenceContent({ caseId, caseToken, detail }: ContentProps) {
 
   return (
     <div className="flex flex-col gap-6">
+      <OverwriteDraftConfirm
+        isOpen={analysisStart.needsOverwriteConfirm}
+        onConfirm={() => analysisStart.start(true)}
+        onClose={analysisStart.dismissError}
+      />
       <h1 className="text-2xl font-bold text-ink">사연과 증빙을 올려 주세요</h1>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -86,7 +92,7 @@ function EvidenceContent({ caseId, caseToken, detail }: ContentProps) {
             blockers={blockers}
             errorMessage={analysisStart.errorMessage}
             isPending={analysisStart.isPending}
-            onStart={analysisStart.start}
+            onStart={() => analysisStart.start()}
           />
         </div>
       </div>
