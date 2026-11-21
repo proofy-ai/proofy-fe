@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
-import type { ChecklistStatus } from "@/types/api";
+import { FINDING_STATUS_LABELS } from "@/lib/findingLabels";
+import type { ChecklistStatus, FindingStatus } from "@/types/api";
 
 type BadgeTone = "info" | "success" | "warning" | "danger" | "neutral";
 
@@ -52,4 +53,19 @@ export function NeedsCheckBadge() {
 
 export function ConfirmedBadge() {
   return <StatusBadge tone="success">직접 확인함</StatusBadge>;
+}
+
+const findingStatusTones: Record<FindingStatus, BadgeTone> = {
+  MATCH: "success",
+  CONFLICT: "danger",
+  STATEMENT_ONLY: "warning",
+  UNKNOWN: "neutral",
+};
+
+export function FindingStatusBadge({ status }: { status: FindingStatus }) {
+  return (
+    <StatusBadge tone={findingStatusTones[status]}>
+      {FINDING_STATUS_LABELS[status]}
+    </StatusBadge>
+  );
 }

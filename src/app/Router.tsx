@@ -11,6 +11,7 @@ import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
 import { MyPage } from "@/pages/MyPage";
 import { NotFound } from "@/pages/NotFound";
+import { Result } from "@/pages/Result";
 import { Settings } from "@/pages/Settings";
 import { Situation } from "@/pages/Situation";
 
@@ -36,6 +37,7 @@ export function Router() {
             <Route path={NEW_CASE_PATH} element={<Situation />} />
             <Route path="/cases/:caseId/evidence" element={<Evidence />} />
             <Route path="/cases/:caseId/analysis" element={<Analysis />} />
+            <Route path="/cases/:caseId/result" element={<Result />} />
           </Route>
           {ComponentGallery && (
             <Route
