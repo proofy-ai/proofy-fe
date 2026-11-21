@@ -41,7 +41,7 @@ export function Home() {
           <HelperDog />
           <p className="whitespace-pre-line break-keep text-gray-600">
             {
-              "이의제기에 필요한 서류 준비를 도와드려요.\n증빙을 올리면 AI가 읽고 정리해서 소명서 초안과 부족한 서류를 알려 줘요."
+              "안녕하세요, AI 프루피예요.\n이의제기에 필요한 서류 준비를 도와드려요.\n증빙을 올리면 AI가 읽고 정리해서 소명서 초안과 부족한 서류를 알려 줘요."
             }
           </p>
         </div>
