@@ -53,27 +53,27 @@ export type StepType =
 export type ConflictField = "AMOUNT" | "DATE" | "COUNTERPARTY" | "OTHER";
 export type AgentErrorCode = "AGENT_FAILED" | "AGENT_TIMEOUT" | "AGENT_REFUSED";
 
-export interface ApiErrorBody {
+export type ApiErrorBody = {
   error: {
     code: string;
     message: string;
     details?: Record<string, unknown> | null;
   };
-}
+};
 
-export interface HealthStatus {
+export type HealthStatus = {
   status: string;
   agent: "claude" | "scripted";
   demoMode: boolean;
   dailyUsage: { date: string; used: number; limit: number };
-}
+};
 
-export interface SourceReference {
+export type SourceReference = {
   label: string;
   url: string;
-}
+};
 
-export interface RequirementItem {
+export type RequirementItem = {
   code: string;
   label: string;
   category: ChecklistCategory;
@@ -82,44 +82,44 @@ export interface RequirementItem {
   requiredForAnalysis: boolean;
   note: string | null;
   sourceRef: SourceReference | null;
-}
+};
 
-export interface Requirements {
+export type Requirements = {
   inflowType: InflowType;
   items: RequirementItem[];
-}
+};
 
-export interface Inflow {
+export type Inflow = {
   type: InflowType;
   amountKrw: number;
   occurredAt: string | null;
-}
+};
 
-export interface CaseInput {
+export type CaseInput = {
   noticeReceivedDate: string;
   publicNoticeDate: string | null;
   inflow: Inflow;
   hasPriorFreeze: boolean | null;
-}
+};
 
 export type CaseUpdate = Partial<CaseInput> & { narrative?: string };
 
-export interface Deadline {
+export type Deadline = {
   state: DeadlineState;
   deadlineDate: string | null;
   daysLeft: number | null;
   label: string;
   basis: string;
   notice: string;
-}
+};
 
-export interface LatestRun {
+export type LatestRun = {
   runId: string;
   status: RunStatus;
   stage: Stage;
-}
+};
 
-export interface CaseDetail extends CaseInput {
+export type CaseDetail = {
   caseId: string;
   status: CaseStatus;
   isSample: boolean;
@@ -132,34 +132,34 @@ export interface CaseDetail extends CaseInput {
   hasResult: boolean;
   createdAt: string;
   expiresAt: string;
-}
+} & CaseInput;
 
-export interface CaseResponse {
+export type CaseResponse = {
   case: CaseDetail;
-}
+};
 
-export interface CreatedCaseResponse {
+export type CreatedCaseResponse = {
   caseId: string;
   caseToken: string;
   case: CaseDetail;
-}
+};
 
-export interface SampleFile {
+export type SampleFile = {
   name: string;
   docType: DocType;
   url: string;
-}
+};
 
-export interface SampleSet {
+export type SampleSet = {
   scenario: SampleScenario;
   files: SampleFile[];
-}
+};
 
-export interface SamplesResponse {
+export type SamplesResponse = {
   items: SampleSet[];
-}
+};
 
-export interface Evidence {
+export type Evidence = {
   evidenceId: string;
   docType: DocType;
   originalName: string;
@@ -169,9 +169,9 @@ export interface Evidence {
   lowConfidenceRegions: unknown[] | null;
   isSample: boolean;
   createdAt: string;
-}
+};
 
-export interface ChecklistItem {
+export type ChecklistItem = {
   itemId: string;
   code: string | null;
   label: string;
@@ -183,40 +183,40 @@ export interface ChecklistItem {
   checked: boolean;
   note: string | null;
   sourceRef: SourceReference | null;
-}
+};
 
-export interface Checklist {
+export type Checklist = {
   items: ChecklistItem[];
   missingCount: number;
-}
+};
 
-export interface AnalysisStart {
+export type AnalysisStart = {
   narrative?: string;
   overwriteEditedDraft?: boolean;
-}
+};
 
-export interface AnalysisStartResponse {
+export type AnalysisStartResponse = {
   runId: string;
   status: RunStatus;
   stage: Stage;
-}
+};
 
-export interface StageProgress {
+export type StageProgress = {
   key: Stage;
   label: string;
   status: StageStatus;
-}
+};
 
-export interface AnalysisStep {
+export type AnalysisStep = {
   seq: number;
   type: StepType;
   title: string;
   summary: string;
   status: string;
   at: string;
-}
+};
 
-export interface AnalysisRun {
+export type AnalysisRun = {
   runId: string;
   status: RunStatus;
   stage: Stage;
@@ -225,21 +225,21 @@ export interface AnalysisRun {
   error: { code: AgentErrorCode; message: string } | null;
   startedAt: string;
   finishedAt: string | null;
-}
+};
 
-export interface FindingConflict {
+export type FindingConflict = {
   field: ConflictField;
   statement: string;
   found: string;
-}
+};
 
-export interface NarrativeSource {
+export type NarrativeSource = {
   kind: "NARRATIVE";
   quote: string;
   verified: boolean;
-}
+};
 
-export interface EvidenceSource {
+export type EvidenceSource = {
   kind: "EVIDENCE";
   evidenceId: string;
   docType: DocType;
@@ -248,9 +248,9 @@ export interface EvidenceSource {
   regionIndex: number;
   quote: string;
   verified: boolean;
-}
+};
 
-export interface TransactionSource {
+export type TransactionSource = {
   kind: "TRANSACTION";
   transactionId: string;
   evidenceId: string;
@@ -259,21 +259,21 @@ export interface TransactionSource {
   amountKrw: number;
   counterparty: string | null;
   verified: boolean;
-}
+};
 
 export type FindingSource =
   NarrativeSource | EvidenceSource | TransactionSource;
 
-export interface Finding {
+export type Finding = {
   findingId: string;
   claim: string;
   status: FindingStatus;
   note: string;
   conflict: FindingConflict | null;
   sources: FindingSource[];
-}
+};
 
-export interface DraftSentence {
+export type DraftSentence = {
   sentenceId: string;
   text: string;
   origin: "AI" | "USER";
@@ -283,15 +283,15 @@ export interface DraftSentence {
   needsCheckReason: NeedsCheckReason | null;
   confirmed: boolean;
   edited: boolean;
-}
+};
 
-export interface DraftWarning {
+export type DraftWarning = {
   code: string;
   findingId: string;
   message: string;
-}
+};
 
-export interface Draft {
+export type Draft = {
   version: number;
   basedOnRunId: string;
   sentences: DraftSentence[];
@@ -299,44 +299,44 @@ export interface Draft {
   unconfirmedCount: number;
   fullText: string;
   updatedAt: string;
-}
+};
 
-export interface DraftResponse {
+export type DraftResponse = {
   draft: Draft;
-}
+};
 
-export interface DraftSentenceUpdate {
+export type DraftSentenceUpdate = {
   sentenceId: string | null;
   text: string;
   confirmed?: boolean;
-}
+};
 
-export interface DraftUpdate {
+export type DraftUpdate = {
   expectedVersion: number;
   sentences: DraftSentenceUpdate[];
-}
+};
 
-export interface Referral {
+export type Referral = {
   code: string;
   matchedPhrases: string[];
   message: string;
   contacts: { name: string; phone: string }[];
-}
+};
 
-export interface UnreadEvidence {
+export type UnreadEvidence = {
   evidenceId: string;
   originalName: string;
   reason: string;
-}
+};
 
-export interface AnalysisSummary {
+export type AnalysisSummary = {
   findingCounts: Record<FindingStatus, number>;
   missingDocuments: number;
   sentencesNeedingCheck: number;
   unreadEvidence: number;
-}
+};
 
-export interface AnalysisResult {
+export type AnalysisResult = {
   runId: string;
   basedOnInputVersion: number;
   isStale: boolean;
@@ -350,11 +350,11 @@ export interface AnalysisResult {
   draft: Draft | null;
   unreadEvidence: UnreadEvidence[];
   summary: AnalysisSummary;
-}
+};
 
-export interface StoredCase {
+export type StoredCase = {
   caseId: string;
   caseToken: string;
   createdAt: string;
   sampleScenario: SampleScenario | null;
-}
+};

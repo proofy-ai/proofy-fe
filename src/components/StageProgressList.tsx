@@ -16,9 +16,9 @@ const stageMarkerStyles: Record<StageStatus, string> = {
   FAILED: "bg-danger",
 };
 
-interface StageProgressListProps {
+type StageProgressListProps = {
   stages: StageProgress[];
-}
+};
 
 export default function StageProgressList({ stages }: StageProgressListProps) {
   return (

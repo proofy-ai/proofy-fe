@@ -1,10 +1,10 @@
-interface ToggleProps {
+type ToggleProps = {
   checked: boolean;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
   "aria-label"?: string;
   "aria-labelledby"?: string;
-}
+};
 
 export default function Toggle({
   checked,

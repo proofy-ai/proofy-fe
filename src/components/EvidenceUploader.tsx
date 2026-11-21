@@ -16,11 +16,11 @@ function findFileError(file: File): string | null {
   return null;
 }
 
-interface EvidenceUploaderProps {
+type EvidenceUploaderProps = {
   evidenceCount: number;
   disabled?: boolean;
   onFilesAccepted: (files: File[]) => void;
-}
+};
 
 export default function EvidenceUploader({
   evidenceCount,

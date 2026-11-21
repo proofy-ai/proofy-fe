@@ -21,10 +21,10 @@ const checklistStatusBadges: Record<
   GUIDE_ONLY: { tone: "neutral", label: "은행에서 작성" },
 };
 
-interface StatusBadgeProps {
+type StatusBadgeProps = {
   tone: BadgeTone;
   children: ReactNode;
-}
+};
 
 export function StatusBadge({ tone, children }: StatusBadgeProps) {
   return (

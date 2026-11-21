@@ -6,18 +6,18 @@ import type {
   SampleSet,
 } from "@/types/api";
 
-interface SampleEvidence {
+type SampleEvidence = {
   docType: DocType;
   originalName: string;
   mimeType: string;
   sizeBytes: number;
-}
+};
 
-interface SampleCaseSeed {
+type SampleCaseSeed = {
   input: CaseInput;
   narrative: string;
   evidence: SampleEvidence[];
-}
+};
 
 export const sampleSets: SampleSet[] = [
   {

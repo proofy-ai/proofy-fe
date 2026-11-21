@@ -2,9 +2,9 @@ import logoGrey from "@/assets/img/brand/logo-grey.png";
 import logoSilver from "@/assets/img/brand/logo-silver.png";
 import { useSettingStore } from "@/store/settingStore";
 
-interface LogoProps {
+type LogoProps = {
   className?: string;
-}
+};
 
 export default function Logo({ className = "h-9" }: LogoProps) {
   const darkMode = useSettingStore((state) => state.darkMode);

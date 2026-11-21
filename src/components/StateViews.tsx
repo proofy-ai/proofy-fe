@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 import { AlertCircle, Inbox, Loader2 } from "lucide-react";
 
-interface EmptyStateProps {
+type EmptyStateProps = {
   title: string;
   description?: string;
   action?: ReactNode;
-}
+};
 
 export function EmptyState({ title, description, action }: EmptyStateProps) {
   return (
@@ -20,10 +20,10 @@ export function EmptyState({ title, description, action }: EmptyStateProps) {
   );
 }
 
-interface ErrorStateProps {
+type ErrorStateProps = {
   message: string;
   onRetry?: () => void;
-}
+};
 
 export function ErrorState({ message, onRetry }: ErrorStateProps) {
   return (
@@ -46,9 +46,9 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
   );
 }
 
-interface LoadingStateProps {
+type LoadingStateProps = {
   label?: string;
-}
+};
 
 export function LoadingState({
   label = "불러오는 중이에요",

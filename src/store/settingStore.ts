@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface SettingStore {
+type SettingStore = {
   darkMode: boolean;
   largeTextMode: boolean;
   setDarkMode: (value: boolean) => void;
   setLargeTextMode: (value: boolean) => void;
-}
+};
 
 export const useSettingStore = create<SettingStore>()(
   persist(

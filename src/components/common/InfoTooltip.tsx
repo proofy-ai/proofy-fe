@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-interface InfoTooltipProps {
+type InfoTooltipProps = {
   text: string;
-}
+};
 
 export default function InfoTooltip({ text }: InfoTooltipProps) {
   const [isVisible, setIsVisible] = useState(false);

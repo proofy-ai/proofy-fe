@@ -7,9 +7,9 @@ const badgeStyles: Record<DeadlineState, string> = {
   UNKNOWN_NOTICE_DATE: "bg-surface text-ink-sub",
 };
 
-interface DeadlineBadgeProps {
+type DeadlineBadgeProps = {
   deadline: Deadline;
-}
+};
 
 export default function DeadlineBadge({ deadline }: DeadlineBadgeProps) {
   return (

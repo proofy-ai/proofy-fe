@@ -11,13 +11,13 @@ import { addStoredCase } from "@/lib/caseStorage";
 import { useSessionStore } from "@/store/sessionStore";
 import type { SampleScenario } from "@/types/api";
 
-interface TrialAccount {
+type TrialAccount = {
   accountName: string;
   scenario: SampleScenario;
   situationLabel: string;
   profile: string;
   quote: string;
-}
+};
 
 type LoginPhase = "idle" | "typing" | "submitting";
 

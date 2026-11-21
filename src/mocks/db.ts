@@ -12,23 +12,23 @@ import type {
   UnreadEvidence,
 } from "@/types/api";
 
-export interface MockRun {
+export type MockRun = {
   runId: string;
   startedAt: number;
   inputVersionAtStart: number;
   referral: Referral | null;
-}
+};
 
-export interface MockAnalysis {
+export type MockAnalysis = {
   runId: string;
   basedOnInputVersion: number;
   generatedAt: string;
   findings: Finding[];
   unreadEvidence: UnreadEvidence[];
   referral: Referral | null;
-}
+};
 
-export interface MockCase {
+export type MockCase = {
   token: string;
   detail: CaseDetail;
   evidence: Evidence[];
@@ -36,7 +36,7 @@ export interface MockCase {
   runs: MockRun[];
   analysis: MockAnalysis | null;
   draft: Draft | null;
-}
+};
 
 const dbStorageKey = "proofy.mockDb";
 

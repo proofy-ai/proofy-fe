@@ -8,16 +8,16 @@ import type {
   UnreadEvidence,
 } from "@/types/api";
 
-interface EvidenceIds {
+type EvidenceIds = {
   findEvidenceId: (docType: DocType) => string;
-}
+};
 
-export interface ScenarioAnalysis {
+export type ScenarioAnalysis = {
   findings: Finding[];
   sentences: DraftSentence[];
   unreadEvidence: UnreadEvidence[];
   stepTitles: Pick<AnalysisStep, "type" | "title" | "summary" | "status">[];
-}
+};
 
 function aiSentence(
   sentenceId: string,

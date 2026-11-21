@@ -28,12 +28,12 @@ export class ApiError extends Error {
   }
 }
 
-interface RequestOptions {
+type RequestOptions = {
   method?: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   caseToken?: string;
   body?: unknown;
   formData?: FormData;
-}
+};
 
 export function resolveApiUrl(path: string): string {
   return path.startsWith("/") ? `${apiOrigin}${path}` : path;

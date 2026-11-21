@@ -1,10 +1,10 @@
 import { HttpResponse } from "msw";
 
-interface MockErrorSpec {
+type MockErrorSpec = {
   status: number;
   message: string;
   details?: Record<string, unknown>;
-}
+};
 
 const forcedErrorStorageKey = "proofy.mockError";
 

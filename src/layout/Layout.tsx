@@ -4,9 +4,9 @@ import backgroundImg from "../assets/img/background.png";
 import Toast from "@/components/common/Toast";
 import Header from "@/components/Header";
 
-interface LayoutProps {
+type LayoutProps = {
   children: ReactNode;
-}
+};
 
 export default function Layout({ children }: LayoutProps) {
   const darkMode = useSettingStore((state) => state.darkMode);

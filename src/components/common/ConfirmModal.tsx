@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 
-interface ConfirmModalProps {
+type ConfirmModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
   message: ReactNode;
   confirmText?: string;
   cancelText?: string;
-}
+};
 
 export default function ConfirmModal({
   isOpen,

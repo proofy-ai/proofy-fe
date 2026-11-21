@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface SessionStore {
+type SessionStore = {
   hasEntered: boolean;
   enter: () => void;
   leave: () => void;
-}
+};
 
 export const useSessionStore = create<SessionStore>()(
   persist(
