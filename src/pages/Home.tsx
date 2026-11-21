@@ -43,7 +43,7 @@ export function Home() {
         <GradientButton fullWidth onClick={() => navigate(NEW_CASE_PATH)}>
           이의제기 준비 시작
         </GradientButton>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-ink-sub">
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm font-medium text-ink">
           {storedCaseCount > 0 && (
             <Link to="/me" className="underline">
               내 사건 {storedCaseCount}건 이어서 하기
@@ -53,9 +53,6 @@ export function Home() {
             샘플로 체험하기
           </Link>
         </div>
-        <p className="mt-3 text-xs text-gray-500">
-          시연용 서비스이며 예시는 합성 데이터입니다.
-        </p>
       </GlassCard>
 
       <GlassCard title="절차 한눈에">

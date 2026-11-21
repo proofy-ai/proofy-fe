@@ -37,6 +37,8 @@ const trialAccounts: TrialAccount[] = [
   },
 ];
 
+const DEMO_NOTICE = "시연용 서비스예요 · 합성 데이터만 사용해요";
+
 const passwordMaskLength = 8;
 const typingIntervalMs = 60;
 
@@ -136,10 +138,6 @@ export function Login() {
               {loginError}
             </p>
           )}
-          <p className="break-keep text-xs text-ink-faint">
-            시연용 서비스예요. 계정을 따로 만들지 않고, 체험 계정을 고르면 합성
-            서류가 채워진 사건이 만들어져요.
-          </p>
         </form>
       </GlassCard>
 
@@ -197,6 +195,8 @@ export function Login() {
           직접 해 보기
         </button>
       </div>
+
+      <p className="pb-4 text-center text-xs text-ink-faint">{DEMO_NOTICE}</p>
     </div>
   );
 }
