@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
 import { ChecklistSection } from "@/components/ChecklistSection";
-import { Button } from "@/components/common/Button";
 import { Toggle } from "@/components/common/Toggle";
 import { useChecklistCheck } from "@/hooks/useChecklistCheck";
 import { getEvidencePath } from "@/lib/casePaths";
@@ -43,13 +42,13 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
           )
         }
       />
-      <Button
-        fullWidth
-        size="md"
+      <button
+        type="button"
         onClick={() => navigate(getEvidencePath(caseId))}
+        className="self-center text-sm text-ink-sub underline"
       >
-        서류 올리고 다시 분석하기
-      </Button>
+        서류를 더 올려서 다시 분석하려면 여기로 가세요
+      </button>
     </div>
   );
 }

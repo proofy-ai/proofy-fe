@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import type { ResultTabKey } from "@/components/ResultTabs";
+import type { ResultTabKey } from "@/lib/resultTabs";
 
 export const getFindingElementId = (findingId: string) =>
   `finding-${findingId}`;

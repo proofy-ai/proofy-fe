@@ -1,7 +1,8 @@
 import { DraftTab } from "@/components/DraftTab";
 import { FindingsTab } from "@/components/FindingsTab";
+import { GuideTab } from "@/components/GuideTab";
 import { MissingDocumentsTab } from "@/components/MissingDocumentsTab";
-import type { ResultTabKey } from "@/components/ResultTabs";
+import type { ResultTabKey } from "@/lib/resultTabs";
 import type { AnalysisResult } from "@/types/api";
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
   caseToken: string;
   result: AnalysisResult;
   onShowFinding: (findingId: string) => void;
+  onGoToDraft: () => void;
 };
 
 export function ResultTabPanel({
@@ -18,6 +20,7 @@ export function ResultTabPanel({
   caseToken,
   result,
   onShowFinding,
+  onGoToDraft,
 }: Props) {
   if (activeTab === "FINDINGS") return <FindingsTab result={result} />;
   if (activeTab === "MISSING") {
@@ -26,6 +29,16 @@ export function ResultTabPanel({
         caseId={caseId}
         caseToken={caseToken}
         checklist={result.checklist}
+      />
+    );
+  }
+  if (activeTab === "GUIDE") {
+    return (
+      <GuideTab
+        caseId={caseId}
+        caseToken={caseToken}
+        result={result}
+        onGoToDraft={onGoToDraft}
       />
     );
   }
