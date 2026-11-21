@@ -43,7 +43,11 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
           )
         }
       />
-      <Button fullWidth onClick={() => navigate(getEvidencePath(caseId))}>
+      <Button
+        fullWidth
+        size="md"
+        onClick={() => navigate(getEvidencePath(caseId))}
+      >
         서류 올리고 다시 분석하기
       </Button>
     </div>
