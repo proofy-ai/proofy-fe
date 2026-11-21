@@ -28,5 +28,5 @@ export const CHECKLIST_CATEGORY_TITLES = {
   TYPE_GUIDE: "유형별 안내 서류",
   ANALYSIS_INPUT: "AI 분석에 필요한 자료",
   OPTIONAL: "있으면 좋은 자료",
-  AI_RECOMMENDED: "AI가 더 권한 서류",
+  AI_RECOMMENDED: "AI가 추가로 권하는 서류",
 } satisfies Record<ChecklistCategory, string>;
