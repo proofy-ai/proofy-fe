@@ -24,7 +24,7 @@ export default function Toggle({
       onClick={() => onChange(!checked)}
       className={`
         relative inline-flex h-8 w-14 items-center rounded-full transition-all duration-200 ease-in-out
-        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+        ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:brightness-95"}
       `}
       style={{
         background: checked

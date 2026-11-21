@@ -37,7 +37,7 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
         <button
           type="button"
           onClick={onRetry}
-          className="mt-2 rounded-full bg-brand px-5 py-2 text-sm font-medium text-white"
+          className="mt-2 rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
         >
           다시 시도
         </button>

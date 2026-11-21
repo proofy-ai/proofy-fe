@@ -32,10 +32,8 @@ export default function GradientButton({
   return (
     <div
       className={`rounded-full transition-all duration-200
-    hover:scale-[1.03] hover:shadow-lg
-    active:scale-[0.97]
     ${fullWidth ? "w-full" : ""} 
-    ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} 
+    ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:scale-[1.03] hover:shadow-lg active:scale-[0.97]"} 
     ${className}`}
       style={{
         borderRadius: borderRadius ? `${borderRadius}px` : undefined,
@@ -49,7 +47,6 @@ export default function GradientButton({
         disabled={disabled}
         className={`gradient-btn flex items-center justify-center gap-2 rounded-full font-semibold
       hover:opacity-90
-      focus:outline-none
       ${fullWidth ? "w-full" : ""} 
       ${disabled ? "cursor-not-allowed" : ""} 
       ${buttonClassName}`}

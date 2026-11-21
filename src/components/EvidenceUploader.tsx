@@ -89,7 +89,7 @@ export default function EvidenceUploader({
           type="button"
           disabled={disabled}
           onClick={() => inputRef.current?.click()}
-          className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-colors enabled:hover:bg-brand-strong disabled:opacity-50"
         >
           파일 선택
         </button>

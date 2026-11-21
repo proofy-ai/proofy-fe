@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         sans: ["BusanDandiGothic", "sans-serif"],
       },
+      transitionTimingFunction: {
+        smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
