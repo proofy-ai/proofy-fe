@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { GlassCard } from "@/components/common/GlassCard";
 import { GradientButton } from "@/components/common/GradientButton";
+import { HelperDog } from "@/components/HelperDog";
 import { StatusBadge } from "@/components/StatusBadge";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
 import { readStoredCases } from "@/lib/caseStorage";
@@ -36,10 +37,14 @@ export function Home() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <GlassCard title="내 계좌가 지급정지됐나요?">
-        <p className="mb-4 text-gray-600">
-          이의제기에 필요한 서류 준비를 도와드려요. 증빙을 올리면 AI가 읽고
-          정리해서 소명서 초안과 부족한 서류를 알려 줘요.
-        </p>
+        <div className="mb-4 flex items-center gap-4">
+          <HelperDog />
+          <p className="whitespace-pre-line break-keep text-gray-600">
+            {
+              "이의제기에 필요한 서류 준비를 도와드려요.\n증빙을 올리면 AI가 읽고 정리해서 소명서 초안과 부족한 서류를 알려 줘요."
+            }
+          </p>
+        </div>
         <GradientButton fullWidth onClick={() => navigate(NEW_CASE_PATH)}>
           이의제기 준비 시작
         </GradientButton>
