@@ -14,7 +14,7 @@ type DeadlineBadgeProps = {
 export function DeadlineBadge({ deadline }: DeadlineBadgeProps) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-bold ${badgeStyles[deadline.state]}`}
+      className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full px-3 py-1 text-sm font-bold ${badgeStyles[deadline.state]}`}
     >
       {deadline.label}
     </span>
