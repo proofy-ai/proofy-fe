@@ -3,7 +3,7 @@ import type { ApiErrorBody } from "@/types/api";
 const apiOrigin = import.meta.env.VITE_API_ORIGIN ?? "";
 const apiBaseUrl = `${apiOrigin}/api/v1`;
 const unreadableResponseMessage =
-  "서버 응답을 읽지 못했어요.\n잠시 후 다시 시도해 주세요.";
+  "서버 응답을 읽지 못했어요. 잠시 후 다시 시도해 주세요.";
 
 if (!import.meta.env.DEV && apiOrigin === "") {
   console.error("VITE_API_ORIGIN이 설정되지 않아 API 요청이 실패합니다.");
