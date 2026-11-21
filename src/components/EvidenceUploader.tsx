@@ -2,19 +2,11 @@ import { Upload } from "lucide-react";
 import type { ChangeEvent, DragEvent } from "react";
 import { useRef, useState } from "react";
 
-const acceptedMimeTypes = ["image/jpeg", "image/png", "application/pdf"];
-const maxFileBytes = 10 * 1024 * 1024;
-const maxEvidenceCount = 8;
-
-function findFileError(file: File): string | null {
-  if (!acceptedMimeTypes.includes(file.type)) {
-    return `${file.name}: JPG, PNG, PDF 파일만 올릴 수 있어요.`;
-  }
-  if (file.size > maxFileBytes) {
-    return `${file.name}: 파일은 10MB 이하만 올릴 수 있어요.`;
-  }
-  return null;
-}
+import {
+  ACCEPTED_MIME_TYPES,
+  findFileError,
+  MAX_EVIDENCE_COUNT,
+} from "@/lib/evidenceFiles";
 
 type EvidenceUploaderProps = {
   evidenceCount: number;
@@ -34,7 +26,7 @@ export function EvidenceUploader({
   function receiveFiles(files: File[]) {
     const messages: string[] = [];
     const acceptedFiles: File[] = [];
-    const remainingSlots = maxEvidenceCount - evidenceCount;
+    const remainingSlots = MAX_EVIDENCE_COUNT - evidenceCount;
     let isLimitReported = false;
 
     for (const file of files) {
@@ -44,7 +36,7 @@ export function EvidenceUploader({
       } else if (acceptedFiles.length >= remainingSlots) {
         if (!isLimitReported) {
           messages.push(
-            `서류는 사건당 ${maxEvidenceCount}개까지 올릴 수 있어요.`,
+            `서류는 사건당 ${MAX_EVIDENCE_COUNT}개까지 올릴 수 있어요.`,
           );
           isLimitReported = true;
         }
@@ -94,13 +86,13 @@ export function EvidenceUploader({
           파일 선택
         </button>
         <p className="text-xs text-ink-faint">
-          JPG, PNG, PDF · 10MB 이하 · {evidenceCount}/{maxEvidenceCount}개
+          JPG, PNG, PDF · 10MB 이하 · {evidenceCount}/{MAX_EVIDENCE_COUNT}개
         </p>
         <input
           ref={inputRef}
           type="file"
           multiple
-          accept="image/jpeg,image/png,application/pdf"
+          accept={ACCEPTED_MIME_TYPES.join(",")}
           className="hidden"
           onChange={handleInputChange}
           aria-label="증빙 서류 선택"
