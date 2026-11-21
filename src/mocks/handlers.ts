@@ -52,7 +52,10 @@ function lookupCase(request: Request, caseId: string) {
   if (request.headers.get("X-Case-Token") !== mockCase.token) {
     return { response: errorResponse("CASE_TOKEN_INVALID") };
   }
+  const analysisRunIdBefore = mockCase.analysis?.runId;
   settleLatestRun(mockCase);
+  if (mockCase.analysis?.runId !== analysisRunIdBefore)
+    saveMockCase(caseId, mockCase);
   return { mockCase };
 }
 

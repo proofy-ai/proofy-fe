@@ -48,24 +48,22 @@ function loadCases(): Record<string, MockCase> {
   }
 }
 
-const cases = loadCases();
-
-function persistCases() {
+function persistCases(cases: Record<string, MockCase>) {
   localStorage.setItem(dbStorageKey, JSON.stringify(cases));
 }
 
 export function findMockCase(caseId: string): MockCase | undefined {
-  return cases[caseId];
+  return loadCases()[caseId];
 }
 
 export function saveMockCase(caseId: string, mockCase: MockCase) {
-  cases[caseId] = mockCase;
-  persistCases();
+  persistCases({ ...loadCases(), [caseId]: mockCase });
 }
 
 export function deleteMockCase(caseId: string) {
+  const cases = loadCases();
   delete cases[caseId];
-  persistCases();
+  persistCases(cases);
 }
 
 export function scenarioOf(detail: CaseDetail): SampleScenario {
