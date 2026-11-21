@@ -21,7 +21,7 @@ export function DraftSentenceAdder({ isSaving, onAdd }: Props) {
         aria-label="추가할 문장"
         rows={2}
         value={text}
-        placeholder="덧붙이고 싶은 문장을 직접 적을 수 있어요."
+        placeholder="소명을 위해 추가로 전달할 내용을 적을 수 있어요."
         onChange={(event) => setText(event.target.value)}
         className="w-full resize-y rounded-xl border border-brand-line bg-white/80 px-3 py-2 text-base text-ink placeholder:text-ink-mark"
       />
