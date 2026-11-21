@@ -4,11 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { getAnalysisRun } from "@/api/analysis";
 import { getCase } from "@/api/cases";
-import {
-  isRunTimedOut,
-  POLL_INTERVAL_MS,
-  RESULT_REVEAL_DELAY_MS,
-} from "@/lib/analysisRun";
+import { isRunTimedOut, POLL_INTERVAL_MS } from "@/lib/analysisRun";
 import { getResultPath } from "@/lib/casePaths";
 
 export const useAnalysisRun = (caseId: string, caseToken: string) => {
@@ -41,13 +37,7 @@ export const useAnalysisRun = (caseId: string, caseToken: string) => {
   const isSucceeded = run?.status === "SUCCEEDED";
 
   useEffect(() => {
-    if (!isSucceeded) return;
-
-    const timerId = setTimeout(
-      () => navigate(getResultPath(caseId), { replace: true }),
-      RESULT_REVEAL_DELAY_MS,
-    );
-    return () => clearTimeout(timerId);
+    if (isSucceeded) navigate(getResultPath(caseId), { replace: true });
   }, [isSucceeded, navigate, caseId]);
 
   return {
