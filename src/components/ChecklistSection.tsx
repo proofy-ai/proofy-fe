@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import {
   AnalysisRequiredBadge,
   ChecklistStatusBadge,
@@ -5,28 +7,27 @@ import {
 import {
   CHECKLIST_CATEGORY_ORDER,
   CHECKLIST_CATEGORY_TITLES,
-  DOC_TYPE_LABELS,
 } from "@/lib/docTypeLabels";
-import type { Checklist, ChecklistItem, DocType } from "@/types/api";
+import type { Checklist, ChecklistItem } from "@/types/api";
 
 type Props = {
   checklist: Checklist;
-  onUploadClick: (docType: DocType) => void;
+  renderAction?: (item: ChecklistItem) => ReactNode;
 };
 
 type ItemProps = {
   item: ChecklistItem;
-  onUploadClick: (docType: DocType) => void;
+  action: ReactNode;
 };
 
-function ChecklistRow({ item, onUploadClick }: ItemProps) {
-  const [firstDocType] = item.acceptedDocTypes;
-  const canUpload = item.status === "MISSING" && !!firstDocType;
-
+function ChecklistRow({ item, action }: ItemProps) {
   return (
     <li className="flex flex-col gap-1.5 rounded-xl bg-white/70 px-4 py-3">
       <div className="flex flex-wrap items-center gap-2">
-        <ChecklistStatusBadge status={item.status} />
+        <ChecklistStatusBadge
+          status={item.status}
+          isPreparedSeparately={item.checked}
+        />
         {item.requiredForAnalysis && <AnalysisRequiredBadge />}
       </div>
       <span className="break-keep font-medium text-ink">{item.label}</span>
@@ -44,21 +45,13 @@ function ChecklistRow({ item, onUploadClick }: ItemProps) {
             근거: {item.sourceRef.label}
           </a>
         )}
-        {canUpload && (
-          <button
-            type="button"
-            onClick={() => onUploadClick(firstDocType)}
-            className="ml-auto rounded-full border border-brand-line bg-white/70 px-3 py-1 text-xs font-medium text-ink transition-colors hover:bg-brand-soft"
-          >
-            {DOC_TYPE_LABELS[firstDocType]} 올리기
-          </button>
-        )}
+        {action}
       </div>
     </li>
   );
 }
 
-export function ChecklistSection({ checklist, onUploadClick }: Props) {
+export function ChecklistSection({ checklist, renderAction }: Props) {
   return (
     <div className="flex w-full flex-col gap-5">
       {CHECKLIST_CATEGORY_ORDER.map((category) => {
@@ -77,7 +70,7 @@ export function ChecklistSection({ checklist, onUploadClick }: Props) {
                 <ChecklistRow
                   key={item.itemId}
                   item={item}
-                  onUploadClick={onUploadClick}
+                  action={renderAction?.(item)}
                 />
               ))}
             </ul>

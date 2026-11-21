@@ -38,7 +38,19 @@ export function StatusBadge({ tone, children }: StatusBadgeProps) {
   );
 }
 
-export function ChecklistStatusBadge({ status }: { status: ChecklistStatus }) {
+type ChecklistStatusBadgeProps = {
+  status: ChecklistStatus;
+  isPreparedSeparately?: boolean;
+};
+
+export function ChecklistStatusBadge({
+  status,
+  isPreparedSeparately = false,
+}: ChecklistStatusBadgeProps) {
+  if (status === "MISSING" && isPreparedSeparately) {
+    return <StatusBadge tone="info">따로 준비함</StatusBadge>;
+  }
+
   const { tone, label } = checklistStatusBadges[status];
   return <StatusBadge tone={tone}>{label}</StatusBadge>;
 }

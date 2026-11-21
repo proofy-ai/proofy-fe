@@ -1,6 +1,7 @@
 import type { UseQueryResult } from "@tanstack/react-query";
 
 import { ChecklistSection } from "@/components/ChecklistSection";
+import { ChecklistUploadButton } from "@/components/ChecklistUploadButton";
 import { GlassCard } from "@/components/common/GlassCard";
 import { ErrorState, LoadingState } from "@/components/StateViews";
 import type { Checklist, DocType } from "@/types/api";
@@ -23,7 +24,9 @@ export function ChecklistPanel({ checklistQuery, onUploadClick }: Props) {
       {checklistQuery.data && (
         <ChecklistSection
           checklist={checklistQuery.data}
-          onUploadClick={onUploadClick}
+          renderAction={(item) => (
+            <ChecklistUploadButton item={item} onUploadClick={onUploadClick} />
+          )}
         />
       )}
     </GlassCard>
