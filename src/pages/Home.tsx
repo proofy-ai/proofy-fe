@@ -1,6 +1,10 @@
+import { Link, useNavigate } from "react-router-dom";
+
 import GlassCard from "@/components/common/GlassCard";
 import GradientButton from "@/components/common/GradientButton";
 import { StatusBadge } from "@/components/StatusBadge";
+import { NEW_CASE_PATH } from "@/lib/casePaths";
+import { readStoredCases } from "@/lib/caseStorage";
 
 const steps = [
   { label: "지급정지", isHelped: false },
@@ -26,6 +30,9 @@ const documents = [
 ];
 
 export default function Home() {
+  const navigate = useNavigate();
+  const storedCaseCount = readStoredCases().length;
+
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <GlassCard title="내 계좌가 지급정지됐나요?">
@@ -33,7 +40,19 @@ export default function Home() {
           이의제기에 필요한 서류 준비를 도와드려요. 증빙을 올리면 AI가 읽고
           정리해서 소명서 초안과 부족한 서류를 알려 줘요.
         </p>
-        <GradientButton fullWidth>이의제기 준비 시작</GradientButton>
+        <GradientButton fullWidth onClick={() => navigate(NEW_CASE_PATH)}>
+          이의제기 준비 시작
+        </GradientButton>
+        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm text-ink-sub">
+          {storedCaseCount > 0 && (
+            <Link to="/me" className="underline">
+              내 사건 {storedCaseCount}건 이어서 하기
+            </Link>
+          )}
+          <Link to="/login" className="underline">
+            샘플로 체험하기
+          </Link>
+        </div>
         <p className="mt-3 text-xs text-gray-500">
           시연용 서비스이며 예시는 합성 데이터입니다.
         </p>
