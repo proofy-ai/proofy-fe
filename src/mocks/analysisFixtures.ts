@@ -12,7 +12,7 @@ type EvidenceIds = {
   findEvidenceId: (docType: DocType) => string;
 };
 
-export type ScenarioAnalysis = {
+type ScenarioAnalysis = {
   findings: Finding[];
   sentences: DraftSentence[];
   unreadEvidence: UnreadEvidence[];

@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 
 type Props = {
-  title: string;
+  title?: string;
   children: ReactNode;
   gradientFrom?: string;
   gradientTo?: string;

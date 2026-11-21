@@ -19,7 +19,7 @@ export type MockRun = {
   referral: Referral | null;
 };
 
-export type MockAnalysis = {
+type MockAnalysis = {
   runId: string;
   basedOnInputVersion: number;
   generatedAt: string;

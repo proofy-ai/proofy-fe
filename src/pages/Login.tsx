@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createSampleCase } from "@/api/cases";
@@ -19,8 +19,6 @@ type TrialAccount = {
   profile: string;
   quote: string;
 };
-
-type LoginPhase = "idle" | "typing" | "submitting";
 
 const trialAccounts: TrialAccount[] = [
   {
@@ -55,37 +53,26 @@ export default function Login() {
   );
   const [typedIdLength, setTypedIdLength] = useState(0);
   const [typedPasswordLength, setTypedPasswordLength] = useState(0);
-  const [phase, setPhase] = useState<LoginPhase>("idle");
-  const isMountedRef = useRef(true);
-
-  useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   async function typeInto(setLength: (length: number) => void, total: number) {
     for (let length = 1; length <= total; length++) {
-      if (!isMountedRef.current) return;
       setLength(length);
       await wait(typingIntervalMs);
     }
   }
 
-  async function handleSelect(account: TrialAccount) {
-    if (phase !== "idle") return;
+  async function handleAccountSelect(account: TrialAccount) {
+    if (isLoggingIn) return;
     createSample.reset();
     setSelectedAccount(account);
     setTypedIdLength(0);
     setTypedPasswordLength(0);
-    setPhase("typing");
+    setIsLoggingIn(true);
 
     await typeInto(setTypedIdLength, account.accountName.length);
     await typeInto(setTypedPasswordLength, passwordMaskLength);
-    if (!isMountedRef.current) return;
 
-    setPhase("submitting");
     try {
       const created = await createSample.mutateAsync(account.scenario);
       addStoredCase({
@@ -94,16 +81,13 @@ export default function Login() {
         createdAt: created.case.createdAt,
         sampleScenario: account.scenario,
       });
-      if (isMountedRef.current) {
-        enter();
-        navigate("/");
-      }
+      enter();
+      navigate("/");
     } catch {
-      if (isMountedRef.current) setPhase("idle");
+      setIsLoggingIn(false);
     }
   }
 
-  const isBusy = phase !== "idle";
   const loginError =
     createSample.error instanceof ApiError ? createSample.error.message : null;
 
@@ -114,7 +98,7 @@ export default function Login() {
         <h1 className="text-2xl font-bold text-ink">로그인</h1>
       </div>
 
-      <GlassCard title="">
+      <GlassCard>
         <form
           className="flex w-full flex-col gap-4"
           onSubmit={(event) => event.preventDefault()}
@@ -145,7 +129,7 @@ export default function Login() {
             />
           </div>
           <GradientButton fullWidth disabled>
-            {phase === "submitting" ? "로그인 중…" : "로그인"}
+            {createSample.isPending ? "로그인 중…" : "로그인"}
           </GradientButton>
           {loginError && (
             <p role="alert" className="whitespace-pre-line text-sm text-danger">
@@ -171,8 +155,8 @@ export default function Login() {
             <button
               key={account.scenario}
               type="button"
-              disabled={isBusy}
-              onClick={() => handleSelect(account)}
+              disabled={isLoggingIn}
+              onClick={() => handleAccountSelect(account)}
               className={`rounded-3xl text-left transition-[transform,box-shadow] duration-300 ease-smooth will-change-transform disabled:cursor-not-allowed enabled:hover:-translate-y-0.5 enabled:hover:shadow-md ${
                 selectedAccount?.scenario === account.scenario
                   ? "ring-2 ring-brand"
@@ -203,7 +187,7 @@ export default function Login() {
         </p>
         <button
           type="button"
-          disabled={isBusy}
+          disabled={isLoggingIn}
           onClick={() => {
             enter();
             navigate("/");
