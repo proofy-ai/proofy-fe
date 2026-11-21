@@ -1,5 +1,14 @@
 import { resolveApiUrl } from "@/api/client";
-import type { Evidence, SampleFile } from "@/types/api";
+import type { Evidence, InflowType, SampleFile, SampleSet } from "@/types/api";
+
+export const selectSampleFiles = (
+  sampleSets: SampleSet[],
+  inflowType: InflowType,
+): SampleFile[] => {
+  const matchingSets = sampleSets.filter((set) => set.scenario === inflowType);
+  const selectedSets = matchingSets.length > 0 ? matchingSets : sampleSets;
+  return selectedSets.flatMap((set) => set.files);
+};
 
 export const getSampleImageUrls = (
   items: Evidence[],
