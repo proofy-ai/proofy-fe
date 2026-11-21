@@ -1,3 +1,5 @@
+import Router from "./app/Router";
+
 export default function App() {
-  return <div>Proofy</div>;
+  return <Router />;
 }
