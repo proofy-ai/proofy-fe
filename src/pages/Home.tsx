@@ -1,12 +1,13 @@
 import GlassCard from "@/components/common/GlassCard";
 import GradientButton from "@/components/common/GradientButton";
+import { StatusBadge } from "@/components/StatusBadge";
 
 const steps = [
-  "지급정지",
-  "채권소멸절차 공고",
-  "이의제기 (공고일 기준 2개월 이내)",
-  "심사 (원칙 5영업일)",
-  "결과",
+  { label: "지급정지", isHelped: false },
+  { label: "채권소멸절차 공고", isHelped: false },
+  { label: "이의제기 (공고일 기준 2개월 이내)", isHelped: true },
+  { label: "심사 (원칙 5영업일)", isHelped: false },
+  { label: "결과", isHelped: false },
 ];
 
 const documents = [
@@ -39,13 +40,29 @@ export default function Home() {
       </GlassCard>
 
       <GlassCard title="절차 한눈에">
-        <ol className="flex flex-col gap-2">
+        <ol className="flex flex-col gap-1">
           {steps.map((step, index) => (
-            <li key={step} className="flex items-center gap-3">
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
+            <li
+              key={step.label}
+              className={`flex items-center gap-3 rounded-xl px-2 py-1.5 ${
+                step.isHelped ? "bg-brand-soft" : ""
+              }`}
+            >
+              <span
+                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${
+                  step.isHelped ? "bg-brand" : "bg-brand-light"
+                }`}
+              >
                 {index + 1}
               </span>
-              <span>{step}</span>
+              <span className={step.isHelped ? "font-semibold text-ink" : ""}>
+                {step.label}
+              </span>
+              {step.isHelped && (
+                <span className="ml-auto shrink-0">
+                  <StatusBadge tone="info">Proofy가 도와요</StatusBadge>
+                </span>
+              )}
             </li>
           ))}
         </ol>
