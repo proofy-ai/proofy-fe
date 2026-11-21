@@ -25,6 +25,11 @@ type SituationField =
 
 export type SituationErrors = Partial<Record<SituationField, string>>;
 
+export type SituationValueChange = <Key extends keyof SituationValues>(
+  key: Key,
+  value: SituationValues[Key],
+) => void;
+
 export const INITIAL_SITUATION_VALUES = {
   noticeReceivedDate: "",
   publicNoticeDate: "",
