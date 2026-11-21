@@ -5,6 +5,7 @@ import { RequireEntry } from "@/app/RequireEntry";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { Layout } from "@/layout/Layout";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
+import { Analysis } from "@/pages/Analysis";
 import { Evidence } from "@/pages/Evidence";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
@@ -34,6 +35,7 @@ export function Router() {
             <Route path="/settings" element={<Settings />} />
             <Route path={NEW_CASE_PATH} element={<Situation />} />
             <Route path="/cases/:caseId/evidence" element={<Evidence />} />
+            <Route path="/cases/:caseId/analysis" element={<Analysis />} />
           </Route>
           {ComponentGallery && (
             <Route

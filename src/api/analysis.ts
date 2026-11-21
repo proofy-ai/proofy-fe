@@ -1,5 +1,9 @@
 import { request } from "@/api/client";
-import type { AnalysisStart, AnalysisStartResponse } from "@/types/api";
+import type {
+  AnalysisRun,
+  AnalysisStart,
+  AnalysisStartResponse,
+} from "@/types/api";
 
 export const startAnalysis = (
   caseId: string,
@@ -10,4 +14,13 @@ export const startAnalysis = (
     method: "POST",
     caseToken,
     body,
+  });
+
+export const getAnalysisRun = (
+  caseId: string,
+  caseToken: string,
+  runId: string,
+) =>
+  request<AnalysisRun>(`/cases/${caseId}/analysis-runs/${runId}`, {
+    caseToken,
   });
