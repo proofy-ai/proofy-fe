@@ -7,7 +7,7 @@ import { useMyCases } from "@/hooks/useMyCases";
 import type { StoredCase } from "@/types/api";
 
 const DELETE_CONFIRM_MESSAGE =
-  "이 사건을 삭제할까요? 올린 서류와 분석 결과도 함께 지워져요.";
+  "이 사건을 삭제할까요?\n올린 서류와 분석 결과도 함께 지워져요.";
 
 export function MyPage() {
   const { cases, removedCount, deleteMyCase, isDeleting } = useMyCases();

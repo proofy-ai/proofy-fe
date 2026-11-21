@@ -22,7 +22,7 @@ export function ConfirmModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[200]">
       <div className="bg-white rounded-2xl p-6 mx-4 max-w-sm w-full">
-        <div className="text-center text-ink mb-6 leading-relaxed">
+        <div className="text-center text-ink mb-6 leading-relaxed whitespace-pre-line">
           {message}
         </div>
         <div className="flex gap-3">
