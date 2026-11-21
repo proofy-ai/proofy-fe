@@ -7,6 +7,7 @@ export default function Header() {
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const isMyPage = location.pathname === "/me";
+  const hasPreviousPage = location.key !== "default";
 
   return (
     <header className="sticky top-0 z-[100] w-full bg-white/60 backdrop-blur-md">
@@ -17,9 +18,7 @@ export default function Header() {
               type="button"
               aria-label="뒤로 가기"
               className="flex cursor-pointer items-center justify-center border-none bg-transparent p-1"
-              onClick={() =>
-                window.history.length > 1 ? navigate(-1) : navigate("/")
-              }
+              onClick={() => (hasPreviousPage ? navigate(-1) : navigate("/"))}
             >
               <ChevronLeft size={24} strokeWidth={2.5} className="text-ink" />
             </button>
