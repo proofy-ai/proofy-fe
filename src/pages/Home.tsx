@@ -26,7 +26,7 @@ const documents = [
 
 export default function Home() {
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <GlassCard title="내 계좌가 지급정지됐나요?">
         <p className="mb-4 text-gray-600">
           이의제기에 필요한 서류 준비를 도와드려요. 증빙을 올리면 AI가 읽고
@@ -51,8 +51,8 @@ export default function Home() {
         </ol>
       </GlassCard>
 
-      <GlassCard title="필요한 서류" className="lg:col-span-2">
-        <div className="grid gap-4 sm:grid-cols-3">
+      <GlassCard title="필요한 서류">
+        <div className="flex flex-col gap-4">
           {documents.map((document) => (
             <div key={document.title}>
               <p className="font-semibold">{document.title}</p>
@@ -62,7 +62,7 @@ export default function Home() {
         </div>
       </GlassCard>
 
-      <p className="text-sm text-gray-500 lg:col-span-2">
+      <p className="text-sm text-gray-500">
         AI는 해제 여부를 판정하지 않고 서류 준비만 돕습니다. 사실과 다른 내용을
         내는 거짓 이의제기는 처벌받을 수 있어요.
       </p>
