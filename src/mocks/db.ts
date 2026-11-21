@@ -1,5 +1,5 @@
-import { buildRequirementItems } from "@/mocks/requirements";
 import { computeDeadline } from "@/mocks/dates";
+import { buildRequirementItems } from "@/mocks/requirements";
 import type {
   CaseDetail,
   Checklist,

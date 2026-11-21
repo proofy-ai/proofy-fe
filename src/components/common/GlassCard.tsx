@@ -1,4 +1,4 @@
-import { type ReactNode, useId, useRef, useState, useEffect } from "react";
+import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 
 type Props = {
   title: string;

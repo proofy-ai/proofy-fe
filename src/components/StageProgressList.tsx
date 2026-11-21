@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
 import { Check, Circle, Loader2, X } from "lucide-react";
+import type { ReactNode } from "react";
+
 import type { StageProgress, StageStatus } from "@/types/api";
 
 const stageIcons: Record<StageStatus, ReactNode> = {

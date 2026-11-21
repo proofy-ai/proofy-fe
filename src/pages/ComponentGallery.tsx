@@ -1,21 +1,22 @@
-import { useState } from "react";
 import type { ReactNode } from "react";
-import DeadlineBadge from "@/components/DeadlineBadge";
-import EvidenceUploader from "@/components/EvidenceUploader";
-import StageProgressList from "@/components/StageProgressList";
-import {
-  AnalysisRequiredBadge,
-  ChecklistStatusBadge,
-  ConfirmedBadge,
-  NeedsCheckBadge,
-} from "@/components/StatusBadge";
-import { EmptyState, ErrorState, LoadingState } from "@/components/StateViews";
+import { useState } from "react";
+
 import Button from "@/components/common/Button";
 import ConfirmModal from "@/components/common/ConfirmModal";
 import GlassCard from "@/components/common/GlassCard";
 import GradientButton from "@/components/common/GradientButton";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import Toggle from "@/components/common/Toggle";
+import DeadlineBadge from "@/components/DeadlineBadge";
+import EvidenceUploader from "@/components/EvidenceUploader";
+import StageProgressList from "@/components/StageProgressList";
+import { EmptyState, ErrorState, LoadingState } from "@/components/StateViews";
+import {
+  AnalysisRequiredBadge,
+  ChecklistStatusBadge,
+  ConfirmedBadge,
+  NeedsCheckBadge,
+} from "@/components/StatusBadge";
 import { useSettingStore } from "@/store/settingStore";
 import { useToastStore } from "@/store/toastStore";
 import type { Deadline, DeadlineState, StageProgress } from "@/types/api";

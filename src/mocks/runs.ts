@@ -1,11 +1,11 @@
-import {
-  buildChecklist,
-  scenarioOf,
-  type MockCase,
-  type MockRun,
-} from "@/mocks/db";
 import { buildScenarioAnalysis } from "@/mocks/analysisFixtures";
 import { computeDeadline } from "@/mocks/dates";
+import {
+  buildChecklist,
+  type MockCase,
+  type MockRun,
+  scenarioOf,
+} from "@/mocks/db";
 import type {
   AnalysisResult,
   AnalysisRun,

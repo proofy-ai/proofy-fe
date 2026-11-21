@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
-import type { ChangeEvent, DragEvent } from "react";
 import { Upload } from "lucide-react";
+import type { ChangeEvent, DragEvent } from "react";
+import { useRef, useState } from "react";
 
 const acceptedMimeTypes = ["image/jpeg", "image/png", "application/pdf"];
 const maxFileBytes = 10 * 1024 * 1024;

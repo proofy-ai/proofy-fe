@@ -1,8 +1,10 @@
-import { useEffect, type ReactNode } from "react";
-import { useSettingStore } from "../store/settingStore";
-import backgroundImg from "../assets/img/background.png";
+import { type ReactNode, useEffect } from "react";
+
 import Toast from "@/components/common/Toast";
 import Header from "@/components/Header";
+
+import backgroundImg from "../assets/img/background.png";
+import { useSettingStore } from "../store/settingStore";
 
 type LayoutProps = {
   children: ReactNode;

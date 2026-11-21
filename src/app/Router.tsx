@@ -1,13 +1,14 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "@/layout/Layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import RequireEntry from "@/app/RequireEntry";
 import ScrollToTop from "@/components/common/ScrollToTop";
+import Layout from "@/layout/Layout";
 import Home from "@/pages/Home";
+import Login from "@/pages/Login";
 import MyPage from "@/pages/MyPage";
 import NotFound from "@/pages/NotFound";
 import Settings from "@/pages/Settings";
-import Login from "@/pages/Login";
 
 const ComponentGallery = import.meta.env.DEV
   ? lazy(() => import("@/pages/ComponentGallery"))

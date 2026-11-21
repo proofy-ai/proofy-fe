@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
 import type { ApiError } from "@/api/client";
 
 async function loadClient(apiOrigin = "http://api.test") {
