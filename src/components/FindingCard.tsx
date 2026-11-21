@@ -1,5 +1,6 @@
 import { FindingSources } from "@/components/FindingSources";
 import { FindingStatusBadge } from "@/components/StatusBadge";
+import { getFindingElementId } from "@/hooks/useFindingFocus";
 import { CONFLICT_FIELD_LABELS } from "@/lib/findingLabels";
 import type { Finding } from "@/types/api";
 
@@ -11,7 +12,10 @@ export function FindingCard({ finding }: Props) {
   const { conflict } = finding;
 
   return (
-    <li className="flex flex-col gap-2 rounded-2xl bg-white/70 p-4">
+    <li
+      id={getFindingElementId(finding.findingId)}
+      className="flex scroll-mt-24 flex-col gap-2 rounded-2xl bg-white/70 p-4"
+    >
       <div>
         <FindingStatusBadge status={finding.status} />
       </div>
