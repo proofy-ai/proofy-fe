@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronLeft, Settings, User } from "lucide-react";
+import { ChevronLeft, FolderOpen, Settings } from "lucide-react";
 import Logo from "@/components/Logo";
 
 const headerPillButtonClass =
@@ -12,7 +12,13 @@ export default function Header() {
   const isMyPage = location.pathname === "/me";
   const isSettings = location.pathname === "/settings";
   const isLogin = location.pathname === "/login";
+  const isTopLevelPage = isMyPage || isSettings;
   const hasPreviousPage = location.key !== "default";
+
+  function goBack() {
+    if (isTopLevelPage || !hasPreviousPage) navigate("/");
+    else navigate(-1);
+  }
 
   return (
     <header className="sticky top-0 z-[100] w-full bg-white/60 backdrop-blur-md">
@@ -23,7 +29,7 @@ export default function Header() {
               type="button"
               aria-label="뒤로 가기"
               className="flex cursor-pointer items-center justify-center rounded-full border-none bg-transparent p-1 transition-colors hover:bg-white/70"
-              onClick={() => (hasPreviousPage ? navigate(-1) : navigate("/"))}
+              onClick={goBack}
             >
               <ChevronLeft size={24} strokeWidth={2.5} className="text-ink" />
             </button>
@@ -53,7 +59,7 @@ export default function Header() {
               style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
               onClick={() => navigate("/me")}
             >
-              <User size={20} className="text-ink" />
+              <FolderOpen size={20} className="text-ink" />
               <span className="hidden text-sm font-medium text-ink md:inline">
                 내 사건
               </span>
