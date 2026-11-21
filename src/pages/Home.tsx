@@ -6,6 +6,7 @@ import { HelperDog } from "@/components/HelperDog";
 import { StatusBadge } from "@/components/StatusBadge";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
 import { readStoredCases } from "@/lib/caseStorage";
+import { SUBMISSION_DOCUMENTS } from "@/lib/guideContent";
 
 const steps = [
   { label: "지급정지", isHelped: false },
@@ -13,21 +14,6 @@ const steps = [
   { label: "이의제기 (공고일 기준 2개월 이내)", isHelped: true },
   { label: "심사 (원칙 5영업일)", isHelped: false },
   { label: "결과", isHelped: false },
-];
-
-const documents = [
-  {
-    title: "이의제기신청서",
-    description: "별지 제4호서식. 은행 창구·양식으로 작성해요.",
-  },
-  {
-    title: "소명자료",
-    description: "사기이용계좌가 아니라는 사실을 보여 주는 자료예요.",
-  },
-  {
-    title: "신분증 사본",
-    description: "이 서비스는 받지 않아요. 은행에 낼 때 직접 첨부하세요.",
-  },
 ];
 
 export function Home() {
@@ -91,7 +77,7 @@ export function Home() {
 
       <GlassCard title="필요한 서류">
         <div className="flex flex-col gap-4">
-          {documents.map((document) => (
+          {SUBMISSION_DOCUMENTS.map((document) => (
             <div key={document.title}>
               <p className="font-semibold">{document.title}</p>
               <p className="text-gray-600">{document.description}</p>
