@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import { startAnalysis } from "@/api/analysis";
@@ -12,6 +12,7 @@ export const useAnalysisStart = (
   narrative: string,
 ) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () =>
       startAnalysis(caseId, caseToken, {
@@ -22,7 +23,10 @@ export const useAnalysisStart = (
 
   const start = () =>
     mutation.mutate(undefined, {
-      onSuccess: () => navigate(getAnalysisPath(caseId)),
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ["case", caseId] });
+        navigate(getAnalysisPath(caseId));
+      },
       onError: (error) => {
         if (
           error instanceof ApiError &&
