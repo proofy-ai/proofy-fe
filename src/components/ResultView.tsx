@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { FindingsTab } from "@/components/FindingsTab";
+import { MissingDocumentsTab } from "@/components/MissingDocumentsTab";
 import { ReferralCard } from "@/components/ReferralCard";
 import { ResultBanners } from "@/components/ResultBanners";
 import { ResultHeader } from "@/components/ResultHeader";
@@ -35,7 +36,14 @@ export function ResultView({ caseId, caseToken, result }: Props) {
         <>
           <ResultTabs activeTab={activeTab} onTabChange={setActiveTab} />
           {activeTab === "FINDINGS" && <FindingsTab result={result} />}
-          {activeTab !== "FINDINGS" && <EmptyState title="준비 중이에요" />}
+          {activeTab === "MISSING" && (
+            <MissingDocumentsTab
+              caseId={caseId}
+              caseToken={caseToken}
+              checklist={result.checklist}
+            />
+          )}
+          {activeTab === "DRAFT" && <EmptyState title="준비 중이에요" />}
         </>
       )}
     </div>

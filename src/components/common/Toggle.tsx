@@ -1,4 +1,23 @@
+const SIZE_STYLES = {
+  md: {
+    track: "h-8 w-14",
+    knob: "h-6 w-6",
+    knobOff: "translate-x-1",
+    knobOn: "translate-x-7",
+  },
+  sm: {
+    track: "h-5 w-9",
+    knob: "h-4 w-4",
+    knobOff: "translate-x-0.5",
+    knobOn: "translate-x-4",
+  },
+} satisfies Record<
+  string,
+  { track: string; knob: string; knobOff: string; knobOn: string }
+>;
+
 type ToggleProps = {
+  size?: keyof typeof SIZE_STYLES;
   checked: boolean;
   onChange: (checked: boolean) => void;
   disabled?: boolean;
@@ -10,6 +29,7 @@ export function Toggle({
   checked,
   onChange,
   disabled = false,
+  size = "md",
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledby,
 }: ToggleProps) {
@@ -23,7 +43,7 @@ export function Toggle({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={`
-        relative inline-flex h-8 w-14 items-center rounded-full transition-all duration-200 ease-in-out
+        relative inline-flex ${SIZE_STYLES[size].track} items-center rounded-full transition-all duration-200 ease-in-out
         ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:brightness-95"}
       `}
       style={{
@@ -41,8 +61,8 @@ export function Toggle({
     >
       <span
         className={`
-          inline-block h-6 w-6 transform rounded-full transition-transform duration-200 ease-in-out
-          ${checked ? "translate-x-7" : "translate-x-1"}
+          inline-block ${SIZE_STYLES[size].knob} transform rounded-full transition-transform duration-200 ease-in-out
+          ${checked ? SIZE_STYLES[size].knobOn : SIZE_STYLES[size].knobOff}
         `}
         style={{
           background: checked
