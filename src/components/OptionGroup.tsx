@@ -27,7 +27,7 @@ export function OptionGroup<Value extends string>({
         {options.map((option) => (
           <label
             key={option.value}
-            className={`cursor-pointer rounded-full border px-4 py-2 text-sm text-ink transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand ${
+            className={`cursor-pointer rounded-full border px-3 py-1.5 text-sm text-ink transition-colors duration-300 ease-smooth has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand ${
               value === option.value
                 ? "border-brand bg-brand-soft font-semibold"
                 : "border-brand-line bg-white/70 hover:bg-brand-soft"

@@ -51,7 +51,7 @@ export function Settings() {
           <button
             type="button"
             onClick={handleLogout}
-            className="flex shrink-0 items-center gap-2 rounded-full border border-brand-line bg-white/70 px-5 py-2 text-sm font-medium text-ink transition-colors hover:bg-brand-soft"
+            className="flex shrink-0 items-center gap-2 rounded-full border border-brand-line bg-white/70 px-4 py-1.5 text-sm font-medium text-ink transition-all duration-300 ease-smooth hover:scale-[1.03] hover:bg-brand-soft"
           >
             <LogOut className="h-4 w-4" aria-hidden />
             로그아웃

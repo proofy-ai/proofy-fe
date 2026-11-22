@@ -185,7 +185,7 @@ export function Login() {
             enter();
             navigate("/");
           }}
-          className="rounded-full border border-brand-line bg-white/70 px-5 py-2 text-sm font-medium text-ink transition-colors enabled:hover:bg-brand-soft disabled:opacity-60"
+          className="rounded-full border border-brand-line bg-white/70 px-4 py-1.5 text-sm font-medium text-ink transition-all duration-300 ease-smooth enabled:hover:scale-[1.03] enabled:hover:bg-brand-soft disabled:opacity-60"
         >
           직접 해 보기
         </button>

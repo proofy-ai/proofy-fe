@@ -31,7 +31,7 @@ export function GradientButton({
 }: Props) {
   return (
     <div
-      className={`rounded-full transition-all duration-200
+      className={`rounded-full transition-all duration-300 ease-smooth
     ${fullWidth ? "w-full" : ""} 
     ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:scale-[1.03] hover:shadow-lg active:scale-[0.97]"} 
     ${className}`}
@@ -53,7 +53,7 @@ export function GradientButton({
         style={{
           borderRadius: borderRadius ? `${borderRadius}px` : undefined,
           backgroundColor: bgColor,
-          padding: "10px 24px",
+          padding: "7px 20px",
           color: textColor,
         }}
       >

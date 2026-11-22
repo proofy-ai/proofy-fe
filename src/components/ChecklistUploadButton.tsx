@@ -14,7 +14,7 @@ export function ChecklistUploadButton({ item, onUploadClick }: Props) {
     <button
       type="button"
       onClick={() => onUploadClick(firstDocType)}
-      className="ml-auto rounded-full border border-brand-line bg-white/70 px-3 py-1 text-xs font-medium text-ink transition-colors hover:bg-brand-soft"
+      className="ml-auto rounded-full border border-brand-line bg-white/70 px-2.5 py-0.5 text-xs font-medium text-ink transition-all duration-300 ease-smooth hover:scale-[1.04] hover:bg-brand-soft"
     >
       {DOC_TYPE_LABELS[firstDocType]} 올리기
     </button>

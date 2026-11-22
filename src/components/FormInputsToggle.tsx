@@ -15,7 +15,7 @@ export function FormInputsToggle({ title, children }: Props) {
         type="button"
         aria-expanded={isOpen}
         onClick={() => setIsOpen((previous) => !previous)}
-        className="flex w-full cursor-pointer items-center justify-between rounded-full bg-gray-200 px-5 py-3 text-left text-ink transition-all duration-200 hover:bg-gray-300 active:scale-[0.98]"
+        className="flex w-full cursor-pointer items-center justify-between rounded-full bg-gray-200 px-4 py-2.5 text-left text-ink transition-all duration-300 ease-smooth hover:scale-[1.01] hover:bg-gray-300 active:scale-[0.98]"
       >
         <span className="break-keep font-semibold">{title}</span>
         <ChevronDown
