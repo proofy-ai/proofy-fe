@@ -36,7 +36,7 @@ function AnalysisScreen({ caseId, caseToken }: ScreenProps) {
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-6">
       <h1 className="text-2xl font-bold text-ink">
-        AI가 서류를 읽고 정리하고 있어요
+        프루피 AI가 서류를 읽고 정리하고 있어요
       </h1>
       <AnalysisProgressPanel stages={run.stages} steps={run.steps} />
       {retryMessage && (
