@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { GlassCard } from "@/components/common/GlassCard";
 import { DeadlineBadge } from "@/components/DeadlineBadge";
 import { StatusBadge } from "@/components/StatusBadge";
-import { CASE_STATUS_LABELS, INFLOW_TYPE_LABELS } from "@/lib/caseLabels";
+import { getCaseProgress, INFLOW_TYPE_LABELS } from "@/lib/caseLabels";
 import { getContinuePath } from "@/lib/casePaths";
+import { formatCaseNumber } from "@/lib/koreaDate";
 import type { CaseDetail } from "@/types/api";
 
 type Props = {
@@ -14,10 +15,17 @@ type Props = {
 };
 
 export function CaseCard({ detail, onDeleteClick }: Props) {
+  const progress = getCaseProgress(detail.hasResult);
+
   return (
     <GlassCard>
       <div className="flex w-full flex-col gap-3">
+        <p className="text-lg font-bold text-ink">
+          사건 {formatCaseNumber(detail.createdAt)}
+        </p>
         <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm text-ink-sub">현재 단계</span>
+          <StatusBadge tone={progress.tone}>{progress.label}</StatusBadge>
           <StatusBadge tone="info">
             {INFLOW_TYPE_LABELS[detail.inflow.type]}
           </StatusBadge>
@@ -28,12 +36,6 @@ export function CaseCard({ detail, onDeleteClick }: Props) {
             <DeadlineBadge deadline={detail.deadline} />
           </span>
         </div>
-        <p className="text-ink">
-          현재 단계{" "}
-          <span className="font-semibold">
-            {CASE_STATUS_LABELS[detail.status]}
-          </span>
-        </p>
         <div className="flex items-center justify-between gap-3">
           <Link
             to={getContinuePath(detail)}

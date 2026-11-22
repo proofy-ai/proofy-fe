@@ -1,4 +1,4 @@
-import type { CaseStatus, InflowType } from "@/types/api";
+import type { InflowType } from "@/types/api";
 
 export const INFLOW_TYPE_LABELS = {
   SALARY: "급여",
@@ -7,9 +7,7 @@ export const INFLOW_TYPE_LABELS = {
   OTHER: "기타",
 } satisfies Record<InflowType, string>;
 
-export const CASE_STATUS_LABELS = {
-  DRAFT: "입력 중",
-  ANALYZING: "분석 중",
-  REVIEW_READY: "결과 있음",
-  ERROR: "분석 실패",
-} satisfies Record<CaseStatus, string>;
+export const getCaseProgress = (hasResult: boolean) =>
+  hasResult
+    ? ({ tone: "success", label: "완료" } as const)
+    : ({ tone: "warning", label: "진행 중" } as const);

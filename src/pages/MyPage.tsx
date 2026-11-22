@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { CaseCard } from "@/components/CaseCard";
 import { ConfirmModal } from "@/components/common/ConfirmModal";
-import { EmptyState, ErrorState, LoadingState } from "@/components/StateViews";
+import { MyCaseItem } from "@/components/MyCaseItem";
+import { EmptyState } from "@/components/StateViews";
 import { useMyCases } from "@/hooks/useMyCases";
 import type { StoredCase } from "@/types/api";
 
@@ -39,25 +39,13 @@ export function MyPage() {
         />
       )}
 
-      {cases.map(({ storedCase, query }) => {
-        if (query.isPending) return <LoadingState key={storedCase.caseId} />;
-        if (query.isError) {
-          return (
-            <ErrorState
-              key={storedCase.caseId}
-              message={query.error.message}
-              onRetry={() => query.refetch()}
-            />
-          );
-        }
-        return (
-          <CaseCard
-            key={storedCase.caseId}
-            detail={query.data.case}
-            onDeleteClick={() => setCaseToDelete(storedCase)}
-          />
-        );
-      })}
+      {cases.map(({ storedCase, query }) => (
+        <MyCaseItem
+          key={storedCase.caseId}
+          query={query}
+          onDeleteClick={() => setCaseToDelete(storedCase)}
+        />
+      ))}
 
       <ConfirmModal
         isOpen={!!caseToDelete}
