@@ -1,5 +1,10 @@
+import { AnalysisHero } from "@/components/AnalysisHero";
+import { AnalysisStepFeed } from "@/components/AnalysisStepFeed";
 import { GlassCard } from "@/components/common/GlassCard";
 import { StageProgressList } from "@/components/StageProgressList";
+import { useStaggeredCount } from "@/hooks/useStaggeredCount";
+import { STEP_REVEAL_INTERVAL_MS } from "@/lib/analysisRun";
+import { isPlanStep } from "@/lib/investigationPlan";
 import type { AnalysisStep, StageProgress } from "@/types/api";
 
 type Props = {
@@ -8,27 +13,24 @@ type Props = {
 };
 
 export function AnalysisProgressPanel({ stages, steps }: Props) {
-  const newestFirstSteps = [...steps].reverse();
+  const recordedSteps = steps.filter((step) => !isPlanStep(step));
+  const revealedCount = useStaggeredCount(
+    recordedSteps.length,
+    STEP_REVEAL_INTERVAL_MS,
+  );
+  const newestFirstSteps = recordedSteps.slice(0, revealedCount).reverse();
 
   return (
-    <GlassCard title="진행 단계">
-      <div className="flex w-full flex-col gap-5">
-        <StageProgressList stages={stages} />
-        {newestFirstSteps.length > 0 && (
-          <ul className="flex flex-col gap-4 border-t border-brand-line pt-4">
-            {newestFirstSteps.map((step) => (
-              <li key={step.seq} className="flex flex-col gap-0.5">
-                <span className="break-keep text-sm font-medium text-ink">
-                  {step.title}
-                </span>
-                <span className="break-keep text-sm text-ink-sub">
-                  {step.summary}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </GlassCard>
+    <>
+      <GlassCard>
+        <div className="flex w-full flex-col gap-6">
+          <AnalysisHero />
+          <StageProgressList stages={stages} />
+        </div>
+      </GlassCard>
+      {newestFirstSteps.length > 0 && (
+        <AnalysisStepFeed steps={newestFirstSteps} />
+      )}
+    </>
   );
 }

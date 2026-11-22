@@ -2,7 +2,8 @@ import { Navigate, useParams } from "react-router-dom";
 
 import { AnalysisProgressPanel } from "@/components/AnalysisProgressPanel";
 import { AnalysisRetryPanel } from "@/components/AnalysisRetryPanel";
-import { ErrorState, LoadingState } from "@/components/StateViews";
+import { CaseErrorState } from "@/components/CaseErrorState";
+import { LoadingState } from "@/components/StateViews";
 import { StoredCaseGuard } from "@/components/StoredCaseGuard";
 import { useAnalysisRetry } from "@/hooks/useAnalysisRetry";
 import { useAnalysisRun } from "@/hooks/useAnalysisRun";
@@ -24,7 +25,7 @@ function AnalysisScreen({ caseId, caseToken }: ScreenProps) {
   const retry = useAnalysisRetry(caseId, caseToken);
 
   if (error) {
-    return <ErrorState message={error.message} onRetry={refetchCase} />;
+    return <CaseErrorState error={error} onRetry={refetchCase} />;
   }
   if (hasNoRun) return <Navigate to={getEvidencePath(caseId)} replace />;
   if (!run) return <LoadingState />;
@@ -35,9 +36,6 @@ function AnalysisScreen({ caseId, caseToken }: ScreenProps) {
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">
-        프루피 AI가 서류를 읽고 정리하고 있어요
-      </h1>
       <AnalysisProgressPanel stages={run.stages} steps={run.steps} />
       {retryMessage && (
         <AnalysisRetryPanel
