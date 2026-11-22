@@ -1,16 +1,14 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 
+import { PruppyBubble } from "@/components/ChatBubbles";
 import { Toggle } from "@/components/common/Toggle";
-import { DraftAdviceBubble } from "@/components/DraftAdviceBubble";
-import { DraftAdviceToggle } from "@/components/DraftAdviceToggle";
 import { ConfirmedBadge, NeedsCheckBadge } from "@/components/StatusBadge";
-import { NEEDS_CHECK_REASON_LABELS } from "@/lib/draftLabels";
+import { NEEDS_CHECK_ADVICE } from "@/lib/draftLabels";
 import type { DraftSentence } from "@/types/api";
 
 type Props = {
   sentence: DraftSentence;
-  adviceQuestions: string[];
   isSaving: boolean;
   onTextSave: (sentenceId: string, text: string) => void;
   onConfirmChange: (sentenceId: string, confirmed: boolean) => void;
@@ -20,7 +18,6 @@ type Props = {
 
 export function DraftSentenceItem({
   sentence,
-  adviceQuestions,
   isSaving,
   onTextSave,
   onConfirmChange,
@@ -29,11 +26,6 @@ export function DraftSentenceItem({
 }: Props) {
   const [text, setText] = useState(sentence.text);
   const [firstFindingId] = sentence.findingIds;
-  const [isAdviceOpen, setIsAdviceOpen] = useState(
-    sentence.needsCheckReason === "CONFLICT",
-  );
-  const hasAdvice =
-    sentence.needsCheck && !sentence.confirmed && adviceQuestions.length > 0;
 
   const handleTextBlur = () => {
     const trimmedText = text.trim();
@@ -47,18 +39,12 @@ export function DraftSentenceItem({
       {sentence.needsCheck && (
         <div className="flex flex-wrap items-center gap-2">
           {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
-          {sentence.needsCheckReason && !sentence.confirmed && (
-            <span className="text-xs text-ink-sub">
-              {NEEDS_CHECK_REASON_LABELS[sentence.needsCheckReason]}
-            </span>
-          )}
-          {hasAdvice && (
-            <DraftAdviceToggle
-              isOpen={isAdviceOpen}
-              onToggle={() => setIsAdviceOpen((previous) => !previous)}
-            />
-          )}
         </div>
+      )}
+      {sentence.needsCheckReason && !sentence.confirmed && (
+        <PruppyBubble tone="tint">
+          {NEEDS_CHECK_ADVICE[sentence.needsCheckReason]}
+        </PruppyBubble>
       )}
       <textarea
         aria-label="소명서 문장"
@@ -73,9 +59,6 @@ export function DraftSentenceItem({
             : "border-brand-line"
         }`}
       />
-      {hasAdvice && (
-        <DraftAdviceBubble isOpen={isAdviceOpen} questions={adviceQuestions} />
-      )}
       <div className="flex flex-wrap items-center gap-3 text-sm">
         {firstFindingId && (
           <button

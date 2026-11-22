@@ -47,7 +47,6 @@ export function ResultTabPanel({
       caseId={caseId}
       caseToken={caseToken}
       draft={result.draft}
-      questions={result.agentReview?.questions ?? []}
       onShowFinding={onShowFinding}
     />
   );

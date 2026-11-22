@@ -3,7 +3,6 @@ import { DraftSentenceItem } from "@/components/DraftSentenceItem";
 import { DraftWarnings } from "@/components/DraftWarnings";
 import { EmptyState } from "@/components/StateViews";
 import { useDraftEditing } from "@/hooks/useDraftEditing";
-import { getAdviceQuestions } from "@/lib/draftAdvice";
 import {
   getSectionTitle,
   toSentenceUpdates,
@@ -12,23 +11,16 @@ import {
   withEditedText,
   withoutSentence,
 } from "@/lib/draftEditing";
-import type { AgentQuestion, Draft } from "@/types/api";
+import type { Draft } from "@/types/api";
 
 type Props = {
   caseId: string;
   caseToken: string;
   draft: Draft | null;
-  questions: AgentQuestion[];
   onShowFinding: (findingId: string) => void;
 };
 
-export function DraftTab({
-  caseId,
-  caseToken,
-  draft,
-  questions,
-  onShowFinding,
-}: Props) {
+export function DraftTab({ caseId, caseToken, draft, onShowFinding }: Props) {
   const { save, isSaving } = useDraftEditing(
     caseId,
     caseToken,
@@ -57,7 +49,6 @@ export function DraftTab({
             )}
             <DraftSentenceItem
               sentence={sentence}
-              adviceQuestions={getAdviceQuestions(sentence, questions)}
               isSaving={isSaving}
               onTextSave={(id, text) => save(withEditedText(updates, id, text))}
               onConfirmChange={(id, confirmed) =>
