@@ -44,7 +44,7 @@ export function ResultTabsFlow({ caseId, caseToken, result }: Props) {
       />
       {nextTab && (
         <GradientButton fullWidth onClick={() => handleTabChange(nextTab.key)}>
-          다음: {nextTab.label}
+          {nextTab.label}
         </GradientButton>
       )}
     </>

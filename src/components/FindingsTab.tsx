@@ -33,6 +33,7 @@ export function FindingsTab({ result }: Props) {
         ))}
       </ul>
       <UnreadEvidenceList items={result.unreadEvidence} />
+      <p className="break-keep text-xs text-ink-faint">{result.aiNotice}</p>
     </div>
   );
 }

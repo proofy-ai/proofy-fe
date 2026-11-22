@@ -1,7 +1,6 @@
 import { OverwriteDraftConfirm } from "@/components/OverwriteDraftConfirm";
 import { ReferralCard } from "@/components/ReferralCard";
 import { ResultBanners } from "@/components/ResultBanners";
-import { ResultHeader } from "@/components/ResultHeader";
 import { ResultTabsFlow } from "@/components/ResultTabsFlow";
 import { useAnalysisRetry } from "@/hooks/useAnalysisRetry";
 import type { AnalysisResult } from "@/types/api";
@@ -17,7 +16,6 @@ export function ResultView({ caseId, caseToken, result }: Props) {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
-      <ResultHeader aiNotice={result.aiNotice} deadline={result.deadline} />
       <ResultBanners
         isStale={result.isStale}
         precomputed={result.precomputed}

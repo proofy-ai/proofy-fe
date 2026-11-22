@@ -1,3 +1,6 @@
+import { motion, MotionConfig } from "framer-motion";
+import { Check } from "lucide-react";
+
 import { RESULT_TABS, type ResultTabKey } from "@/lib/resultTabs";
 
 type Props = {
@@ -5,25 +8,84 @@ type Props = {
   onTabChange: (tab: ResultTabKey) => void;
 };
 
-export function ResultTabs({ activeTab, onTabChange }: Props) {
+const CIRCLE_STYLES = {
+  active:
+    "bg-brand-strong text-white shadow-[0_4px_10px_rgb(var(--color-brand-strong)/0.35)]",
+  passed: "bg-gray-600 text-white shadow-[0_3px_8px_rgb(0_0_0/0.25)]",
+  upcoming: "bg-white text-ink-faint shadow-[0_2px_6px_rgb(0_0_0/0.1)]",
+};
+
+type CircleProps = {
+  index: number;
+  state: keyof typeof CIRCLE_STYLES;
+};
+
+function StepCircle({ index, state }: CircleProps) {
   return (
-    <div role="tablist" className="flex gap-2">
-      {RESULT_TABS.map((tab) => (
-        <button
-          key={tab.key}
-          type="button"
-          role="tab"
-          aria-selected={activeTab === tab.key}
-          onClick={() => onTabChange(tab.key)}
-          className={`flex-1 whitespace-nowrap rounded-full px-1 py-2 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
-            activeTab === tab.key
-              ? "bg-brand text-white"
-              : "bg-white/70 text-ink hover:bg-brand-soft"
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))}
-    </div>
+    <motion.span
+      key={state}
+      initial={{ opacity: 0, x: -14, scale: 0.94 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{
+        duration: 0.55,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.08,
+      }}
+      className={`relative flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${CIRCLE_STYLES[state]}`}
+    >
+      {state === "passed" ? (
+        <Check className="h-4 w-4" aria-hidden />
+      ) : (
+        index + 1
+      )}
+    </motion.span>
+  );
+}
+
+export function ResultTabs({ activeTab, onTabChange }: Props) {
+  const activeIndex = RESULT_TABS.findIndex((tab) => tab.key === activeTab);
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <div role="tablist" className="flex">
+        {RESULT_TABS.map((tab, index) => {
+          const isActive = index === activeIndex;
+          const isPassed = index < activeIndex;
+          const state = isActive ? "active" : isPassed ? "passed" : "upcoming";
+
+          return (
+            <button
+              key={tab.key}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => onTabChange(tab.key)}
+              className="relative flex flex-1 flex-col items-center gap-1.5 px-1 transition-transform duration-300 ease-smooth active:scale-95"
+            >
+              {index < RESULT_TABS.length - 1 && (
+                <span
+                  aria-hidden
+                  className="absolute left-1/2 top-[14.5px] h-[3px] w-full overflow-hidden bg-brand-line"
+                >
+                  <span
+                    className={`block h-full origin-left bg-brand-strong transition-transform duration-500 ease-smooth ${
+                      isPassed ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                </span>
+              )}
+              <StepCircle index={index} state={state} />
+              <span
+                className={`break-keep text-center text-sm transition-colors duration-300 ${
+                  isActive ? "font-semibold text-ink" : "text-ink-sub"
+                }`}
+              >
+                {tab.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </MotionConfig>
   );
 }
