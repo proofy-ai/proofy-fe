@@ -89,41 +89,25 @@ function FirstPage({ fields, reasonText }: FirstPageProps) {
   );
 }
 
-function ContinuationPage({ reasonText }: { reasonText: string }) {
-  return (
-    <>
-      <h2 className="text-[18px] font-bold">이의제기 사유(계속)</h2>
-      <p className="whitespace-pre-line">{reasonText}</p>
-    </>
-  );
-}
-
 type Props = {
   fields: ObjectionFormFields;
-  reasonPages: string[];
+  reasonText: string;
   containerRef?: RefObject<HTMLDivElement | null>;
 };
 
 export function ObjectionFormSheet({
   fields,
-  reasonPages,
+  reasonText,
   containerRef,
 }: Props) {
   return (
-    <div ref={containerRef} className="flex flex-col gap-4">
-      {reasonPages.map((reasonText, index) => (
-        <div
-          key={index}
-          style={{ width: PAGE_WIDTH_PX, minHeight: PAGE_HEIGHT_PX }}
-          className={PAGE_CLASS}
-        >
-          {index === 0 ? (
-            <FirstPage fields={fields} reasonText={reasonText} />
-          ) : (
-            <ContinuationPage reasonText={reasonText} />
-          )}
-        </div>
-      ))}
+    <div ref={containerRef} className="flex flex-col">
+      <div
+        style={{ width: PAGE_WIDTH_PX, minHeight: PAGE_HEIGHT_PX }}
+        className={PAGE_CLASS}
+      >
+        <FirstPage fields={fields} reasonText={reasonText} />
+      </div>
     </div>
   );
 }

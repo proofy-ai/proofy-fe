@@ -8,7 +8,7 @@ import { ObjectionFormPreview } from "@/components/ObjectionFormPreview";
 import { ObjectionFormSheet } from "@/components/ObjectionFormSheet";
 import { useObjectionFormFields } from "@/hooks/useObjectionFormFields";
 import { useObjectionPdf } from "@/hooks/useObjectionPdf";
-import { useObjectionReasonPages } from "@/hooks/useObjectionReasonPages";
+import { useObjectionReasonText } from "@/hooks/useObjectionReasonText";
 import { useSessionStore } from "@/store/sessionStore";
 import type { Checklist, Draft } from "@/types/api";
 
@@ -33,7 +33,7 @@ export function ObjectionFormPanel({
   );
   const { fields, setField } = useObjectionFormFields(caseId);
   const { isSaving, savePdf } = useObjectionPdf(exportRef, caseId);
-  const { reasonPages, isReasonLoading } = useObjectionReasonPages(
+  const { reasonText, isReasonLoading } = useObjectionReasonText(
     caseId,
     caseToken,
     draft,
@@ -53,7 +53,7 @@ export function ObjectionFormPanel({
         ) : (
           <ObjectionFormInputs fields={fields} onChange={setField} />
         )}
-        <ObjectionFormPreview fields={fields} reasonPages={reasonPages} />
+        <ObjectionFormPreview fields={fields} reasonText={reasonText} />
         <ObjectionDownloadButton
           unconfirmedCount={draft.unconfirmedCount}
           isDisabled={isReasonLoading}
@@ -68,7 +68,7 @@ export function ObjectionFormPanel({
       >
         <ObjectionFormSheet
           fields={fields}
-          reasonPages={reasonPages}
+          reasonText={reasonText}
           containerRef={exportRef}
         />
       </div>

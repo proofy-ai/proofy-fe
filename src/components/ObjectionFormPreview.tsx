@@ -6,10 +6,10 @@ const DARK_MODE_DOCUMENT_FIX = "dark:[filter:invert(1)_hue-rotate(180deg)]";
 
 type Props = {
   fields: ObjectionFormFields;
-  reasonPages: string[];
+  reasonText: string;
 };
 
-export function ObjectionFormPreview({ fields, reasonPages }: Props) {
+export function ObjectionFormPreview({ fields, reasonText }: Props) {
   const { wrapperRef, contentRef, scale, scaledHeight } = useFittedPreview();
 
   return (
@@ -26,7 +26,7 @@ export function ObjectionFormPreview({ fields, reasonPages }: Props) {
           transformOrigin: "top left",
         }}
       >
-        <ObjectionFormSheet fields={fields} reasonPages={reasonPages} />
+        <ObjectionFormSheet fields={fields} reasonText={reasonText} />
       </div>
     </div>
   );

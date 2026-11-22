@@ -3,7 +3,6 @@ import { describe, expect, it } from "vitest";
 import {
   buildAttachmentLine,
   formatApplicationDate,
-  splitReasonPages,
 } from "@/lib/objectionForm";
 import type { ChecklistItem, Evidence } from "@/types/api";
 
@@ -32,27 +31,6 @@ describe("buildAttachmentLine", () => {
 
   it("낼 서류가 없으면 빈 문자열을 돌려준다", () => {
     expect(buildAttachmentLine([], [])).toBe("");
-  });
-});
-
-describe("splitReasonPages", () => {
-  it("짧은 글은 한 쪽으로 둔다", () => {
-    expect(splitReasonPages("짧은 글이에요.")).toEqual(["짧은 글이에요."]);
-  });
-
-  it("넘치면 문장 단위로 다음 쪽에 이어 붙이고 글자를 잃지 않는다", () => {
-    const sentence = "가".repeat(60) + ".";
-    const text = Array.from({ length: 12 }, () => sentence).join(" ");
-    const pages = splitReasonPages(text);
-
-    expect(pages.length).toBeGreaterThan(1);
-    expect(pages.join(" ")).toBe(text);
-  });
-
-  it("문단 사이 빈 줄을 유지한다", () => {
-    expect(splitReasonPages("첫째 문단.\n\n둘째 문단.")).toEqual([
-      "첫째 문단.\n\n둘째 문단.",
-    ]);
   });
 });
 

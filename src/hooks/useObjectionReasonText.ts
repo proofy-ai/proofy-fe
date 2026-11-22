@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { listEvidence } from "@/api/evidence";
-import { buildAttachmentLine, splitReasonPages } from "@/lib/objectionForm";
+import { buildAttachmentLine } from "@/lib/objectionForm";
 import type { Checklist, Draft } from "@/types/api";
 
-export const useObjectionReasonPages = (
+export const useObjectionReasonText = (
   caseId: string,
   caseToken: string,
   draft: Draft,
@@ -23,7 +23,7 @@ export const useObjectionReasonPages = (
     : draft.fullText;
 
   return {
-    reasonPages: splitReasonPages(reasonText),
+    reasonText,
     isReasonLoading: evidenceQuery.isPending,
   };
 };
