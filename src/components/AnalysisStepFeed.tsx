@@ -1,4 +1,3 @@
-import { motion, MotionConfig } from "framer-motion";
 import {
   AlertTriangle,
   FileText,
@@ -51,34 +50,30 @@ function StepTimelineItem({ step, isLatest, isLast }: ItemProps) {
   const isEmphasized = isLatest || isAlert;
 
   return (
-    <motion.li
-      layout
-      initial={{ opacity: 0, y: -12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-      className="flex gap-3"
-    >
-      <div className="flex flex-col items-center">
-        <span
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${getNodeClass(isAlert, isLatest)}`}
-        >
-          <Icon className="h-4 w-4" aria-hidden />
-        </span>
-        {!isLast && <span className="my-1 w-px flex-1 bg-brand-line" />}
+    <li className="grid animate-item-drop-in motion-reduce:animate-none">
+      <div className="flex min-h-0 gap-3 overflow-hidden">
+        <div className="flex flex-col items-center">
+          <span
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${getNodeClass(isAlert, isLatest)}`}
+          >
+            <Icon className="h-4 w-4" aria-hidden />
+          </span>
+          {!isLast && <span className="my-1 w-px flex-1 bg-brand-line" />}
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col gap-0.5 pb-5">
+          <span
+            className={`break-keep text-sm font-semibold ${isAlert ? "text-danger" : "text-ink"}`}
+          >
+            {step.title}
+          </span>
+          <span
+            className={`break-keep text-xs text-ink-sub ${isEmphasized ? "" : "line-clamp-2"}`}
+          >
+            {step.summary}
+          </span>
+        </div>
       </div>
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5 pb-5">
-        <span
-          className={`break-keep text-sm font-semibold ${isAlert ? "text-danger" : "text-ink"}`}
-        >
-          {step.title}
-        </span>
-        <span
-          className={`break-keep text-xs text-ink-sub ${isEmphasized ? "" : "line-clamp-2"}`}
-        >
-          {step.summary}
-        </span>
-      </div>
-    </motion.li>
+    </li>
   );
 }
 
@@ -89,18 +84,16 @@ type Props = {
 export function AnalysisStepFeed({ steps }: Props) {
   return (
     <GlassCard title="조사 기록">
-      <MotionConfig reducedMotion="user">
-        <ol className="flex w-full flex-col pt-1">
-          {steps.map((step, index) => (
-            <StepTimelineItem
-              key={step.seq}
-              step={step}
-              isLatest={index === 0}
-              isLast={index === steps.length - 1}
-            />
-          ))}
-        </ol>
-      </MotionConfig>
+      <ol className="flex w-full flex-col pt-1">
+        {steps.map((step, index) => (
+          <StepTimelineItem
+            key={step.seq}
+            step={step}
+            isLatest={index === 0}
+            isLast={index === steps.length - 1}
+          />
+        ))}
+      </ol>
     </GlassCard>
   );
 }

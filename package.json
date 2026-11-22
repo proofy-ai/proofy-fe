@@ -30,7 +30,6 @@
   "dependencies": {
     "@tanstack/react-query": "^5.108.2",
     "clsx": "^2.1.1",
-    "framer-motion": "^14.14.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "lucide-react": "^1.77.0",

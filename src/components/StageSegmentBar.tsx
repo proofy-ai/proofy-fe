@@ -8,23 +8,36 @@ const SEGMENT_FILL_INTERVAL_MS: Record<Stage, number> = {
   DRAFTING: 600,
   FINISHED: 600,
 };
+const COMPLETE_SWEEP_MS = 22;
 
 type Props = {
   stageKey: Stage;
+  isComplete?: boolean;
 };
 
-export function StageSegmentBar({ stageKey }: Props) {
-  const filledCount = useStaggeredCount(
+export function StageSegmentBar({ stageKey, isComplete = false }: Props) {
+  const stepCount = useStaggeredCount(
     SEGMENT_COUNT - 1,
     SEGMENT_FILL_INTERVAL_MS[stageKey],
   );
+  const filledCount = isComplete ? SEGMENT_COUNT : stepCount;
 
   return (
-    <div aria-hidden className="flex w-full gap-1">
+    <div
+      aria-hidden
+      className={`flex w-full gap-1 overflow-hidden ${
+        isComplete ? "animate-bar-finish motion-reduce:animate-none" : ""
+      }`}
+    >
       {Array.from({ length: SEGMENT_COUNT }, (_, index) => (
         <span
           key={index}
-          className={`h-1 flex-1 rounded-full transition-colors duration-500 ${
+          style={{
+            transitionDelay: isComplete
+              ? `${index * COMPLETE_SWEEP_MS}ms`
+              : "0ms",
+          }}
+          className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
             index < filledCount ? "bg-brand-strong" : "bg-brand-line"
           }`}
         />

@@ -1,5 +1,5 @@
 import { Check, ScanLine, X } from "lucide-react";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 
 import { StageSegmentBar } from "@/components/StageSegmentBar";
 import type { StageProgress, StageStatus } from "@/types/api";
@@ -30,32 +30,43 @@ type StageProgressListProps = {
   stages: StageProgress[];
 };
 
+function StageRow({ stage }: { stage: StageProgress }) {
+  const [hasRun, setHasRun] = useState(false);
+  if (stage.status === "RUNNING" && !hasRun) setHasRun(true);
+  const isRunning = stage.status === "RUNNING";
+  const justCompleted = hasRun && stage.status === "DONE";
+
+  return (
+    <li className="flex gap-3">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center">
+        {stageIcons[stage.status]}
+      </span>
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        <span
+          className={`break-keep text-sm ${
+            stage.status === "PENDING"
+              ? "text-ink-faint"
+              : "font-semibold text-ink"
+          }`}
+        >
+          {stage.label}
+        </span>
+        {(isRunning || justCompleted) && (
+          <StageSegmentBar stageKey={stage.key} isComplete={justCompleted} />
+        )}
+      </div>
+      <span className="flex h-6 shrink-0 items-center">
+        {stageStatusLabels[stage.status]}
+      </span>
+    </li>
+  );
+}
+
 export function StageProgressList({ stages }: StageProgressListProps) {
   return (
     <ol className="flex w-full flex-col gap-5">
       {stages.map((stage) => (
-        <li key={`${stage.key}-${stage.status}`} className="flex gap-3">
-          <span className="flex h-6 w-6 shrink-0 items-center justify-center">
-            {stageIcons[stage.status]}
-          </span>
-          <div className="flex min-w-0 flex-1 flex-col gap-2">
-            <span
-              className={`break-keep text-sm ${
-                stage.status === "PENDING"
-                  ? "text-ink-faint"
-                  : "font-semibold text-ink"
-              }`}
-            >
-              {stage.label}
-            </span>
-            {stage.status === "RUNNING" && (
-              <StageSegmentBar stageKey={stage.key} />
-            )}
-          </div>
-          <span className="flex h-6 shrink-0 items-center">
-            {stageStatusLabels[stage.status]}
-          </span>
-        </li>
+        <StageRow key={stage.key} stage={stage} />
       ))}
     </ol>
   );
