@@ -2,6 +2,7 @@ import { Check, ScanLine, X } from "lucide-react";
 import { type ReactNode, useState } from "react";
 
 import { StageSegmentBar } from "@/components/StageSegmentBar";
+import { STAGE_LABELS } from "@/lib/stageLabels";
 import type { StageProgress, StageStatus } from "@/types/api";
 
 const stageIcons: Record<StageStatus, ReactNode> = {
@@ -49,7 +50,7 @@ function StageRow({ stage }: { stage: StageProgress }) {
               : "font-semibold text-ink"
           }`}
         >
-          {stage.label}
+          {STAGE_LABELS[stage.key]}
         </span>
         {(isRunning || justCompleted) && (
           <StageSegmentBar stageKey={stage.key} isComplete={justCompleted} />
