@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { RequireEntry } from "@/app/RequireEntry";
+import { RequireSelfStart } from "@/app/RequireSelfStart";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { Layout } from "@/layout/Layout";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
@@ -34,7 +35,9 @@ export function Router() {
             <Route path="/" element={<Home />} />
             <Route path="/me" element={<MyPage />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path={NEW_CASE_PATH} element={<Situation />} />
+            <Route element={<RequireSelfStart />}>
+              <Route path={NEW_CASE_PATH} element={<Situation />} />
+            </Route>
             <Route path="/cases/:caseId/evidence" element={<Evidence />} />
             <Route path="/cases/:caseId/analysis" element={<Analysis />} />
             <Route path="/cases/:caseId/result" element={<Result />} />

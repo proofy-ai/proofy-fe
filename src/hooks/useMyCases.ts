@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 
 import { deleteCase, getCase } from "@/api/cases";
 import { ApiError } from "@/api/client";
-import { readStoredCases, removeStoredCase } from "@/lib/caseStorage";
+import {
+  filterCasesForSession,
+  readStoredCases,
+  removeStoredCase,
+} from "@/lib/caseStorage";
+import { useSessionStore } from "@/store/sessionStore";
 import { useToastStore } from "@/store/toastStore";
 import type { StoredCase } from "@/types/api";
 
@@ -16,7 +21,10 @@ export const isCaseGone = (error: unknown) =>
 
 export const useMyCases = () => {
   const showToast = useToastStore((state) => state.show);
-  const [storedCases, setStoredCases] = useState(readStoredCases);
+  const trialScenario = useSessionStore((state) => state.trialScenario);
+  const readSessionCases = () =>
+    filterCasesForSession(readStoredCases(), trialScenario);
+  const [storedCases, setStoredCases] = useState(readSessionCases);
 
   const caseQueries = useQueries({
     queries: storedCases.map((storedCase) => ({
@@ -44,7 +52,7 @@ export const useMyCases = () => {
     },
     onSuccess: (_, { caseId }) => {
       removeStoredCase(caseId);
-      setStoredCases(readStoredCases());
+      setStoredCases(readSessionCases());
     },
     onError: (error) => showToast(error.message, "error"),
   });

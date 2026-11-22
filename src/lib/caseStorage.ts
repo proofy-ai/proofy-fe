@@ -1,4 +1,4 @@
-import type { StoredCase } from "@/types/api";
+import type { SampleScenario, StoredCase } from "@/types/api";
 
 const storageKey = "proofy.cases";
 const maxStoredCases = 10;
@@ -43,4 +43,20 @@ export function removeStoredCase(caseId: string) {
     (storedCase) => storedCase.caseId !== caseId,
   );
   writeStoredCases(remainingCases);
+}
+
+export function findLatestSampleCase(
+  cases: StoredCase[],
+  scenario: SampleScenario,
+) {
+  return cases.find((storedCase) => storedCase.sampleScenario === scenario);
+}
+
+export function filterCasesForSession(
+  cases: StoredCase[],
+  trialScenario: SampleScenario | null,
+) {
+  return cases.filter(
+    (storedCase) => storedCase.sampleScenario === trialScenario,
+  );
 }

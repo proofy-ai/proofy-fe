@@ -1,12 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { GlassCard } from "@/components/common/GlassCard";
-import { GradientButton } from "@/components/common/GradientButton";
 import { HelperDog } from "@/components/HelperDog";
+import { HomeStartButton } from "@/components/HomeStartButton";
 import { StatusBadge } from "@/components/StatusBadge";
-import { NEW_CASE_PATH } from "@/lib/casePaths";
-import { readStoredCases } from "@/lib/caseStorage";
+import { filterCasesForSession, readStoredCases } from "@/lib/caseStorage";
 import { SUBMISSION_DOCUMENTS } from "@/lib/guideContent";
+import { useSessionStore } from "@/store/sessionStore";
 
 const steps = [
   { label: "지급정지", isHelped: false },
@@ -17,8 +17,12 @@ const steps = [
 ];
 
 export function Home() {
-  const navigate = useNavigate();
-  const storedCaseCount = readStoredCases().length;
+  const trialScenario = useSessionStore((state) => state.trialScenario);
+  const isTrialAccount = trialScenario !== null;
+  const storedCaseCount = filterCasesForSession(
+    readStoredCases(),
+    trialScenario,
+  ).length;
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
@@ -31,19 +35,14 @@ export function Home() {
             }
           </p>
         </div>
-        <GradientButton fullWidth onClick={() => navigate(NEW_CASE_PATH)}>
-          이의제기 준비 시작
-        </GradientButton>
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm font-medium text-ink">
-          {storedCaseCount > 0 && (
+        <HomeStartButton />
+        {!isTrialAccount && storedCaseCount > 0 && (
+          <div className="mt-3 flex justify-center text-sm font-medium text-ink">
             <Link to="/me" className="underline">
               내 사건 {storedCaseCount}건 이어서 하기
             </Link>
-          )}
-          <Link to="/login" className="underline">
-            샘플로 체험하기
-          </Link>
-        </div>
+          </div>
+        )}
       </GlassCard>
 
       <GlassCard title="절차 한눈에">

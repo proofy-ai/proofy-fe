@@ -2,6 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   addStoredCase,
+  filterCasesForSession,
+  findLatestSampleCase,
   readStoredCases,
   removeStoredCase,
 } from "@/lib/caseStorage";
@@ -99,5 +101,38 @@ describe("caseStorage", () => {
 
     expect(readStoredCases()).toEqual([]);
     expect(() => addStoredCase(storedCase("a"))).not.toThrow();
+  });
+});
+
+describe("findLatestSampleCase", () => {
+  it("같은 시나리오의 가장 최근 사건을 찾는다", () => {
+    const cases: StoredCase[] = [
+      { ...storedCase("new-goods"), sampleScenario: "GOODS" },
+      { ...storedCase("unexpected"), sampleScenario: "UNEXPECTED" },
+      { ...storedCase("old-goods"), sampleScenario: "GOODS" },
+    ];
+
+    expect(findLatestSampleCase(cases, "GOODS")?.caseId).toBe("new-goods");
+    expect(findLatestSampleCase(cases, "SALARY")).toBeUndefined();
+  });
+});
+
+describe("filterCasesForSession", () => {
+  const cases: StoredCase[] = [
+    { ...storedCase("goods"), sampleScenario: "GOODS" },
+    { ...storedCase("unexpected"), sampleScenario: "UNEXPECTED" },
+    storedCase("mine"),
+  ];
+
+  it("체험 계정에서는 그 계정의 사건만 보여 준다", () => {
+    expect(
+      filterCasesForSession(cases, "UNEXPECTED").map(({ caseId }) => caseId),
+    ).toEqual(["unexpected"]);
+  });
+
+  it("직접 해 보기에서는 내가 만든 사건만 보여 준다", () => {
+    expect(
+      filterCasesForSession(cases, null).map(({ caseId }) => caseId),
+    ).toEqual(["mine"]);
   });
 });

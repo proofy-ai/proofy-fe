@@ -2,13 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createSampleCase } from "@/api/cases";
 import { ApiError } from "@/api/client";
 import { GlassCard } from "@/components/common/GlassCard";
 import { GradientButton } from "@/components/common/GradientButton";
 import { DogLogo } from "@/components/DogLogo";
 import { StatusBadge } from "@/components/StatusBadge";
-import { addStoredCase } from "@/lib/caseStorage";
+import { ensureTrialCase } from "@/lib/trialCases";
 import { useSessionStore } from "@/store/sessionStore";
 import type { SampleScenario } from "@/types/api";
 
@@ -49,7 +48,7 @@ function wait(milliseconds: number) {
 export function Login() {
   const navigate = useNavigate();
   const enter = useSessionStore((state) => state.enter);
-  const createSample = useMutation({ mutationFn: createSampleCase });
+  const prepareTrialCase = useMutation({ mutationFn: ensureTrialCase });
   const [selectedAccount, setSelectedAccount] = useState<TrialAccount | null>(
     null,
   );
@@ -66,7 +65,7 @@ export function Login() {
 
   async function handleAccountSelect(account: TrialAccount) {
     if (isLoggingIn) return;
-    createSample.reset();
+    prepareTrialCase.reset();
     setSelectedAccount(account);
     setTypedIdLength(0);
     setTypedPasswordLength(0);
@@ -76,14 +75,8 @@ export function Login() {
     await typeInto(setTypedPasswordLength, passwordMaskLength);
 
     try {
-      const created = await createSample.mutateAsync(account.scenario);
-      addStoredCase({
-        caseId: created.caseId,
-        caseToken: created.caseToken,
-        createdAt: created.case.createdAt,
-        sampleScenario: account.scenario,
-      });
-      enter();
+      await prepareTrialCase.mutateAsync(account.scenario);
+      enter(account.scenario);
       navigate("/");
     } catch {
       setIsLoggingIn(false);
@@ -91,7 +84,9 @@ export function Login() {
   }
 
   const loginError =
-    createSample.error instanceof ApiError ? createSample.error.message : null;
+    prepareTrialCase.error instanceof ApiError
+      ? prepareTrialCase.error.message
+      : null;
 
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-8">
@@ -131,7 +126,7 @@ export function Login() {
             />
           </div>
           <GradientButton fullWidth disabled>
-            {createSample.isPending ? "로그인 중…" : "로그인"}
+            {prepareTrialCase.isPending ? "로그인 중…" : "로그인"}
           </GradientButton>
           {loginError && (
             <p role="alert" className="whitespace-pre-line text-sm text-danger">
