@@ -42,6 +42,15 @@ async function createTrialCase(scenario: SampleScenario) {
   return created.caseId;
 }
 
+export async function restartTrialCase(
+  scenario: SampleScenario,
+  { caseId, caseToken }: StoredCase,
+) {
+  await deleteCase(caseId, caseToken).catch(() => undefined);
+  removeStoredCase(caseId);
+  return ensureTrialCase(scenario);
+}
+
 export async function ensureTrialCase(scenario: SampleScenario) {
   const existingCase = findLatestSampleCase(readStoredCases(), scenario);
 

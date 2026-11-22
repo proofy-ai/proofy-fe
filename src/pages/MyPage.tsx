@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { ConfirmModal } from "@/components/common/ConfirmModal";
 import { MyCaseItem } from "@/components/MyCaseItem";
+import { RestartTrialConfirm } from "@/components/RestartTrialConfirm";
 import { EmptyState } from "@/components/StateViews";
 import { useMyCases } from "@/hooks/useMyCases";
 import type { StoredCase } from "@/types/api";
@@ -12,6 +13,7 @@ const DELETE_CONFIRM_MESSAGE =
 export function MyPage() {
   const { cases, removedCount, deleteMyCase, isDeleting } = useMyCases();
   const [caseToDelete, setCaseToDelete] = useState<StoredCase | null>(null);
+  const [caseToRestart, setCaseToRestart] = useState<StoredCase | null>(null);
 
   const handleDeleteConfirm = () => {
     if (!caseToDelete || isDeleting) return;
@@ -44,9 +46,18 @@ export function MyPage() {
           key={storedCase.caseId}
           query={query}
           onDeleteClick={() => setCaseToDelete(storedCase)}
+          onRestartClick={
+            storedCase.sampleScenario
+              ? () => setCaseToRestart(storedCase)
+              : undefined
+          }
         />
       ))}
 
+      <RestartTrialConfirm
+        storedCase={caseToRestart}
+        onClose={() => setCaseToRestart(null)}
+      />
       <ConfirmModal
         isOpen={!!caseToDelete}
         message={DELETE_CONFIRM_MESSAGE}

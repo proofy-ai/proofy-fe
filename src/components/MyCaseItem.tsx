@@ -7,9 +7,10 @@ import type { CaseResponse } from "@/types/api";
 type Props = {
   query: UseQueryResult<CaseResponse>;
   onDeleteClick: () => void;
+  onRestartClick?: () => void;
 };
 
-export function MyCaseItem({ query, onDeleteClick }: Props) {
+export function MyCaseItem({ query, onDeleteClick, onRestartClick }: Props) {
   if (query.isPending) return <LoadingState />;
   if (query.isError) {
     return (
@@ -19,5 +20,11 @@ export function MyCaseItem({ query, onDeleteClick }: Props) {
       />
     );
   }
-  return <CaseCard detail={query.data.case} onDeleteClick={onDeleteClick} />;
+  return (
+    <CaseCard
+      detail={query.data.case}
+      onDeleteClick={onDeleteClick}
+      onRestartClick={onRestartClick}
+    />
+  );
 }

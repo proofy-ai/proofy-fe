@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createSampleCase, deleteCase, getCase } from "@/api/cases";
 import { ApiError } from "@/api/client";
 import { addStoredCase, readStoredCases } from "@/lib/caseStorage";
-import { ensureTrialCase } from "@/lib/trialCases";
+import { ensureTrialCase, restartTrialCase } from "@/lib/trialCases";
 import type { SampleScenario, StoredCase } from "@/types/api";
 
 vi.mock("@/api/cases", () => ({
@@ -100,5 +100,16 @@ describe("ensureTrialCase", () => {
     expect(storedCaseIds()).toEqual(["new-goods", "other-account", "mine"]);
     expect(deleteCase).toHaveBeenCalledTimes(1);
     expect(deleteCase).toHaveBeenCalledWith("old-goods", "token-old-goods");
+  });
+
+  it("처음부터 다시 시작하면 옛 사건을 지우고 새 사건을 만든다", async () => {
+    const oldCase = trialCase("old-goods", "GOODS");
+    addStoredCase(oldCase);
+
+    const caseId = await restartTrialCase("GOODS", oldCase);
+
+    expect(deleteCase).toHaveBeenCalledWith("old-goods", "token-old-goods");
+    expect(caseId).toBe("created");
+    expect(storedCaseIds()).toEqual(["created"]);
   });
 });

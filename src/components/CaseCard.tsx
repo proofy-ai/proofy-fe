@@ -12,9 +12,10 @@ import type { CaseDetail } from "@/types/api";
 type Props = {
   detail: CaseDetail;
   onDeleteClick: () => void;
+  onRestartClick?: () => void;
 };
 
-export function CaseCard({ detail, onDeleteClick }: Props) {
+export function CaseCard({ detail, onDeleteClick, onRestartClick }: Props) {
   const progress = getCaseProgress(detail.hasResult);
 
   return (
@@ -36,18 +37,27 @@ export function CaseCard({ detail, onDeleteClick }: Props) {
             <DeadlineBadge deadline={detail.deadline} />
           </span>
         </div>
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
           <Link
             to={getContinuePath(detail)}
-            className="rounded-full bg-brand-strong px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand"
+            className="rounded-full bg-brand-strong px-4 py-1.5 text-sm font-medium text-white transition-all duration-300 ease-smooth hover:scale-[1.03] hover:bg-brand active:scale-[0.97]"
           >
             이어서 하기
           </Link>
+          {onRestartClick && (
+            <button
+              type="button"
+              onClick={onRestartClick}
+              className="rounded-full bg-gray-200 px-4 py-1.5 text-sm font-medium text-ink transition-all duration-300 ease-smooth hover:scale-[1.03] hover:bg-gray-300 active:scale-[0.97]"
+            >
+              처음부터 다시
+            </button>
+          )}
           <button
             type="button"
             aria-label="사건 삭제"
             onClick={onDeleteClick}
-            className="rounded-full p-2 text-ink-sub transition-colors hover:bg-white/70 hover:text-danger"
+            className="ml-auto rounded-full p-2 text-ink-sub transition-colors hover:bg-white/70 hover:text-danger"
           >
             <Trash2 className="h-5 w-5" aria-hidden />
           </button>
