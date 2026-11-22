@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { deleteCase } from "@/api/cases";
 import { isCaseGone } from "@/hooks/useMyCases";
 import { removeStoredCase } from "@/lib/caseStorage";
+import { useObjectionFormStore } from "@/store/objectionFormStore";
 import { useToastStore } from "@/store/toastStore";
 
 export const useDeleteCase = (caseId: string, caseToken: string) => {
   const navigate = useNavigate();
   const showToast = useToastStore((state) => state.show);
+  const clearFormFields = useObjectionFormStore((state) => state.clear);
   const mutation = useMutation({
     mutationFn: async () => {
       try {
@@ -19,6 +21,7 @@ export const useDeleteCase = (caseId: string, caseToken: string) => {
     },
     onSuccess: () => {
       removeStoredCase(caseId);
+      clearFormFields(caseId);
       showToast("사건을 지웠어요", "success");
       navigate("/");
     },
