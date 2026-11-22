@@ -4,8 +4,8 @@ import { GlassCard } from "@/components/common/GlassCard";
 import { HelperDog } from "@/components/HelperDog";
 import { HomeStartButton } from "@/components/HomeStartButton";
 import { ProcedureSteps } from "@/components/ProcedureSteps";
+import { RequiredDocuments } from "@/components/RequiredDocuments";
 import { filterCasesForSession, readStoredCases } from "@/lib/caseStorage";
-import { SUBMISSION_DOCUMENTS } from "@/lib/guideContent";
 import { useSessionStore } from "@/store/sessionStore";
 
 export function Home() {
@@ -42,14 +42,7 @@ export function Home() {
       </GlassCard>
 
       <GlassCard title="필요한 서류">
-        <div className="flex flex-col gap-4">
-          {SUBMISSION_DOCUMENTS.map((document) => (
-            <div key={document.title}>
-              <p className="font-semibold">{document.title}</p>
-              <p className="text-gray-600">{document.description}</p>
-            </div>
-          ))}
-        </div>
+        <RequiredDocuments />
       </GlassCard>
     </div>
   );

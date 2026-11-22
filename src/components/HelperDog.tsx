@@ -10,7 +10,7 @@ export function HelperDog() {
     <img
       src={dogWave}
       alt=""
-      className={`h-28 w-auto shrink-0 sm:h-32 ${darkMode ? DARK_MODE_IMAGE_FIX : ""}`}
+      className={`h-28 w-auto shrink-0 animate-float motion-reduce:animate-none sm:h-32 ${darkMode ? DARK_MODE_IMAGE_FIX : ""}`}
     />
   );
 }

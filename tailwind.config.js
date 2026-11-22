@@ -31,6 +31,15 @@ export default {
           "0%, 80%, 100%": { opacity: "0.3", transform: "translateY(0)" },
           "40%": { opacity: "1", transform: "translateY(-3px)" },
         },
+        "soft-pulse": {
+          "0%": { boxShadow: "0 0 0 0 rgb(63 95 209 / 0.35)" },
+          "70%": { boxShadow: "0 0 0 10px rgb(63 95 209 / 0)" },
+          "100%": { boxShadow: "0 0 0 0 rgb(63 95 209 / 0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-3px)" },
+        },
         "bubble-in": {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -47,6 +56,8 @@ export default {
         "item-drop-in": "item-drop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
         "success-pop": "success-pop 0.8s ease-out both",
         "bubble-in": "bubble-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "soft-pulse": "soft-pulse 2.4s ease-out infinite",
+        float: "float 3.2s ease-in-out infinite",
         "typing-dot": "typing-dot 1s ease-in-out infinite",
         "bar-finish": "bar-finish 1.1s ease-in-out both",
       },

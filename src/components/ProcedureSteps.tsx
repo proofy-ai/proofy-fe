@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { StatusBadge } from "@/components/StatusBadge";
+import { useInView } from "@/hooks/useInView";
 
 const STEPS = [
   { label: "지급정지", isHelped: false },
@@ -9,58 +10,98 @@ const STEPS = [
   { label: "심사", note: "원칙 5영업일", isHelped: false },
   { label: "결과", isHelped: false },
 ];
+const STAGGER_MS = 120;
 
 type StepProps = {
   index: number;
   label: string;
   note?: string;
   isHelped: boolean;
+  isLast: boolean;
+  isInView: boolean;
 };
 
-function StepContent({ index, label, note, isHelped }: StepProps) {
+function StepNode({ index, isHelped }: { index: number; isHelped: boolean }) {
   return (
+    <span
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+        isHelped
+          ? "animate-soft-pulse bg-brand-strong text-white motion-reduce:animate-none"
+          : "bg-brand-soft text-brand-strong"
+      }`}
+    >
+      {index + 1}
+    </span>
+  );
+}
+
+function StepRow({
+  index,
+  label,
+  note,
+  isHelped,
+  isLast,
+  isInView,
+}: StepProps) {
+  const content = (
     <>
-      <span
-        className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${
-          isHelped ? "bg-brand" : "bg-brand-light"
-        }`}
-      >
-        {index + 1}
-      </span>
-      <span className="flex min-w-0 flex-col">
-        <span className={isHelped ? "font-semibold text-ink" : ""}>
-          {label}
-        </span>
-        {note && (
-          <span className="break-keep text-xs text-ink-sub">{note}</span>
+      <div className="flex flex-col items-center">
+        <StepNode index={index} isHelped={isHelped} />
+        {!isLast && (
+          <span
+            style={{ transitionDelay: `${index * STAGGER_MS + 200}ms` }}
+            className={`my-1 w-0.5 flex-1 origin-top bg-brand-line transition-transform duration-500 ease-smooth ${
+              isInView ? "scale-y-100" : "scale-y-0"
+            }`}
+          />
         )}
-      </span>
-      {isHelped && (
-        <span className="ml-auto shrink-0">
-          <StatusBadge tone="info">Proofy가 도와요</StatusBadge>
+      </div>
+      <div className="flex min-h-[3.75rem] min-w-0 flex-1 items-start justify-between gap-2 pb-5">
+        <span className="flex flex-col">
+          <span className={isHelped ? "font-semibold text-ink" : "text-ink"}>
+            {label}
+          </span>
+          {note && (
+            <span className="break-keep text-xs text-ink-sub">{note}</span>
+          )}
         </span>
-      )}
+        {isHelped && <StatusBadge tone="info">Proofy가 도와요</StatusBadge>}
+      </div>
     </>
+  );
+  const rowClass = `flex gap-3 ${
+    isInView ? "animate-step-slide-in motion-reduce:animate-none" : "opacity-0"
+  }`;
+  const delay = { animationDelay: `${index * STAGGER_MS}ms` };
+
+  return isHelped ? (
+    <Link
+      to="/me"
+      style={delay}
+      className={`${rowClass} rounded-xl transition-colors duration-300 hover:bg-brand-soft/60`}
+    >
+      {content}
+    </Link>
+  ) : (
+    <div style={delay} className={rowClass}>
+      {content}
+    </div>
   );
 }
 
 export function ProcedureSteps() {
+  const { ref, isInView } = useInView<HTMLOListElement>();
+
   return (
-    <ol className="flex flex-col gap-1">
+    <ol ref={ref} className="flex flex-col">
       {STEPS.map((step, index) => (
         <li key={step.label}>
-          {step.isHelped ? (
-            <Link
-              to="/me"
-              className="flex items-center gap-3 rounded-xl bg-brand-soft px-2 py-1.5 transition-colors duration-300 hover:bg-brand-pale"
-            >
-              <StepContent index={index} {...step} />
-            </Link>
-          ) : (
-            <div className="flex items-center gap-3 rounded-xl px-2 py-1.5">
-              <StepContent index={index} {...step} />
-            </div>
-          )}
+          <StepRow
+            index={index}
+            isLast={index === STEPS.length - 1}
+            isInView={isInView}
+            {...step}
+          />
         </li>
       ))}
     </ol>
