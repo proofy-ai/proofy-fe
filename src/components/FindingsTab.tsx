@@ -1,3 +1,4 @@
+import { DeadlineBadge } from "@/components/DeadlineBadge";
 import { FindingCard } from "@/components/FindingCard";
 import { FindingStatusBadge } from "@/components/StatusBadge";
 import { UnreadEvidenceList } from "@/components/UnreadEvidenceList";
@@ -40,7 +41,10 @@ export function FindingsTab({ result }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-      <ul className="flex flex-wrap gap-2">
+      <ul className="flex flex-wrap items-center gap-2">
+        <li>
+          <DeadlineBadge deadline={result.deadline} />
+        </li>
         {statusCounts.map(({ status, count }) => (
           <li key={status} className="flex items-center gap-1 text-sm">
             <FindingStatusBadge status={status} />
