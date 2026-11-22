@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { Layout } from "@/layout/Layout";
 import { NEW_CASE_PATH } from "@/lib/casePaths";
 import { Analysis } from "@/pages/Analysis";
+import { Done } from "@/pages/Done";
 import { Evidence } from "@/pages/Evidence";
 import { Home } from "@/pages/Home";
 import { Login } from "@/pages/Login";
@@ -41,6 +42,7 @@ export function Router() {
             <Route path="/cases/:caseId/evidence" element={<Evidence />} />
             <Route path="/cases/:caseId/analysis" element={<Analysis />} />
             <Route path="/cases/:caseId/result" element={<Result />} />
+            <Route path="/cases/:caseId/done" element={<Done />} />
           </Route>
           {ComponentGallery && (
             <Route

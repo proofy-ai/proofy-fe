@@ -32,7 +32,7 @@ export function ObjectionFormPanel({
     (state) => state.trialScenario !== null,
   );
   const { fields, setField } = useObjectionFormFields(caseId);
-  const { isSaving, savePdf } = useObjectionPdf(exportRef);
+  const { isSaving, savePdf } = useObjectionPdf(exportRef, caseId);
   const { reasonPages, isReasonLoading } = useObjectionReasonPages(
     caseId,
     caseToken,

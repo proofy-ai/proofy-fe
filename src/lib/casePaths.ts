@@ -6,6 +6,8 @@ export const getAnalysisPath = (caseId: string) => `/cases/${caseId}/analysis`;
 
 export const getEvidencePath = (caseId: string) => `/cases/${caseId}/evidence`;
 
+export const getDonePath = (caseId: string) => `/cases/${caseId}/done`;
+
 export const getResultPath = (caseId: string) => `/cases/${caseId}/result`;
 
 export const getContinuePath = ({
