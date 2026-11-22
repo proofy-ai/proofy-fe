@@ -39,7 +39,7 @@ export function CaseCard({ detail, onDeleteClick }: Props) {
         <div className="flex items-center justify-between gap-3">
           <Link
             to={getContinuePath(detail)}
-            className="rounded-full bg-brand px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-strong"
+            className="rounded-full bg-brand-strong px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand"
           >
             이어서 하기
           </Link>

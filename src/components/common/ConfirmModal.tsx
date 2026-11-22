@@ -70,7 +70,7 @@ export function ConfirmModal({
           </button>
           <button
             onClick={onConfirm}
-            className="flex-1 py-3 bg-brand text-white rounded-lg font-medium transition-colors hover:bg-brand-strong"
+            className="flex-1 py-3 bg-brand-strong text-white rounded-lg font-medium transition-colors hover:bg-brand"
           >
             {confirmText}
           </button>

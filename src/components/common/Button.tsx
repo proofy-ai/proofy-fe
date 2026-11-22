@@ -28,9 +28,9 @@ export function Button({
       className={`
         flex items-center justify-center gap-2
         ${SIZE_STYLES[size]} rounded-full
-        bg-brand text-white text-base font-semibold
+        bg-brand-strong text-white text-base font-semibold
         transition-all duration-200
-        ${disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-brand-strong active:scale-95 cursor-pointer"}
+        ${disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-brand active:scale-95 cursor-pointer"}
         ${fullWidth ? "w-full" : ""}
         ${className}
       `}
