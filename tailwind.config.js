@@ -12,6 +12,44 @@ export default {
       fontFamily: {
         sans: ["Noto Sans KR", "sans-serif"],
       },
+      keyframes: {
+        "step-slide-in": {
+          "0%": { opacity: "0", transform: "translateX(-14px) scale(0.94)" },
+          "100%": { opacity: "1", transform: "translateX(0) scale(1)" },
+        },
+        "item-drop-in": {
+          "0%": { opacity: "0", gridTemplateRows: "0fr" },
+          "100%": { opacity: "1", gridTemplateRows: "1fr" },
+        },
+        "success-pop": {
+          "0%": { opacity: "0", transform: "scale(0.6)" },
+          "55%": { opacity: "1", transform: "scale(1.08)" },
+          "75%": { transform: "scale(0.97)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "typing-dot": {
+          "0%, 80%, 100%": { opacity: "0.3", transform: "translateY(0)" },
+          "40%": { opacity: "1", transform: "translateY(-3px)" },
+        },
+        "bubble-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "bar-finish": {
+          "0%": { opacity: "1", maxHeight: "4px" },
+          "65%": { opacity: "1", maxHeight: "4px" },
+          "100%": { opacity: "0", maxHeight: "0px" },
+        },
+      },
+      animation: {
+        "step-slide-in":
+          "step-slide-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "item-drop-in": "item-drop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "success-pop": "success-pop 0.8s ease-out both",
+        "bubble-in": "bubble-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "typing-dot": "typing-dot 1s ease-in-out infinite",
+        "bar-finish": "bar-finish 1.1s ease-in-out both",
+      },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
