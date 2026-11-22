@@ -1,18 +1,4 @@
-@font-face {
-  font-family: "BusanDandiGothic";
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-  src: url("/fonts/BusanDandiGothic-500.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "BusanDandiGothic";
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("/fonts/BusanDandiGothic-700.woff2") format("woff2");
-}
+@import "./notoSansKr.css";
 
 @tailwind base;
 @tailwind components;

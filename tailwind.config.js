@@ -10,7 +10,7 @@ export default {
         desktop: "1400px",
       },
       fontFamily: {
-        sans: ["BusanDandiGothic", "sans-serif"],
+        sans: ["Noto Sans KR", "sans-serif"],
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
