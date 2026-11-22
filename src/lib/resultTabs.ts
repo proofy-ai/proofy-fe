@@ -4,7 +4,7 @@ export const RESULT_TABS = [
   { key: "FINDINGS", label: "증빙 대응표" },
   { key: "MISSING", label: "부족한 서류" },
   { key: "DRAFT", label: "소명서 초안" },
-  { key: "GUIDE", label: "제출 가이드" },
+  { key: "GUIDE", label: "PDF 받기" },
 ] satisfies { key: ResultTabKey; label: string }[];
 
 const isResultTabKey = (value: unknown): value is ResultTabKey =>

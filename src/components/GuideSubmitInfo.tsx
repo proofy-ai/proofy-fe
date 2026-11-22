@@ -8,7 +8,7 @@ import {
 export function GuideSubmitInfo() {
   return (
     <>
-      <GlassCard title="은행에 낼 서류">
+      <GlassCard title="PDF를 받은 뒤에는 은행에 이 서류를 내요">
         <div className="flex w-full flex-col gap-4">
           {SUBMISSION_DOCUMENTS.map((document) => (
             <div key={document.title}>

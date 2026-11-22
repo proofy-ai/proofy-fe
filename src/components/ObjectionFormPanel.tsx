@@ -39,8 +39,7 @@ export function ObjectionFormPanel({
     <GlassCard title="이의제기신청서">
       <div className="flex w-full flex-col gap-5">
         <p className="break-keep text-sm text-ink-sub">
-          입력한 내용은 이 화면에서만 쓰이고 서버로 보내지 않아요. 소명서 초안은
-          위에서 고친 내용 그대로 들어가요.
+          아래 개인정보 내용은 저장하지 않아요.
         </p>
         <ObjectionFormInputs fields={fields} onChange={setField} />
         <ObjectionFormPreview fields={fields} reasonPages={reasonPages} />
