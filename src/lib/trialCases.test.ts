@@ -51,15 +51,17 @@ describe("ensureTrialCase", () => {
       {} as Awaited<ReturnType<typeof getCase>>,
     );
 
-    await ensureTrialCase("GOODS");
+    const caseId = await ensureTrialCase("GOODS");
 
+    expect(caseId).toBe("goods");
     expect(createSampleCase).not.toHaveBeenCalled();
     expect(storedCaseIds()).toEqual(["goods"]);
   });
 
   it("사건이 없으면 새로 만든다", async () => {
-    await ensureTrialCase("GOODS");
+    const caseId = await ensureTrialCase("GOODS");
 
+    expect(caseId).toBe("created");
     expect(createSampleCase).toHaveBeenCalledWith("GOODS");
     expect(storedCaseIds()).toEqual(["created"]);
   });

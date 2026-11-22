@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 
+import { CaseErrorState } from "@/components/CaseErrorState";
 import { ResultView } from "@/components/ResultView";
-import { ErrorState, LoadingState } from "@/components/StateViews";
+import { LoadingState } from "@/components/StateViews";
 import { StoredCaseGuard } from "@/components/StoredCaseGuard";
 import { useAnalysisResult } from "@/hooks/useAnalysisResult";
 
@@ -16,8 +17,8 @@ function ResultScreen({ caseId, caseToken }: ScreenProps) {
   if (resultQuery.isPending) return <LoadingState />;
   if (resultQuery.isError) {
     return (
-      <ErrorState
-        message={resultQuery.error.message}
+      <CaseErrorState
+        error={resultQuery.error}
         onRetry={() => resultQuery.refetch()}
       />
     );

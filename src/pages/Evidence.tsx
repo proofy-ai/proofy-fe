@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import { getCase } from "@/api/cases";
 import { getChecklist } from "@/api/checklist";
 import { AnalysisStartPanel } from "@/components/AnalysisStartPanel";
+import { CaseErrorState } from "@/components/CaseErrorState";
 import { ChecklistPanel } from "@/components/ChecklistPanel";
 import { GlassCard } from "@/components/common/GlassCard";
 import { EvidencePanel } from "@/components/EvidencePanel";
 import { NarrativeEditor } from "@/components/NarrativeEditor";
 import { OverwriteDraftConfirm } from "@/components/OverwriteDraftConfirm";
-import { ErrorState, LoadingState } from "@/components/StateViews";
+import { LoadingState } from "@/components/StateViews";
 import { StoredCaseGuard } from "@/components/StoredCaseGuard";
 import { useAnalysisStart } from "@/hooks/useAnalysisStart";
 import { getAnalysisBlockers } from "@/lib/analysisReadiness";
@@ -115,8 +116,8 @@ function EvidenceScreen({ caseId, caseToken }: ScreenProps) {
   if (caseQuery.isPending) return <LoadingState />;
   if (caseQuery.isError) {
     return (
-      <ErrorState
-        message={caseQuery.error.message}
+      <CaseErrorState
+        error={caseQuery.error}
         onRetry={() => caseQuery.refetch()}
       />
     );

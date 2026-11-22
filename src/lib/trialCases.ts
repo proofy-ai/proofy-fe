@@ -53,4 +53,5 @@ export async function ensureTrialCase(scenario: SampleScenario) {
   }
 
   discardOtherTrialCases(scenario, keepCaseId);
+  return keepCaseId;
 }
