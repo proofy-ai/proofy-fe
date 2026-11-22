@@ -190,9 +190,15 @@ export type Checklist = {
   missingCount: number;
 };
 
+export type AnswerInput = {
+  questionId: string;
+  answer: string;
+};
+
 export type AnalysisStart = {
   narrative?: string;
   overwriteEditedDraft?: boolean;
+  answers?: AnswerInput[];
 };
 
 export type AnalysisStartResponse = {

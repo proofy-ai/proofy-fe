@@ -4,10 +4,18 @@ import { useNavigate } from "react-router-dom";
 
 import { getAnalysisRun } from "@/api/analysis";
 import { getCase } from "@/api/cases";
-import { isRunTimedOut, POLL_INTERVAL_MS } from "@/lib/analysisRun";
-import { getResultPath } from "@/lib/casePaths";
+import {
+  type AfterAnalysis,
+  isRunTimedOut,
+  POLL_INTERVAL_MS,
+} from "@/lib/analysisRun";
+import { getChatPath, getResultPath } from "@/lib/casePaths";
 
-export const useAnalysisRun = (caseId: string, caseToken: string) => {
+export const useAnalysisRun = (
+  caseId: string,
+  caseToken: string,
+  afterAnalysis: AfterAnalysis,
+) => {
   const navigate = useNavigate();
   const caseQuery = useQuery({
     queryKey: ["case", caseId],
@@ -37,8 +45,11 @@ export const useAnalysisRun = (caseId: string, caseToken: string) => {
   const isSucceeded = run?.status === "SUCCEEDED";
 
   useEffect(() => {
-    if (isSucceeded) navigate(getResultPath(caseId), { replace: true });
-  }, [isSucceeded, navigate, caseId]);
+    if (!isSucceeded) return;
+    const nextPath =
+      afterAnalysis === "result" ? getResultPath(caseId) : getChatPath(caseId);
+    navigate(nextPath, { replace: true });
+  }, [isSucceeded, navigate, caseId, afterAnalysis]);
 
   return {
     run,

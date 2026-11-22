@@ -13,8 +13,8 @@ export const useAnalysisRetry = (caseId: string, caseToken: string) => {
     mutationFn: (overwriteEditedDraft: boolean) =>
       startAnalysis(caseId, caseToken, { overwriteEditedDraft }),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["case", caseId] });
-      navigate(getAnalysisPath(caseId));
+      await queryClient.refetchQueries({ queryKey: ["case", caseId] });
+      navigate(getAnalysisPath(caseId), { state: { afterAnalysis: "result" } });
     },
   });
 

@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
 
 import { AnalysisProgressPanel } from "@/components/AnalysisProgressPanel";
 import { AnalysisRetryPanel } from "@/components/AnalysisRetryPanel";
@@ -7,6 +7,7 @@ import { LoadingState } from "@/components/StateViews";
 import { StoredCaseGuard } from "@/components/StoredCaseGuard";
 import { useAnalysisRetry } from "@/hooks/useAnalysisRetry";
 import { useAnalysisRun } from "@/hooks/useAnalysisRun";
+import { getAfterAnalysisFromState } from "@/lib/analysisRun";
 import { getEvidencePath } from "@/lib/casePaths";
 
 const TIMEOUT_MESSAGE =
@@ -18,9 +19,11 @@ type ScreenProps = {
 };
 
 function AnalysisScreen({ caseId, caseToken }: ScreenProps) {
+  const { state } = useLocation();
   const { run, isTimedOut, hasNoRun, error, refetchCase } = useAnalysisRun(
     caseId,
     caseToken,
+    getAfterAnalysisFromState(state),
   );
   const retry = useAnalysisRetry(caseId, caseToken);
 
