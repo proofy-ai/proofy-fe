@@ -1,11 +1,11 @@
 export type ResultTabKey = "FINDINGS" | "MISSING" | "DRAFT" | "GUIDE";
 
 export const RESULT_TABS = [
-  { key: "FINDINGS", label: "증빙 대응표" },
-  { key: "MISSING", label: "부족한 서류" },
-  { key: "DRAFT", label: "소명서 초안" },
-  { key: "GUIDE", label: "신청서 완성" },
-] satisfies { key: ResultTabKey; label: string }[];
+  { key: "FINDINGS", label: "증빙 대응표", actionLabel: "증빙 대응표 보기" },
+  { key: "MISSING", label: "부족한 서류", actionLabel: "부족한 서류 확인하기" },
+  { key: "DRAFT", label: "소명서 초안", actionLabel: "소명서 초안 확인하기" },
+  { key: "GUIDE", label: "신청서 완성", actionLabel: "신청서 완성하기" },
+] satisfies { key: ResultTabKey; label: string; actionLabel: string }[];
 
 const isResultTabKey = (value: unknown): value is ResultTabKey =>
   RESULT_TABS.some((tab) => tab.key === value);

@@ -2,22 +2,11 @@ import { GlassCard } from "@/components/common/GlassCard";
 import {
   AFTER_SUBMIT_STEPS,
   FALSE_OBJECTION_WARNING,
-  SUBMISSION_DOCUMENTS,
 } from "@/lib/guideContent";
 
 export function GuideSubmitInfo() {
   return (
     <>
-      <GlassCard title="PDF를 받은 뒤에는 은행에 이 서류를 내요">
-        <div className="flex w-full flex-col gap-4">
-          {SUBMISSION_DOCUMENTS.map((document) => (
-            <div key={document.title}>
-              <p className="font-semibold">{document.title}</p>
-              <p className="text-gray-600">{document.description}</p>
-            </div>
-          ))}
-        </div>
-      </GlassCard>
       <GlassCard title="제출한 뒤에는">
         <div className="flex w-full flex-col gap-3">
           <ol className="flex list-decimal flex-col gap-1 pl-5 text-ink">

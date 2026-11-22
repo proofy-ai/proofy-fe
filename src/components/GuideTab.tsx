@@ -1,6 +1,3 @@
-import { DeleteCasePanel } from "@/components/DeleteCasePanel";
-import { GuideFinalCheck } from "@/components/GuideFinalCheck";
-import { GuideSubmitInfo } from "@/components/GuideSubmitInfo";
 import { ObjectionFormPanel } from "@/components/ObjectionFormPanel";
 import { EmptyState } from "@/components/StateViews";
 import type { AnalysisResult } from "@/types/api";
@@ -17,10 +14,6 @@ export function GuideTab({ caseId, caseToken, result, onGoToDraft }: Props) {
 
   return (
     <div className="flex flex-col gap-6">
-      <GuideFinalCheck
-        summary={result.summary}
-        unconfirmedCount={result.draft.unconfirmedCount}
-      />
       <ObjectionFormPanel
         caseId={caseId}
         caseToken={caseToken}
@@ -28,8 +21,6 @@ export function GuideTab({ caseId, caseToken, result, onGoToDraft }: Props) {
         checklist={result.checklist}
         onGoToDraft={onGoToDraft}
       />
-      <GuideSubmitInfo />
-      <DeleteCasePanel caseId={caseId} caseToken={caseToken} />
     </div>
   );
 }

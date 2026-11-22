@@ -25,7 +25,7 @@ export function DraftSentenceAdder({ isSaving, onAdd }: Props) {
         onChange={(event) => setText(event.target.value)}
         className="w-full resize-y rounded-xl border border-brand-line bg-white/80 px-3 py-2 text-base text-ink placeholder:text-ink-mark"
       />
-      <div>
+      <div className="flex justify-end">
         <Button
           size="sm"
           disabled={isSaving || !text.trim()}

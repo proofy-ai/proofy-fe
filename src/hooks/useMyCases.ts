@@ -8,6 +8,7 @@ import {
   readStoredCases,
   removeStoredCase,
 } from "@/lib/caseStorage";
+import { useObjectionFormStore } from "@/store/objectionFormStore";
 import { useSessionStore } from "@/store/sessionStore";
 import { useToastStore } from "@/store/toastStore";
 import type { StoredCase } from "@/types/api";
@@ -21,6 +22,7 @@ export const isCaseGone = (error: unknown) =>
 
 export const useMyCases = () => {
   const showToast = useToastStore((state) => state.show);
+  const clearFormFields = useObjectionFormStore((state) => state.clear);
   const trialScenario = useSessionStore((state) => state.trialScenario);
   const readSessionCases = () =>
     filterCasesForSession(readStoredCases(), trialScenario);
@@ -52,6 +54,7 @@ export const useMyCases = () => {
     },
     onSuccess: (_, { caseId }) => {
       removeStoredCase(caseId);
+      clearFormFields(caseId);
       setStoredCases(readSessionCases());
     },
     onError: (error) => showToast(error.message, "error"),
