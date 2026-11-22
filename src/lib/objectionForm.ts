@@ -19,7 +19,7 @@ export type ObjectionFormFields = {
 export const PAGE_WIDTH_PX = 794;
 export const PAGE_HEIGHT_PX = 1123;
 
-const CHARS_PER_LINE = 34;
+const CHARS_PER_LINE = 48;
 const FIRST_PAGE_LINES = 14;
 const NEXT_PAGE_LINES = 38;
 
