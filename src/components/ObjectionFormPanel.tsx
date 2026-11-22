@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import { GlassCard } from "@/components/common/GlassCard";
+import { FormInputsToggle } from "@/components/FormInputsToggle";
 import { ObjectionDownloadButton } from "@/components/ObjectionDownloadButton";
 import { ObjectionFormInputs } from "@/components/ObjectionFormInputs";
 import { ObjectionFormPreview } from "@/components/ObjectionFormPreview";
@@ -8,6 +9,7 @@ import { ObjectionFormSheet } from "@/components/ObjectionFormSheet";
 import { useObjectionFormFields } from "@/hooks/useObjectionFormFields";
 import { useObjectionPdf } from "@/hooks/useObjectionPdf";
 import { useObjectionReasonPages } from "@/hooks/useObjectionReasonPages";
+import { useSessionStore } from "@/store/sessionStore";
 import type { Checklist, Draft } from "@/types/api";
 
 type Props = {
@@ -26,6 +28,9 @@ export function ObjectionFormPanel({
   onGoToDraft,
 }: Props) {
   const exportRef = useRef<HTMLDivElement>(null);
+  const isTrialAccount = useSessionStore(
+    (state) => state.trialScenario !== null,
+  );
   const { fields, setField } = useObjectionFormFields(caseId);
   const { isSaving, savePdf } = useObjectionPdf(exportRef);
   const { reasonPages, isReasonLoading } = useObjectionReasonPages(
@@ -41,7 +46,13 @@ export function ObjectionFormPanel({
         <p className="break-keep text-sm text-ink-sub">
           아래 개인정보 내용은 저장하지 않아요.
         </p>
-        <ObjectionFormInputs fields={fields} onChange={setField} />
+        {isTrialAccount ? (
+          <FormInputsToggle title="신청인 정보를 적어주세요">
+            <ObjectionFormInputs fields={fields} onChange={setField} />
+          </FormInputsToggle>
+        ) : (
+          <ObjectionFormInputs fields={fields} onChange={setField} />
+        )}
         <ObjectionFormPreview fields={fields} reasonPages={reasonPages} />
         <ObjectionDownloadButton
           unconfirmedCount={draft.unconfirmedCount}

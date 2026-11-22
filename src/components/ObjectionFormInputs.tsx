@@ -7,12 +7,18 @@ type InputSpec = {
   label: string;
   placeholder: string;
   type?: "text" | "date" | "tel" | "email";
+  isWide?: boolean;
 };
 
 const APPLICANT_INPUTS = [
   { key: "applicantName", label: "성명", placeholder: "예: 홍길동" },
   { key: "birthDate", label: "생년월일", placeholder: "예: 1990.01.01" },
-  { key: "address", label: "주소", placeholder: "예: 서울특별시 ○○구 ○○로 00" },
+  {
+    key: "address",
+    label: "주소",
+    placeholder: "예: 서울특별시 ○○구 ○○로 00",
+    isWide: true,
+  },
   {
     key: "phone",
     label: "전화번호",
@@ -30,6 +36,7 @@ const APPLICANT_INPUTS = [
     label: "전자우편주소",
     placeholder: "예: name@example.com",
     type: "email",
+    isWide: true,
   },
 ] satisfies InputSpec[];
 
@@ -37,12 +44,13 @@ const ACCOUNT_INPUTS = [
   { key: "financialCompany", label: "금융회사등", placeholder: "예: ○○은행" },
   { key: "branch", label: "개설점포", placeholder: "예: ○○지점" },
   { key: "assetType", label: "자산종류", placeholder: "예: 입출금통장" },
+  { key: "accountHolder", label: "명의인", placeholder: "예: 홍길동" },
   {
     key: "accountNumber",
     label: "계좌번호 또는 계정정보",
     placeholder: "예: 000-0000-0000",
+    isWide: true,
   },
-  { key: "accountHolder", label: "명의인", placeholder: "예: 홍길동" },
   { key: "applicationDate", label: "신청 날짜", placeholder: "", type: "date" },
 ] satisfies InputSpec[];
 
@@ -53,16 +61,18 @@ type Props = {
 
 function InputItem({ spec, fields, onChange }: Props & { spec: InputSpec }) {
   return (
-    <FormField label={spec.label} htmlFor={spec.key}>
-      <input
-        id={spec.key}
-        type={spec.type ?? "text"}
-        value={fields[spec.key]}
-        placeholder={spec.placeholder}
-        onChange={(event) => onChange(spec.key, event.target.value)}
-        className={INPUT_CLASS}
-      />
-    </FormField>
+    <div className={`min-w-0 ${spec.isWide ? "col-span-2" : ""}`}>
+      <FormField label={spec.label} htmlFor={spec.key}>
+        <input
+          id={spec.key}
+          type={spec.type ?? "text"}
+          value={fields[spec.key]}
+          placeholder={spec.placeholder}
+          onChange={(event) => onChange(spec.key, event.target.value)}
+          className={INPUT_CLASS}
+        />
+      </FormField>
+    </div>
   );
 }
 
@@ -73,7 +83,7 @@ function InputGroup({
   onChange,
 }: Props & { title: string; specs: InputSpec[] }) {
   return (
-    <fieldset className="flex flex-col gap-3">
+    <fieldset className="grid grid-cols-2 gap-x-3 gap-y-3">
       <legend className="mb-1 font-semibold text-ink">{title}</legend>
       {specs.map((spec) => (
         <InputItem

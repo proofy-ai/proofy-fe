@@ -44,7 +44,9 @@ export function ObjectionDownloadButton({
       </Button>
       <ConfirmModal
         isOpen={isConfirmOpen}
-        message={`아직 확인하지 않은 문장이 ${unconfirmedCount}개 있어요.\n사실과 다른 내용을 내면 처벌받을 수 있습니다(법 제16조).`}
+        message={
+          "사실과 다른 내용을 내면 처벌받을 수 있어요.\n확인하지 않은 문장을 보러 갈까요?"
+        }
         confirmText="그래도 다운로드"
         cancelText="문장으로 이동"
         onClose={() => setIsConfirmOpen(false)}
