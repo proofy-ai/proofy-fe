@@ -15,7 +15,7 @@ describe("getResultTabFromState", () => {
 });
 
 describe("getNextTab", () => {
-  it("대응표, 부족한 서류, 소명서 초안, PDF 받기 순서로 이어진다", () => {
+  it("대응표, 부족한 서류, 소명서 초안, 신청서 완성 순서로 이어진다", () => {
     expect(getNextTab("FINDINGS")?.key).toBe("MISSING");
     expect(getNextTab("MISSING")?.key).toBe("DRAFT");
     expect(getNextTab("DRAFT")?.key).toBe("GUIDE");
