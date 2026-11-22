@@ -13,16 +13,22 @@ import type { Checklist, ChecklistItem } from "@/types/api";
 type Props = {
   checklist: Checklist;
   renderAction?: (item: ChecklistItem) => ReactNode;
+  isOnCard?: boolean;
 };
 
 type ItemProps = {
   item: ChecklistItem;
   action: ReactNode;
+  isOnCard: boolean;
 };
 
-function ChecklistRow({ item, action }: ItemProps) {
+function ChecklistRow({ item, action, isOnCard }: ItemProps) {
   return (
-    <li className="flex flex-col gap-1.5 rounded-xl bg-white/70 px-4 py-3">
+    <li
+      className={`flex flex-col gap-1.5 rounded-xl px-4 py-3 ${
+        isOnCard ? "bg-gray-100" : "bg-white/70"
+      }`}
+    >
       <div className="flex flex-wrap items-center gap-2">
         <ChecklistStatusBadge
           status={item.status}
@@ -39,7 +45,11 @@ function ChecklistRow({ item, action }: ItemProps) {
   );
 }
 
-export function ChecklistSection({ checklist, renderAction }: Props) {
+export function ChecklistSection({
+  checklist,
+  renderAction,
+  isOnCard = false,
+}: Props) {
   return (
     <div className="flex w-full flex-col gap-5">
       {CHECKLIST_CATEGORY_ORDER.map((category) => {
@@ -59,6 +69,7 @@ export function ChecklistSection({ checklist, renderAction }: Props) {
                   key={item.itemId}
                   item={item}
                   action={renderAction?.(item)}
+                  isOnCard={isOnCard}
                 />
               ))}
             </ul>

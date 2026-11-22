@@ -23,6 +23,7 @@ export function ChecklistPanel({ checklistQuery, onUploadClick }: Props) {
       )}
       {checklistQuery.data && (
         <ChecklistSection
+          isOnCard
           checklist={checklistQuery.data}
           renderAction={(item) => (
             <ChecklistUploadButton item={item} onUploadClick={onUploadClick} />
