@@ -34,19 +34,7 @@ function ChecklistRow({ item, action }: ItemProps) {
       {item.note && (
         <p className="break-keep text-sm text-ink-sub">{item.note}</p>
       )}
-      <div className="flex flex-wrap items-center gap-3">
-        {item.sourceRef && (
-          <a
-            href={item.sourceRef.url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs text-ink-faint underline"
-          >
-            근거: {item.sourceRef.label}
-          </a>
-        )}
-        {action}
-      </div>
+      <div className="flex flex-wrap items-center gap-3">{action}</div>
     </li>
   );
 }

@@ -6,11 +6,11 @@ import type { ChecklistStatus, FindingStatus } from "@/types/api";
 type BadgeTone = "info" | "success" | "warning" | "danger" | "neutral";
 
 const toneStyles: Record<BadgeTone, string> = {
-  info: "bg-brand-soft text-brand-strong",
-  success: "bg-success-soft text-success",
-  warning: "bg-warning-soft text-warning",
-  danger: "bg-danger-soft text-danger",
-  neutral: "bg-surface text-ink-sub",
+  info: "bg-brand-pale text-brand-strong",
+  success: "bg-success/20 text-success",
+  warning: "bg-warning/20 text-warning",
+  danger: "bg-danger/15 text-danger",
+  neutral: "bg-gray-200 text-ink-sub",
 };
 
 const checklistStatusBadges: Record<
@@ -31,7 +31,7 @@ type StatusBadgeProps = {
 export function StatusBadge({ tone, children }: StatusBadgeProps) {
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${toneStyles[tone]}`}
+      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${toneStyles[tone]}`}
     >
       {children}
     </span>

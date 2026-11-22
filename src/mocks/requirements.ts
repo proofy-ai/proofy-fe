@@ -37,7 +37,7 @@ const commonItems: RequirementItem[] = [
     acceptedDocTypes: ["NOTICE"],
     uploadable: true,
     requiredForAnalysis: false,
-    note: "통지일·공고일을 확인하는 데 씁니다.",
+    note: "통지일·공고일을 확인하는 데 사용합니다.",
     sourceRef: null,
   },
 ];
