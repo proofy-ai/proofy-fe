@@ -3,18 +3,10 @@ import { Link } from "react-router-dom";
 import { GlassCard } from "@/components/common/GlassCard";
 import { HelperDog } from "@/components/HelperDog";
 import { HomeStartButton } from "@/components/HomeStartButton";
-import { StatusBadge } from "@/components/StatusBadge";
+import { ProcedureSteps } from "@/components/ProcedureSteps";
 import { filterCasesForSession, readStoredCases } from "@/lib/caseStorage";
 import { SUBMISSION_DOCUMENTS } from "@/lib/guideContent";
 import { useSessionStore } from "@/store/sessionStore";
-
-const steps = [
-  { label: "지급정지", isHelped: false },
-  { label: "채권소멸절차 공고", isHelped: false },
-  { label: "이의제기 (공고일 기준 2개월 이내)", isHelped: true },
-  { label: "심사 (원칙 5영업일)", isHelped: false },
-  { label: "결과", isHelped: false },
-];
 
 export function Home() {
   const trialScenario = useSessionStore((state) => state.trialScenario);
@@ -26,7 +18,7 @@ export function Home() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
-      <GlassCard title="내 계좌가 지급정지됐나요?">
+      <GlassCard title="내 계좌가 지급정지됐나요?" titleClassName="text-lg">
         <div className="mb-4 flex items-center gap-4">
           <HelperDog />
           <p className="whitespace-pre-line break-keep text-gray-600">
@@ -46,32 +38,7 @@ export function Home() {
       </GlassCard>
 
       <GlassCard title="절차 한눈에">
-        <ol className="flex flex-col gap-1">
-          {steps.map((step, index) => (
-            <li
-              key={step.label}
-              className={`flex items-center gap-3 rounded-xl px-2 py-1.5 ${
-                step.isHelped ? "bg-brand-soft" : ""
-              }`}
-            >
-              <span
-                className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white ${
-                  step.isHelped ? "bg-brand" : "bg-brand-light"
-                }`}
-              >
-                {index + 1}
-              </span>
-              <span className={step.isHelped ? "font-semibold text-ink" : ""}>
-                {step.label}
-              </span>
-              {step.isHelped && (
-                <span className="ml-auto shrink-0">
-                  <StatusBadge tone="info">Proofy가 도와요</StatusBadge>
-                </span>
-              )}
-            </li>
-          ))}
-        </ol>
+        <ProcedureSteps />
       </GlassCard>
 
       <GlassCard title="필요한 서류">
@@ -84,11 +51,6 @@ export function Home() {
           ))}
         </div>
       </GlassCard>
-
-      <p className="text-sm text-gray-500">
-        AI는 해제 여부를 판정하지 않고 서류 준비만 돕습니다. 사실과 다른 내용을
-        내는 거짓 이의제기는 처벌받을 수 있어요.
-      </p>
     </div>
   );
 }

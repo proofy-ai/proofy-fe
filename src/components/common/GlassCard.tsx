@@ -2,6 +2,7 @@ import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 
 type Props = {
   title?: string;
+  titleClassName?: string;
   children: ReactNode;
   gradientFrom?: string;
   gradientTo?: string;
@@ -24,6 +25,7 @@ function hexToRgba(hex: string, opacity: number): string {
 
 export function GlassCard({
   title,
+  titleClassName = "text-base",
   children,
   gradientFrom = "#EEEEEE",
   gradientTo = "#999999",
@@ -103,7 +105,7 @@ export function GlassCard({
         <div className="flex-1 min-w-0">
           {!!title && (
             <h3
-              className="text-base font-semibold mb-3"
+              className={`${titleClassName} font-semibold mb-3`}
               style={{ color: textColor }}
             >
               {title}

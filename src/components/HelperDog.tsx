@@ -1,4 +1,4 @@
-import dogSit from "@/assets/img/brand/dog-sit.png";
+import dogWave from "@/assets/img/brand/dog-wave.webp";
 import { useSettingStore } from "@/store/settingStore";
 
 const DARK_MODE_IMAGE_FIX = "[filter:invert(1)_hue-rotate(180deg)]";
@@ -8,9 +8,9 @@ export function HelperDog() {
 
   return (
     <img
-      src={dogSit}
+      src={dogWave}
       alt=""
-      className={`h-24 w-auto shrink-0 sm:h-28 ${darkMode ? DARK_MODE_IMAGE_FIX : ""}`}
+      className={`h-28 w-auto shrink-0 sm:h-32 ${darkMode ? DARK_MODE_IMAGE_FIX : ""}`}
     />
   );
 }
