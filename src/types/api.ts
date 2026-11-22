@@ -323,6 +323,43 @@ export type Referral = {
   contacts: { name: string; phone: string }[];
 };
 
+export type LawReference = {
+  source: string;
+  label: string;
+  quote: string;
+  verified: boolean;
+};
+
+export type AgentOpinion = {
+  opinionId: string;
+  text: string;
+  findingIds: string[];
+  lawRefs: LawReference[];
+  needsCheck: boolean;
+};
+
+export type AgentQuestion = {
+  questionId: string;
+  text: string;
+  why: string;
+  findingIds: string[];
+  lawRefs: LawReference[];
+};
+
+export type AnsweredQuestion = {
+  questionId: string;
+  text: string;
+  answer: string;
+  answeredAt: string;
+};
+
+export type AgentReview = {
+  notice: string;
+  opinions: AgentOpinion[];
+  questions: AgentQuestion[];
+  answered: AnsweredQuestion[];
+};
+
 export type UnreadEvidence = {
   evidenceId: string;
   originalName: string;
@@ -343,6 +380,7 @@ export type AnalysisResult = {
   generatedAt: string;
   precomputed: boolean;
   referral: Referral | null;
+  agentReview?: AgentReview | null;
   aiNotice: string;
   deadline: Deadline;
   findings: Finding[];
