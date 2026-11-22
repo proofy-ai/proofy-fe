@@ -7,11 +7,13 @@ import {
   scenarioOf,
 } from "@/mocks/db";
 import type {
+  AgentQuestion,
   AnalysisResult,
   AnalysisRun,
   AnalysisStep,
   Draft,
   DraftSentence,
+  Finding,
   Referral,
   Stage,
   StageProgress,
@@ -215,6 +217,39 @@ export function buildRunView(mockCase: MockCase, run: MockRun): AnalysisRun {
   };
 }
 
+function buildAgentQuestions(findings: Finding[]): AgentQuestion[] {
+  return findings.flatMap((finding) => {
+    if (finding.status === "CONFLICT") {
+      const { statement, found } = finding.conflict ?? {};
+      const detail =
+        statement && found
+          ? `사연에서는 '${statement}'이라고 하셨는데 자료에는 '${found}'로 나와 있어요. `
+          : "";
+      return [
+        {
+          questionId: `q-${finding.findingId}`,
+          text: `${detail}차이가 난 까닭이 무엇이고, 이를 보여 주는 자료가 있나요?`,
+          why: finding.note,
+          findingIds: [finding.findingId],
+          lawRefs: [],
+        },
+      ];
+    }
+    if (finding.status === "STATEMENT_ONLY") {
+      return [
+        {
+          questionId: `q-${finding.findingId}`,
+          text: `'${finding.claim}'를 보여 주는 자료(영수증, 대화, 송장 등)가 있나요?`,
+          why: finding.note,
+          findingIds: [finding.findingId],
+          lawRefs: [],
+        },
+      ];
+    }
+    return [];
+  });
+}
+
 export function buildResult(mockCase: MockCase): AnalysisResult | null {
   const analysis = mockCase.analysis;
   if (!analysis) return null;
@@ -236,6 +271,12 @@ export function buildResult(mockCase: MockCase): AnalysisResult | null {
     generatedAt: analysis.generatedAt,
     precomputed: false,
     referral: analysis.referral,
+    agentReview: {
+      notice: aiNotice,
+      opinions: [],
+      questions: buildAgentQuestions(analysis.findings),
+      answered: [],
+    },
     aiNotice,
     deadline: computeDeadline(mockCase.detail.publicNoticeDate),
     findings: analysis.findings,

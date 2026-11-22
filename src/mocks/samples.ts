@@ -68,7 +68,7 @@ export function buildSampleCaseSeed(scenario: SampleScenario): SampleCaseSeed {
         hasPriorFreeze: false,
       },
       narrative:
-        "모르는 사람이 10만 원을 보냈습니다. 입금 날짜는 11월 8일로 기억합니다. 그 뒤 입금자가 20만 원을 보내면 신고를 취하해 주겠다는 문자를 보냈고, 바로 은행에 알렸습니다.",
+        "모르는 사람이 11월 11일 제 계좌로 10만 원을 보냈습니다. 며칠 뒤 계좌가 지급정지됐다는 통지를 받았고, 문자로 '20만 원 보내면 신고 취하해 줄게'라는 연락이 왔습니다. 저는 보낸 사람을 모르고, 받은 돈은 쓰지 않고 그대로 두었습니다. 바로 은행에 알렸습니다.",
       evidence: [
         {
           docType: "TRANSACTION_RECORD",
