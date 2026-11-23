@@ -39,6 +39,16 @@ export default {
           "0%": { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        "row-leave": {
+          "0%": { opacity: "1", maxHeight: "20rem", marginBottom: "0" },
+          "100%": {
+            opacity: "0",
+            maxHeight: "0",
+            paddingTop: "0",
+            paddingBottom: "0",
+            marginBottom: "-0.5rem",
+          },
+        },
         "bar-finish": {
           "0%": { opacity: "1", maxHeight: "4px" },
           "65%": { opacity: "1", maxHeight: "4px" },
@@ -53,6 +63,7 @@ export default {
         "bubble-in": "bubble-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both",
         float: "float 3.2s ease-in-out infinite",
         "typing-dot": "typing-dot 1s ease-in-out infinite",
+        "row-leave": "row-leave 1s cubic-bezier(0.22, 1, 0.36, 1) both",
         "bar-finish": "bar-finish 1.1s ease-in-out both",
       },
       transitionTimingFunction: {

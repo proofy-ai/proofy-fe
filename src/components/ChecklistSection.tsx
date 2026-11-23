@@ -20,14 +20,22 @@ type ItemProps = {
   item: ChecklistItem;
   action: ReactNode;
   isOnCard: boolean;
+  categoryLabel?: string;
+  className?: string;
 };
 
-function ChecklistRow({ item, action, isOnCard }: ItemProps) {
+export function ChecklistRow({
+  item,
+  action,
+  isOnCard,
+  categoryLabel,
+  className = "",
+}: ItemProps) {
   return (
     <li
       className={`flex flex-col gap-1.5 rounded-xl px-4 py-3 ${
         isOnCard ? "bg-gray-100" : "bg-white/70"
-      }`}
+      } ${className}`}
     >
       <div className="flex flex-wrap items-center gap-2">
         <ChecklistStatusBadge
@@ -35,6 +43,11 @@ function ChecklistRow({ item, action, isOnCard }: ItemProps) {
           isPreparedSeparately={item.checked}
         />
         {item.requiredForAnalysis && <AnalysisRequiredBadge />}
+        {categoryLabel && (
+          <span className="rounded-full bg-gray-200 px-2 py-0.5 text-xs text-ink-sub">
+            {categoryLabel}
+          </span>
+        )}
       </div>
       <span className="break-keep font-medium text-ink">{item.label}</span>
       {item.note && (
