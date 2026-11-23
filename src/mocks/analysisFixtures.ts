@@ -1,3 +1,4 @@
+import { GOODS_STEPS, UNEXPECTED_STEPS } from "@/mocks/analysisSteps";
 import type {
   AnalysisStep,
   DocType,
@@ -121,40 +122,7 @@ function buildGoodsAnalysis({ findEvidenceId }: EvidenceIds): ScenarioAnalysis {
       ),
     ],
     unreadEvidence: [],
-    stepTitles: [
-      {
-        type: "OCR",
-        title: "서류 글자 읽기",
-        summary: "거래내역서, 대화내역 글자 읽기 완료",
-        status: "DONE",
-      },
-      {
-        type: "TOOL_CALL",
-        title: "거래내역 조회",
-        summary:
-          "사연의 11월 8일 대금 입금을 확인하려고 11/1~11/10 입금을 조회 → 2건",
-        status: "DONE",
-      },
-      {
-        type: "FINDING",
-        title: "자료와 일치",
-        summary: "11월 8일 15만 원 입금이 거래내역서와 같습니다",
-        status: "DONE",
-      },
-      {
-        type: "CONFLICT",
-        title: "자료와 어긋남",
-        summary:
-          "대화내역의 합의 금액(120,000원)이 사연·입금액(150,000원)과 다릅니다",
-        status: "DONE",
-      },
-      {
-        type: "DRAFT",
-        title: "초안 작성",
-        summary: "소명서 초안 문장 2개를 만들었습니다",
-        status: "DONE",
-      },
-    ],
+    stepTitles: GOODS_STEPS,
   };
 }
 
@@ -264,38 +232,7 @@ function buildUnexpectedAnalysis({
       ),
     ],
     unreadEvidence: [],
-    stepTitles: [
-      {
-        type: "OCR",
-        title: "서류 글자 읽기",
-        summary: "거래내역서, 협박 문자 글자 읽기 완료",
-        status: "DONE",
-      },
-      {
-        type: "TOOL_CALL",
-        title: "거래내역 조회",
-        summary: "입금 뒤 출금 여부를 확인하려고 11/9~11/20 출금을 조회 → 0건",
-        status: "DONE",
-      },
-      {
-        type: "FINDING",
-        title: "자료와 일치",
-        summary: "입금 금액이 거래내역서와 같습니다",
-        status: "DONE",
-      },
-      {
-        type: "CONFLICT",
-        title: "자료와 어긋남",
-        summary: "사연의 입금 날짜(11월 11일)가 거래내역(11월 12일)과 다릅니다",
-        status: "DONE",
-      },
-      {
-        type: "DRAFT",
-        title: "초안 작성",
-        summary: "소명서 초안 문장 3개를 만들었습니다",
-        status: "DONE",
-      },
-    ],
+    stepTitles: UNEXPECTED_STEPS,
   };
 }
 

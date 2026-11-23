@@ -19,11 +19,11 @@ import type {
   StageProgress,
 } from "@/types/api";
 
-const stepIntervalMs = 700;
+const stepIntervalMs = 2500;
 const stageLabels: { key: Stage; label: string; durationMs: number }[] = [
-  { key: "EXTRACTING", label: "글자 읽는 중", durationMs: 1500 },
-  { key: "COMPARING", label: "거래내역과 대조 중", durationMs: 1500 },
-  { key: "DRAFTING", label: "초안 작성 중", durationMs: 1500 },
+  { key: "EXTRACTING", label: "글자 읽는 중", durationMs: 8000 },
+  { key: "COMPARING", label: "거래내역과 대조 중", durationMs: 16000 },
+  { key: "DRAFTING", label: "초안 작성 중", durationMs: 8000 },
 ];
 const stageEndsMs = stageLabels.reduce<number[]>((ends, { durationMs }) => {
   ends.push((ends[ends.length - 1] ?? 0) + durationMs);
