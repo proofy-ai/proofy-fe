@@ -47,6 +47,7 @@ export function ResultTabPanel({
       caseId={caseId}
       caseToken={caseToken}
       draft={result.draft}
+      findings={result.findings}
       onShowFinding={onShowFinding}
     />
   );

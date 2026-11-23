@@ -4,11 +4,12 @@ import { useState } from "react";
 import { PruppyBubble } from "@/components/ChatBubbles";
 import { Toggle } from "@/components/common/Toggle";
 import { ConfirmedBadge, NeedsCheckBadge } from "@/components/StatusBadge";
-import { NEEDS_CHECK_ADVICE } from "@/lib/draftLabels";
-import type { DraftSentence } from "@/types/api";
+import { getNeedsCheckAdvice } from "@/lib/draftLabels";
+import type { DraftSentence, Finding } from "@/types/api";
 
 type Props = {
   sentence: DraftSentence;
+  findings: Finding[];
   isSaving: boolean;
   onTextSave: (sentenceId: string, text: string) => void;
   onConfirmChange: (sentenceId: string, confirmed: boolean) => void;
@@ -18,6 +19,7 @@ type Props = {
 
 export function DraftSentenceItem({
   sentence,
+  findings,
   isSaving,
   onTextSave,
   onConfirmChange,
@@ -26,6 +28,9 @@ export function DraftSentenceItem({
 }: Props) {
   const [text, setText] = useState(sentence.text);
   const [firstFindingId] = sentence.findingIds;
+  const needsCheckAdvice = sentence.needsCheckReason
+    ? getNeedsCheckAdvice(sentence.needsCheckReason, sentence, findings)
+    : null;
 
   const handleTextBlur = () => {
     const trimmedText = text.trim();
@@ -41,10 +46,8 @@ export function DraftSentenceItem({
           {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
         </div>
       )}
-      {sentence.needsCheckReason && !sentence.confirmed && (
-        <PruppyBubble tone="tint">
-          {NEEDS_CHECK_ADVICE[sentence.needsCheckReason]}
-        </PruppyBubble>
+      {needsCheckAdvice && !sentence.confirmed && (
+        <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
       )}
       <textarea
         aria-label="소명서 문장"

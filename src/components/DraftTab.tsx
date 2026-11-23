@@ -11,16 +11,23 @@ import {
   withEditedText,
   withoutSentence,
 } from "@/lib/draftEditing";
-import type { Draft } from "@/types/api";
+import type { Draft, Finding } from "@/types/api";
 
 type Props = {
   caseId: string;
   caseToken: string;
   draft: Draft | null;
+  findings: Finding[];
   onShowFinding: (findingId: string) => void;
 };
 
-export function DraftTab({ caseId, caseToken, draft, onShowFinding }: Props) {
+export function DraftTab({
+  caseId,
+  caseToken,
+  draft,
+  findings,
+  onShowFinding,
+}: Props) {
   const { save, isSaving } = useDraftEditing(
     caseId,
     caseToken,
@@ -49,6 +56,7 @@ export function DraftTab({ caseId, caseToken, draft, onShowFinding }: Props) {
             )}
             <DraftSentenceItem
               sentence={sentence}
+              findings={findings}
               isSaving={isSaving}
               onTextSave={(id, text) => save(withEditedText(updates, id, text))}
               onConfirmChange={(id, confirmed) =>
