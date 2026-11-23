@@ -8,6 +8,7 @@ import {
 } from "@/components/common/Collapsible";
 import { Toggle } from "@/components/common/Toggle";
 import { ConfirmedBadge, NeedsCheckBadge } from "@/components/StatusBadge";
+import { getDraftSentenceElementId } from "@/lib/draftFullText";
 import { getNeedsCheckAdvice } from "@/lib/draftLabels";
 import type { DraftSentence, Finding } from "@/types/api";
 
@@ -54,7 +55,10 @@ export function DraftSentenceItem({
 
   return (
     <Collapsible as="li" isOpen={!isRemoving} closedClassName="-mb-3">
-      <div className="flex animate-bubble-in flex-col gap-2 rounded-2xl bg-white/70 p-4 motion-reduce:animate-none">
+      <div
+        id={getDraftSentenceElementId(sentence.sentenceId)}
+        className="flex animate-bubble-in scroll-mt-20 flex-col gap-2 rounded-2xl bg-white/70 p-4 motion-reduce:animate-none"
+      >
         {sentence.needsCheck && (
           <div className="flex flex-wrap items-center gap-2">
             {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
