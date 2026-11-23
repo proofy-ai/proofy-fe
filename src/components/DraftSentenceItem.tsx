@@ -46,8 +46,19 @@ export function DraftSentenceItem({
           {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
         </div>
       )}
-      {needsCheckAdvice && !sentence.confirmed && (
-        <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
+      {needsCheckAdvice && (
+        <div
+          aria-hidden={sentence.confirmed}
+          className={`grid transition-[grid-template-rows,opacity,margin] duration-700 ease-smooth motion-reduce:transition-none ${
+            sentence.confirmed
+              ? "-mb-2 grid-rows-[0fr] opacity-0"
+              : "grid-rows-[1fr] opacity-100"
+          }`}
+        >
+          <div className="min-h-0 overflow-hidden">
+            <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
+          </div>
+        </div>
       )}
       <textarea
         aria-label="소명서 문장"
