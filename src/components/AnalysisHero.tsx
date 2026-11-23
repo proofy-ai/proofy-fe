@@ -16,9 +16,7 @@ export function AnalysisHero() {
       <h1 className="break-keep text-xl font-bold text-ink">
         프루피 AI가 자료를 분석하고 있어요
       </h1>
-      <p className="break-keep text-sm text-ink-sub">
-        1분 정도 걸려요 · 화면을 닫아도 이어서 볼 수 있어요
-      </p>
+      <p className="break-keep text-sm text-ink-sub">1분 정도 걸려요</p>
     </div>
   );
 }
