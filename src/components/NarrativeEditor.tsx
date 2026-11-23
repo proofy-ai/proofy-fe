@@ -62,7 +62,7 @@ export function NarrativeEditor({
         value={value}
         onChange={(event) => onValueChange(event.target.value)}
         placeholder="언제, 누구와, 어떤 거래를 했고 돈을 어떻게 받았는지 적어 주세요."
-        className={`w-full resize-y rounded-xl border bg-white/80 px-4 py-3 text-base text-ink placeholder:text-ink-mark ${
+        className={`min-h-[10.5rem] w-full resize-y rounded-xl border [field-sizing:content] bg-white/80 px-4 py-3 text-base text-ink placeholder:text-ink-mark ${
           hasError ? "border-danger ring-2 ring-danger" : "border-brand-line"
         }`}
       />
