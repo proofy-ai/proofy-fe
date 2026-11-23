@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
+import { Collapsible } from "@/components/common/Collapsible";
 import { FindingSources } from "@/components/FindingSources";
 import { FindingStatusBadge } from "@/components/StatusBadge";
 import { getFindingElementId } from "@/hooks/useFindingFocus";
@@ -61,15 +62,15 @@ export function FindingCard({ finding }: Props) {
           }`}
         />
       </button>
-      {isOpen && (
-        <div className="flex animate-bubble-in flex-col gap-3 px-4 pb-4 motion-reduce:animate-none">
+      <Collapsible isOpen={isOpen}>
+        <div className="flex flex-col gap-3 px-4 pb-4">
           <p className="break-keep text-sm text-ink-sub">{finding.note}</p>
           {finding.conflict && (
             <ConflictComparison conflict={finding.conflict} />
           )}
           <FindingSources sources={finding.sources} />
         </div>
-      )}
+      </Collapsible>
     </li>
   );
 }

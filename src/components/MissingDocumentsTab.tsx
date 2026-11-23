@@ -3,6 +3,7 @@ import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ChecklistRow } from "@/components/ChecklistSection";
+import { Collapsible } from "@/components/common/Collapsible";
 import { Toggle } from "@/components/common/Toggle";
 import { useChecklistCheck } from "@/hooks/useChecklistCheck";
 import { getEvidencePath } from "@/lib/casePaths";
@@ -22,15 +23,26 @@ type GroupProps = {
   title?: string;
   items: ChecklistItem[];
   leavingItemIds?: Set<string>;
-  rowClassName?: string;
+  enteringItemIds?: Set<string>;
   renderAction: (item: ChecklistItem) => ReactNode;
+};
+
+const getRowAnimationClassName = (
+  itemId: string,
+  leavingItemIds: Set<string>,
+  enteringItemIds: Set<string>,
+) => {
+  if (leavingItemIds.has(itemId)) return "animate-row-leave overflow-hidden";
+  if (enteringItemIds.has(itemId))
+    return "animate-bubble-in motion-reduce:animate-none";
+  return "";
 };
 
 function ItemGroup({
   title,
   items,
   leavingItemIds = new Set(),
-  rowClassName = "",
+  enteringItemIds = new Set(),
   renderAction,
 }: GroupProps) {
   if (items.length === 0) return null;
@@ -53,11 +65,11 @@ function ItemGroup({
             item={item}
             isOnCard={false}
             categoryLabel={CHECKLIST_CATEGORY_TITLES[item.category]}
-            className={
-              leavingItemIds.has(item.itemId)
-                ? "animate-row-leave overflow-hidden"
-                : rowClassName
-            }
+            className={getRowAnimationClassName(
+              item.itemId,
+              leavingItemIds,
+              enteringItemIds,
+            )}
             action={renderAction(item)}
           />
         ))}
@@ -72,6 +84,7 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
   const { setChecked, pendingItemId } = useChecklistCheck(caseId, caseToken);
   const preparedSectionRef = useRef<HTMLDivElement>(null);
   const [leavingItems, setLeavingItems] = useState<ChecklistItem[]>([]);
+  const [enteringItems, setEnteringItems] = useState<ChecklistItem[]>([]);
   const { toPrepare, toAttachByHand, prepared } = useMemo(
     () => groupChecklistByStatus(checklist.items),
     [checklist.items],
@@ -79,18 +92,24 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
   const previousToPrepareRef = useRef(toPrepare);
 
   useEffect(() => {
-    const justPrepared = previousToPrepareRef.current.filter(
+    const previousToPrepare = previousToPrepareRef.current;
+    const justPrepared = previousToPrepare.filter(
       (previous) => !toPrepare.some((item) => item.itemId === previous.itemId),
     );
+    const justReopened = toPrepare.filter(
+      (item) =>
+        !previousToPrepare.some((previous) => previous.itemId === item.itemId),
+    );
     previousToPrepareRef.current = toPrepare;
-    if (justPrepared.length === 0) return;
+    if (justPrepared.length === 0 && justReopened.length === 0) return;
 
     setLeavingItems(justPrepared);
-    setIsPreparedOpen(true);
-    const timerId = setTimeout(
-      () => setLeavingItems([]),
-      LEAVING_DURATION_MILLISECONDS,
-    );
+    setEnteringItems(justReopened);
+    if (justPrepared.length > 0) setIsPreparedOpen(true);
+    const timerId = setTimeout(() => {
+      setLeavingItems([]);
+      setEnteringItems([]);
+    }, LEAVING_DURATION_MILLISECONDS);
     return () => clearTimeout(timerId);
   }, [toPrepare]);
 
@@ -103,6 +122,7 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
   }, [leavingItems]);
 
   const leavingItemIds = new Set(leavingItems.map((item) => item.itemId));
+  const enteringItemIds = new Set(enteringItems.map((item) => item.itemId));
   const toPrepareWithLeaving = checklist.items.filter(
     (item) =>
       leavingItemIds.has(item.itemId) ||
@@ -134,6 +154,7 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
         title="더 챙길 서류"
         items={toPrepareWithLeaving}
         leavingItemIds={leavingItemIds}
+        enteringItemIds={enteringItemIds}
         renderAction={renderPreparedToggle}
       />
       <ItemGroup
@@ -157,13 +178,9 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
               }`}
             />
           </button>
-          {isPreparedOpen && (
-            <ItemGroup
-              items={prepared}
-              rowClassName="animate-bubble-in motion-reduce:animate-none"
-              renderAction={renderPreparedToggle}
-            />
-          )}
+          <Collapsible isOpen={isPreparedOpen}>
+            <ItemGroup items={prepared} renderAction={renderPreparedToggle} />
+          </Collapsible>
         </div>
       )}
       <button

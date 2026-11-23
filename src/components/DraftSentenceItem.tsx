@@ -2,6 +2,10 @@ import { Trash2 } from "lucide-react";
 import { useState } from "react";
 
 import { PruppyBubble } from "@/components/ChatBubbles";
+import {
+  COLLAPSE_DURATION_MILLISECONDS,
+  Collapsible,
+} from "@/components/common/Collapsible";
 import { Toggle } from "@/components/common/Toggle";
 import { ConfirmedBadge, NeedsCheckBadge } from "@/components/StatusBadge";
 import { getNeedsCheckAdvice } from "@/lib/draftLabels";
@@ -27,10 +31,19 @@ export function DraftSentenceItem({
   onShowFinding,
 }: Props) {
   const [text, setText] = useState(sentence.text);
+  const [isRemoving, setIsRemoving] = useState(false);
   const [firstFindingId] = sentence.findingIds;
   const needsCheckAdvice = sentence.needsCheckReason
     ? getNeedsCheckAdvice(sentence.needsCheckReason, sentence, findings)
     : null;
+
+  const handleDeleteClick = () => {
+    setIsRemoving(true);
+    setTimeout(
+      () => onDelete(sentence.sentenceId),
+      COLLAPSE_DURATION_MILLISECONDS,
+    );
+  };
 
   const handleTextBlur = () => {
     const trimmedText = text.trim();
@@ -40,73 +53,66 @@ export function DraftSentenceItem({
   };
 
   return (
-    <li className="flex flex-col gap-2 rounded-2xl bg-white/70 p-4">
-      {sentence.needsCheck && (
-        <div className="flex flex-wrap items-center gap-2">
-          {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
-        </div>
-      )}
-      {needsCheckAdvice && (
-        <div
-          aria-hidden={sentence.confirmed}
-          className={`grid transition-[grid-template-rows,opacity,margin] duration-700 ease-smooth motion-reduce:transition-none ${
-            sentence.confirmed
-              ? "-mb-2 grid-rows-[0fr] opacity-0"
-              : "grid-rows-[1fr] opacity-100"
-          }`}
-        >
-          <div className="min-h-0 overflow-hidden">
-            <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
+    <Collapsible as="li" isOpen={!isRemoving} closedClassName="-mb-3">
+      <div className="flex animate-bubble-in flex-col gap-2 rounded-2xl bg-white/70 p-4 motion-reduce:animate-none">
+        {sentence.needsCheck && (
+          <div className="flex flex-wrap items-center gap-2">
+            {sentence.confirmed ? <ConfirmedBadge /> : <NeedsCheckBadge />}
           </div>
-        </div>
-      )}
-      <textarea
-        aria-label="소명서 문장"
-        rows={3}
-        value={text}
-        disabled={isSaving}
-        onChange={(event) => setText(event.target.value)}
-        onBlur={handleTextBlur}
-        className={`w-full resize-y rounded-xl border bg-white/80 px-3 py-2 text-base text-ink ${
-          sentence.needsCheck && !sentence.confirmed
-            ? "border-warning"
-            : "border-brand-line"
-        }`}
-      />
-      <div className="flex flex-wrap items-center gap-3 text-sm">
-        {firstFindingId && (
+        )}
+        {needsCheckAdvice && (
+          <Collapsible isOpen={!sentence.confirmed} closedClassName="-mb-2">
+            <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
+          </Collapsible>
+        )}
+        <textarea
+          aria-label="소명서 문장"
+          rows={3}
+          value={text}
+          disabled={isSaving}
+          onChange={(event) => setText(event.target.value)}
+          onBlur={handleTextBlur}
+          className={`w-full resize-y rounded-xl border bg-white/80 px-3 py-2 text-base text-ink transition-colors duration-300 ${
+            sentence.needsCheck && !sentence.confirmed
+              ? "border-warning"
+              : "border-brand-line"
+          }`}
+        />
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          {firstFindingId && (
+            <button
+              type="button"
+              onClick={() => onShowFinding(firstFindingId)}
+              className="text-ink-sub underline"
+            >
+              근거 보기
+            </button>
+          )}
+          {sentence.needsCheck && (
+            <div className="flex items-center gap-2 text-ink">
+              직접 확인했어요
+              <Toggle
+                size="sm"
+                checked={sentence.confirmed}
+                disabled={isSaving}
+                aria-label="직접 확인했어요"
+                onChange={(checked) =>
+                  onConfirmChange(sentence.sentenceId, checked)
+                }
+              />
+            </div>
+          )}
           <button
             type="button"
-            onClick={() => onShowFinding(firstFindingId)}
-            className="text-ink-sub underline"
+            aria-label="문장 삭제"
+            disabled={isSaving || isRemoving}
+            onClick={handleDeleteClick}
+            className="ml-auto rounded-full p-2 text-ink-sub transition-colors hover:text-danger"
           >
-            근거 보기
+            <Trash2 className="h-4 w-4" aria-hidden />
           </button>
-        )}
-        {sentence.needsCheck && (
-          <div className="flex items-center gap-2 text-ink">
-            직접 확인했어요
-            <Toggle
-              size="sm"
-              checked={sentence.confirmed}
-              disabled={isSaving}
-              aria-label="직접 확인했어요"
-              onChange={(checked) =>
-                onConfirmChange(sentence.sentenceId, checked)
-              }
-            />
-          </div>
-        )}
-        <button
-          type="button"
-          aria-label="문장 삭제"
-          disabled={isSaving}
-          onClick={() => onDelete(sentence.sentenceId)}
-          className="ml-auto rounded-full p-2 text-ink-sub transition-colors hover:text-danger"
-        >
-          <Trash2 className="h-4 w-4" aria-hidden />
-        </button>
+        </div>
       </div>
-    </li>
+    </Collapsible>
   );
 }

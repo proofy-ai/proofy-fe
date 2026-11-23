@@ -66,6 +66,9 @@ export default {
         "row-leave": "row-leave 1s cubic-bezier(0.22, 1, 0.36, 1) both",
         "bar-finish": "bar-finish 1.1s ease-in-out both",
       },
+      transitionDuration: {
+        600: "600ms",
+      },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.22, 1, 0.36, 1)",
       },
