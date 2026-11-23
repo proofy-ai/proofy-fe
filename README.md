@@ -11,7 +11,7 @@
 
 ### 🏆 2026 대한민국 청년 CAREER FAIR AI 해커톤 출품작
 
-> [Proofy 바로가기](https://proofy-app.pages.dev) | [Backend 저장소](https://github.com/proofy-ai/proofy-server)
+> [Proofy 바로가기](https://proofy-app.pages.dev) | [시연 영상](https://youtu.be/Pp6n4oEeSkQ) | [Backend 저장소](https://github.com/proofy-ai/proofy-server)
 
 <br>
 
