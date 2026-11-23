@@ -55,7 +55,7 @@ function ItemGroup({
     <section className="flex flex-col gap-2">
       {title && (
         <h3 className="text-sm font-bold text-ink">
-          {title} {stayingCount}
+          {title} <span className="text-brand-strong">{stayingCount}</span>
         </h3>
       )}
       <ul className="flex flex-col gap-2">
@@ -165,7 +165,13 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
       {prepared.length > 0 && (
         <div ref={preparedSectionRef} className="flex flex-col gap-2">
           <DisclosureButton
-            title={`준비된 서류 ${prepared.length}`}
+            title={
+              <>
+                준비된 서류{" "}
+                <span className="text-brand-strong">{prepared.length}</span>
+              </>
+            }
+            titleClassName="text-sm"
             isOpen={isPreparedOpen}
             onToggle={() => setIsPreparedOpen((previous) => !previous)}
           />
