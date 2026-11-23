@@ -1,9 +1,9 @@
-import { ChevronDown } from "lucide-react";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ChecklistRow } from "@/components/ChecklistSection";
 import { Collapsible } from "@/components/common/Collapsible";
+import { DisclosureButton } from "@/components/common/DisclosureButton";
 import { Toggle } from "@/components/common/Toggle";
 import { useChecklistCheck } from "@/hooks/useChecklistCheck";
 import { getEvidencePath } from "@/lib/casePaths";
@@ -164,20 +164,11 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
       />
       {prepared.length > 0 && (
         <div ref={preparedSectionRef} className="flex flex-col gap-2">
-          <button
-            type="button"
-            aria-expanded={isPreparedOpen}
-            onClick={() => setIsPreparedOpen((previous) => !previous)}
-            className="flex items-center justify-between text-sm font-bold text-ink"
-          >
-            준비된 서류 {prepared.length}
-            <ChevronDown
-              aria-hidden
-              className={`h-5 w-5 text-ink-sub transition-transform duration-300 ease-smooth ${
-                isPreparedOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
+          <DisclosureButton
+            title={`준비된 서류 ${prepared.length}`}
+            isOpen={isPreparedOpen}
+            onToggle={() => setIsPreparedOpen((previous) => !previous)}
+          />
           <Collapsible isOpen={isPreparedOpen}>
             <ItemGroup items={prepared} renderAction={renderPreparedToggle} />
           </Collapsible>

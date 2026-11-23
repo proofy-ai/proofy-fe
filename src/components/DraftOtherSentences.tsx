@@ -1,7 +1,7 @@
-import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 import { Collapsible } from "@/components/common/Collapsible";
+import { DisclosureButton } from "@/components/common/DisclosureButton";
 import { DraftSentenceCards } from "@/components/DraftSentenceCards";
 import type { DraftSentence } from "@/types/api";
 
@@ -16,20 +16,11 @@ export function DraftOtherSentences({ sentences, ...cardProps }: Props) {
 
   return (
     <div className="flex flex-col gap-2">
-      <button
-        type="button"
-        aria-expanded={isOpen}
-        onClick={() => setIsOpen((previous) => !previous)}
-        className="flex items-center justify-between text-sm font-bold text-ink"
-      >
-        그 밖의 문장 {sentences.length}
-        <ChevronDown
-          aria-hidden
-          className={`h-5 w-5 text-ink-sub transition-transform duration-300 ease-smooth ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </button>
+      <DisclosureButton
+        title={`그 밖의 문장 ${sentences.length}`}
+        isOpen={isOpen}
+        onToggle={() => setIsOpen((previous) => !previous)}
+      />
       <Collapsible isOpen={isOpen}>
         <DraftSentenceCards sentences={sentences} {...cardProps} />
       </Collapsible>
