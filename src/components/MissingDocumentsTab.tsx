@@ -177,7 +177,7 @@ export function MissingDocumentsTab({ caseId, caseToken, checklist }: Props) {
       <button
         type="button"
         onClick={() => navigate(getEvidencePath(caseId))}
-        className="self-center text-sm text-ink-sub underline"
+        className="self-center rounded-full border border-brand-line bg-white/70 px-2.5 py-0.5 text-xs font-medium text-ink transition-all duration-300 ease-smooth hover:scale-[1.04] hover:bg-brand-soft"
       >
         부족한 서류를 더 추가해서 분석해 보세요
       </button>
