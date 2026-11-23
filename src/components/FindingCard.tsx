@@ -10,7 +10,7 @@ import type { Finding, FindingConflict } from "@/types/api";
 function ConflictComparison({ conflict }: { conflict: FindingConflict }) {
   return (
     <div className="grid items-stretch gap-2 text-sm sm:grid-cols-[1fr_auto_1fr]">
-      <p className="break-keep rounded-xl bg-white p-3 text-ink">
+      <p className="break-keep rounded-xl bg-gray-100 p-3 text-ink">
         <span className="block text-xs text-ink-sub">
           내 진술({CONFLICT_FIELD_LABELS[conflict.field]})
         </span>
