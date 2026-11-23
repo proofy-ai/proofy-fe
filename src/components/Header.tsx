@@ -1,7 +1,9 @@
 import { ChevronLeft, FolderOpen, Settings } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import { AccountSwitchButton } from "@/components/AccountSwitchButton";
 import { Logo } from "@/components/Logo";
+import { useSessionStore } from "@/store/sessionStore";
 
 const headerPillButtonClass =
   "flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border-[3px] border-white bg-white/70 px-3 transition-all duration-200 hover:shadow-lg active:scale-[0.95]";
@@ -9,6 +11,7 @@ const headerPillButtonClass =
 export function Header() {
   const location = useLocation();
   const navigate = useNavigate();
+  const hasEntered = useSessionStore((state) => state.hasEntered);
   const isHome = location.pathname === "/";
   const isMyPage = location.pathname === "/me";
   const isSettings = location.pathname === "/settings";
@@ -65,6 +68,9 @@ export function Header() {
                 내 사건
               </span>
             </button>
+            {hasEntered && (
+              <AccountSwitchButton className={headerPillButtonClass} />
+            )}
           </div>
         )}
       </div>
