@@ -8,7 +8,7 @@ type DemoProfile = Omit<ObjectionFormFields, "applicationDate">;
 
 const DEMO_FORM_PROFILES: Partial<Record<SampleScenario, DemoProfile>> = {
   GOODS: {
-    applicantName: "김서연",
+    applicantName: "정하늘",
     birthDate: "1998.03.14",
     address: "서울특별시 샘플구 시연로 12, 101호",
     phone: "02-123-4567",
@@ -17,11 +17,11 @@ const DEMO_FORM_PROFILES: Partial<Record<SampleScenario, DemoProfile>> = {
     financialCompany: "샘플은행",
     branch: "시연지점",
     assetType: "입출금통장",
-    accountNumber: "123-456-789012",
-    accountHolder: "김서연",
+    accountNumber: "999-0000-1234-56",
+    accountHolder: "정하늘",
   },
   UNEXPECTED: {
-    applicantName: "이도윤",
+    applicantName: "한도윤",
     birthDate: "2001.07.22",
     address: "서울특별시 샘플구 체험로 34, 202호",
     phone: "02-987-6543",
@@ -30,8 +30,8 @@ const DEMO_FORM_PROFILES: Partial<Record<SampleScenario, DemoProfile>> = {
     financialCompany: "샘플은행",
     branch: "시연지점",
     assetType: "입출금통장",
-    accountNumber: "987-654-321098",
-    accountHolder: "이도윤",
+    accountNumber: "999-0000-5678-90",
+    accountHolder: "한도윤",
   },
 };
 
