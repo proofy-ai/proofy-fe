@@ -66,7 +66,9 @@ export function DraftSentenceItem({
         )}
         {needsCheckAdvice && (
           <Collapsible isOpen={!sentence.confirmed} closedClassName="-mb-2">
-            <PruppyBubble tone="tint">{needsCheckAdvice}</PruppyBubble>
+            <PruppyBubble tone="tint">
+              <span className="font-medium">{needsCheckAdvice}</span>
+            </PruppyBubble>
           </Collapsible>
         )}
         <textarea

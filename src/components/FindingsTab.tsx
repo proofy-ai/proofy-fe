@@ -20,7 +20,7 @@ function FindingGroup({
   return (
     <section className="flex flex-col gap-2">
       <h3 className="text-sm font-semibold text-ink-sub">
-        {title} {findings.length}
+        {title} <span className="text-brand-strong">{findings.length}</span>
       </h3>
       <ul className="flex flex-col gap-3">
         {findings.map((finding) => (
