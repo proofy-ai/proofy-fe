@@ -1,5 +1,6 @@
 import {
   AlertTriangle,
+  ClipboardList,
   FileText,
   Info,
   ListChecks,
@@ -11,7 +12,8 @@ import {
 } from "lucide-react";
 
 import { GlassCard } from "@/components/common/GlassCard";
-import type { AnalysisStep, StepType } from "@/types/api";
+import type { TimelineStep } from "@/lib/investigationPlan";
+import type { StepType } from "@/types/api";
 
 type StepStyle = {
   Icon: LucideIcon;
@@ -40,13 +42,14 @@ function getNodeClass(isAlert: boolean, isLatest: boolean) {
 }
 
 type ItemProps = {
-  step: AnalysisStep;
+  step: TimelineStep;
   isLatest: boolean;
   isLast: boolean;
 };
 
 function StepTimelineItem({ step, isLatest, isLast }: ItemProps) {
-  const { Icon, isAlert } = STEP_STYLES[step.type];
+  const { Icon: StepIcon, isAlert } = STEP_STYLES[step.type];
+  const Icon = step.isPlan ? ClipboardList : StepIcon;
   const isEmphasized = isLatest || isAlert;
 
   return (
@@ -78,7 +81,7 @@ function StepTimelineItem({ step, isLatest, isLast }: ItemProps) {
 }
 
 type Props = {
-  steps: AnalysisStep[];
+  steps: TimelineStep[];
 };
 
 export function AnalysisStepFeed({ steps }: Props) {

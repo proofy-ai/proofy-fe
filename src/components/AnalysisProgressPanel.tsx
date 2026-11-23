@@ -4,7 +4,7 @@ import { GlassCard } from "@/components/common/GlassCard";
 import { StageProgressList } from "@/components/StageProgressList";
 import { useStaggeredCount } from "@/hooks/useStaggeredCount";
 import { STEP_REVEAL_INTERVAL_MS } from "@/lib/analysisRun";
-import { isPlanStep } from "@/lib/investigationPlan";
+import { expandPlanSteps } from "@/lib/investigationPlan";
 import type { AnalysisStep, StageProgress } from "@/types/api";
 
 type Props = {
@@ -13,12 +13,12 @@ type Props = {
 };
 
 export function AnalysisProgressPanel({ stages, steps }: Props) {
-  const recordedSteps = steps.filter((step) => !isPlanStep(step));
+  const timelineSteps = expandPlanSteps(steps);
   const revealedCount = useStaggeredCount(
-    recordedSteps.length,
+    timelineSteps.length,
     STEP_REVEAL_INTERVAL_MS,
   );
-  const newestFirstSteps = recordedSteps.slice(0, revealedCount).reverse();
+  const newestFirstSteps = timelineSteps.slice(0, revealedCount).reverse();
 
   return (
     <>
